@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/two"
-    tools:context=".Messaging.M1.m2.registration">
+    tools:context=".Messaging.M1.m2.login.registration">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profilerg0"

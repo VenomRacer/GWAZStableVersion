@@ -1,4 +1,4 @@
-package com.av.avmessenger.Messaging.M1.m2;
+package com.av.avmessenger.Messaging.M1.m2.login;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.av.avmessenger.Messaging.M1.m2.chat.MessageWindow;
+import com.av.avmessenger.Messaging.M1.m2.chat.Users;
 import com.av.avmessenger.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -118,7 +120,7 @@ public class registration extends AppCompatActivity {
                                                              public void onComplete(@NonNull Task<Void> task) {
                                                                  if (task.isSuccessful()){
                                                                      progressDialog.show();
-                                                                     Intent intent = new Intent(registration.this,MainActivity.class);
+                                                                     Intent intent = new Intent(registration.this, MessageWindow.class);
                                                                      startActivity(intent);
                                                                      finish();
                                                                  }else {
@@ -140,7 +142,7 @@ public class registration extends AppCompatActivity {
                                          public void onComplete(@NonNull Task<Void> task) {
                                              if (task.isSuccessful()){
                                                  progressDialog.show();
-                                                 Intent intent = new Intent(registration.this,MainActivity.class);
+                                                 Intent intent = new Intent(registration.this, MessageWindow.class);
                                                  startActivity(intent);
                                                  finish();
                                              }else {

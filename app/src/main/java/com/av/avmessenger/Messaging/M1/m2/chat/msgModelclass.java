@@ -40,7 +40,7 @@
 //}
 
 
-package com.av.avmessenger.Messaging.M1.m2;
+package com.av.avmessenger.Messaging.M1.m2.chat;
 
 public class msgModelclass {
     String message;

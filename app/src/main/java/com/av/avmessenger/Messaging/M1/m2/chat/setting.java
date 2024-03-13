@@ -161,7 +161,7 @@
 
 
 
-package com.av.avmessenger.Messaging.M1.m2;
+package com.av.avmessenger.Messaging.M1.m2.chat;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -274,7 +274,7 @@ public class setting extends AppCompatActivity {
                                             if (task.isSuccessful()){
                                                 progressDialog.dismiss();
                                                 Toast.makeText(setting.this, "Data Is save ", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(setting.this,MainActivity.class);
+                                                Intent intent = new Intent(setting.this, MessageWindow.class);
                                                 startActivity(intent);
                                                 finish();
                                             }else {
@@ -299,7 +299,7 @@ public class setting extends AppCompatActivity {
                                     if (task.isSuccessful()){
                                         progressDialog.dismiss();
                                         Toast.makeText(setting.this, "Data Is save ", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(setting.this,MainActivity.class);
+                                        Intent intent = new Intent(setting.this, MessageWindow.class);
                                         startActivity(intent);
                                         finish();
                                     }else {

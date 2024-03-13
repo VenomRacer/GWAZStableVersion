@@ -1,4 +1,4 @@
-package com.av.avmessenger.Messaging.M1.m2;
+package com.av.avmessenger.Messaging.M1.m2.chat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,8 +20,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class UserAdpter extends RecyclerView.Adapter<UserAdpter.viewholder> {
     Context mainActivity;
     ArrayList<Users> usersArrayList;
-    public UserAdpter(MainActivity mainActivity, ArrayList<Users> usersArrayList) {
-        this.mainActivity=mainActivity;
+    public UserAdpter(MessageWindow messageWindow, ArrayList<Users> usersArrayList) {
+        this.mainActivity= messageWindow;
         this.usersArrayList=usersArrayList;
     }
 

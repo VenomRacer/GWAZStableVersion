@@ -1,6 +1,6 @@
 
 
-package com.av.avmessenger.Messaging.M1.m2;
+package com.av.avmessenger.Messaging.M1.m2.chat;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

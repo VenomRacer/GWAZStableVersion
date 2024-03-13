@@ -1,4 +1,4 @@
-package com.av.avmessenger.Messaging.M1.m2;
+package com.av.avmessenger.Messaging.M1.m2.chat;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.av.avmessenger.Messaging.M1.m2.login.login;
 import com.av.avmessenger.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity{
+public class MessageWindow extends AppCompatActivity{
 
     FirebaseAuth auth;
     RecyclerView mainUserRecyclerView;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity{
 
         mainUserRecyclerView = findViewById(R.id.mainUserRecyclerView);
         mainUserRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new UserAdpter(MainActivity.this,usersArrayList);
+        adapter = new UserAdpter(MessageWindow.this,usersArrayList);
         mainUserRecyclerView.setAdapter(adapter);
 
 
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity{
         imglogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog dialog = new Dialog(MainActivity.this,R.style.dialoge);
+                Dialog dialog = new Dialog(MessageWindow.this,R.style.dialoge);
                 dialog.setContentView(R.layout.dialog_layout);
                 Button no,yes;
                 yes = dialog.findViewById(R.id.yesbnt);
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity{
                     @Override
                     public void onClick(View v) {
                         FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(MainActivity.this,login.class);
+                        Intent intent = new Intent(MessageWindow.this, login.class);
                         startActivity(intent);
                         finish();
                     }
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity{
         setbut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, setting.class);
+                Intent intent = new Intent(MessageWindow.this, setting.class);
                 startActivity(intent);
             }
         });
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity{
         });
 
         if (auth.getCurrentUser() == null){
-            Intent intent = new Intent(MainActivity.this,login.class);
+            Intent intent = new Intent(MessageWindow.this,login.class);
             startActivity(intent);
         }
 

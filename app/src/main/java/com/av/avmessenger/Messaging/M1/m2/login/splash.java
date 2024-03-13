@@ -1,4 +1,4 @@
-package com.av.avmessenger.Messaging.M1.m2;
+package com.av.avmessenger.Messaging.M1.m2.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.av.avmessenger.Messaging.M1.m2.chat.MessageWindow;
 import com.av.avmessenger.R;
 
 public class splash extends AppCompatActivity {
@@ -27,22 +28,20 @@ public class splash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
         logo = findViewById(R.id.logoimg);
-        name = findViewById(R.id.logonameimg);
         own1 = findViewById(R.id.ownone);
         own2 = findViewById(R.id.owntwo);
 
         topAnim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
-        bottomAnim = AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
+
 
         logo.setAnimation(topAnim);
-        name.setAnimation(bottomAnim);
         own1.setAnimation(bottomAnim);
         own2.setAnimation(bottomAnim);
 
       new Handler().postDelayed(new Runnable() {
           @Override
           public void run() {
-              Intent intent = new Intent(splash.this,MainActivity.class);
+              Intent intent = new Intent(splash.this, MessageWindow.class);
               startActivity(intent);
               finish();
           }

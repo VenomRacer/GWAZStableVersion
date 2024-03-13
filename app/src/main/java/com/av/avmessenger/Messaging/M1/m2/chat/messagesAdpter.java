@@ -1,9 +1,9 @@
 
 
-package com.av.avmessenger.Messaging.M1.m2;
+package com.av.avmessenger.Messaging.M1.m2.chat;
 
-import static com.av.avmessenger.Messaging.M1.m2.chatwindo.reciverIImg;
-import static com.av.avmessenger.Messaging.M1.m2.chatwindo.senderImg;
+import static com.av.avmessenger.Messaging.M1.m2.chat.chatwindo.reciverIImg;
+import static com.av.avmessenger.Messaging.M1.m2.chat.chatwindo.senderImg;
 
 import android.app.AlertDialog;
 import android.content.Context;
