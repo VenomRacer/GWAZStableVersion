@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                //bakit
+
 
             }
         });
