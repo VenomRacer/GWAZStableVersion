@@ -13,35 +13,35 @@
         android:theme="@style/Theme.AVMessenger"
         tools:targetApi="31">
         <activity
-            android:name=".setting"
+            android:name=".Messaging.M1.m2.setting"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".chatwindo"
+            android:name=".Messaging.M1.m2.chatwindo"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".registration"
+            android:name=".Messaging.M1.m2.registration"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".login"
+            android:name=".Messaging.M1.m2.login"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".splash"
+            android:name=".Messaging.M1.m2.splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,7 +54,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Messaging.M1.m2.MainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

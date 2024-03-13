@@ -1,9 +1,9 @@
 
 
-package com.av.avmessenger;
+package com.av.avmessenger.Messaging.M1.m2;
 
-import static com.av.avmessenger.chatwindo.reciverIImg;
-import static com.av.avmessenger.chatwindo.senderImg;
+import static com.av.avmessenger.Messaging.M1.m2.chatwindo.reciverIImg;
+import static com.av.avmessenger.Messaging.M1.m2.chatwindo.senderImg;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.av.avmessenger.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 

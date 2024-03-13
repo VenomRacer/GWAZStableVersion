@@ -1,4 +1,4 @@
-package com.av.avmessenger;
+package com.av.avmessenger.Messaging.M1.m2;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.av.avmessenger.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
