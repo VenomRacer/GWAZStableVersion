@@ -45,6 +45,7 @@ public class MessageWindow extends AppCompatActivity{
         auth = FirebaseAuth.getInstance();
         cumbut = findViewById(R.id.camBut);
         setbut = findViewById(R.id.settingBut);
+        imglogout = findViewById(R.id.logoutimg);
 
         DatabaseReference reference = database.getReference().child("user");
 
@@ -73,7 +74,7 @@ public class MessageWindow extends AppCompatActivity{
 
             }
         });
-        imglogout = findViewById(R.id.logoutimg);
+
 
         imglogout.setOnClickListener(new View.OnClickListener() {
             @Override

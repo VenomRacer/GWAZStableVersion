@@ -14,8 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.av.Gwaz.chat.MessageWindow;
 import com.av.Gwaz.R;
+import com.av.Gwaz.homepage.home;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -90,13 +90,17 @@ public class login extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                progressDialog.show();
-                                try {
-                                    Intent intent = new Intent(login.this , MessageWindow.class);
+                                progressDialog.dismiss();
+
+
+                                if (auth.getCurrentUser().isEmailVerified()) {
+                                    Intent intent = new Intent(login.this , home.class);
                                     startActivity(intent);
                                     finish();
-                                }catch (Exception e){
-                                    Toast.makeText(login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+
+                                else {
+                                    Toast.makeText(login.this, "Failed to Login. Verify Your Account First.",Toast.LENGTH_SHORT).show();
                                 }
                             }else {
                                 Toast.makeText(login.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();

@@ -228,7 +228,6 @@ public class setting extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 email = snapshot.child("mail").getValue().toString();
-                password = snapshot.child("password").getValue().toString();
                 String name = snapshot.child("userName").getValue().toString();
                 String profile = snapshot.child("profilepic").getValue().toString();
                 String status = snapshot.child("status").getValue().toString();
@@ -267,7 +266,7 @@ public class setting extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     String finalImageUri = uri.toString();
-                                    Users users = new Users(auth.getUid(), name,email,password,finalImageUri,Status);
+                                    Users users = new Users(auth.getUid(),name,email,finalImageUri,Status);
                                     reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
@@ -292,7 +291,7 @@ public class setting extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             String finalImageUri = uri.toString();
-                            Users users = new Users(auth.getUid(), name,email,password,finalImageUri,Status);
+                            Users users = new Users(auth.getUid(),name,email,finalImageUri,Status);
                             reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

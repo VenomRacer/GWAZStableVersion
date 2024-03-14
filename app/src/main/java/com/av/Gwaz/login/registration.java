@@ -1,5 +1,6 @@
 package com.av.Gwaz.login;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,9 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.av.Gwaz.chat.MessageWindow;
-import com.av.Gwaz.chat.Users;
 import com.av.Gwaz.R;
+import com.av.Gwaz.chat.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -45,6 +45,7 @@ public class registration extends AppCompatActivity {
     FirebaseStorage storage;
     ProgressDialog progressDialog;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +61,6 @@ public class registration extends AppCompatActivity {
         rg_username = findViewById(R.id.rgusername);
         rg_email = findViewById(R.id.rgemail);
         rg_password = findViewById(R.id.rgpassword);
-        rg_repassword = findViewById(R.id.rgrepassword);
         rg_profileImg = findViewById(R.id.profilerg0);
         rg_signup = findViewById(R.id.signupbutton);
 
@@ -80,86 +80,106 @@ public class registration extends AppCompatActivity {
                 String namee = rg_username.getText().toString();
                 String emaill = rg_email.getText().toString();
                 String Password = rg_password.getText().toString();
-                String cPassword = rg_repassword.getText().toString();
                 String status = "Hey I'm Using This Application";
 
                 if (TextUtils.isEmpty(namee) || TextUtils.isEmpty(emaill) ||
-                        TextUtils.isEmpty(Password) || TextUtils.isEmpty(cPassword)){
+                        TextUtils.isEmpty(Password)) {
                     progressDialog.dismiss();
                     Toast.makeText(registration.this, "Please Enter Valid Information", Toast.LENGTH_SHORT).show();
-                }else  if (!emaill.matches(emailPattern)){
+                } else if (!emaill.matches(emailPattern)) {
                     progressDialog.dismiss();
                     rg_email.setError("Type A Valid Email Here");
-                }else if (Password.length()<6){
+                } else if (Password.length() < 6) {
                     progressDialog.dismiss();
                     rg_password.setError("Password Must Be 6 Characters Or More");
-                }else if (!Password.equals(cPassword)){
-                    progressDialog.dismiss();
-                    rg_password.setError("The Password Doesn't Match");
-                }else {
-                    auth.createUserWithEmailAndPassword(emaill,Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                } else {
+                    auth.createUserWithEmailAndPassword(emaill, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                             if (task.isSuccessful()){
-                                 String id = task.getResult().getUser().getUid();
-                                 DatabaseReference reference = database.getReference().child("user").child(id);
-                                 StorageReference storageReference = storage.getReference().child("Upload").child(id);
+                            if (task.isSuccessful()) {
+                                String id = task.getResult().getUser().getUid();
+                                DatabaseReference reference = database.getReference().child("user").child(id);
+                                StorageReference storageReference = storage.getReference().child("Upload").child(id);
 
-                                 if (imageURI!=null){
-                                     storageReference.putFile(imageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                         @Override
-                                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                             if (task.isSuccessful()){
-                                                 storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                                     @Override
-                                                     public void onSuccess(Uri uri) {
-                                                         imageuri = uri.toString();
-                                                         Users users = new Users(id,namee,emaill,Password,imageuri,status);
-                                                         reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                             @Override
-                                                             public void onComplete(@NonNull Task<Void> task) {
-                                                                 if (task.isSuccessful()){
-                                                                     progressDialog.show();
-                                                                     Intent intent = new Intent(registration.this, MessageWindow.class);
-                                                                     startActivity(intent);
-                                                                     finish();
-                                                                 }else {
-                                                                     Toast.makeText(registration.this, "Error in creating the user", Toast.LENGTH_SHORT).show();
-                                                                 }
-                                                             }
-                                                         });
-                                                     }
-                                                 });
-                                             }
-                                         }
-                                     });
-                                 }else {
-                                     String status = "Hey I'm Using This Application";
-                                     imageuri = "https://firebasestorage.googleapis.com/v0/b/av-messenger-dc8f3.appspot.com/o/man.png?alt=media&token=880f431d-9344-45e7-afe4-c2cafe8a5257";
-                                     Users users = new Users(id,namee,emaill,Password,imageuri,status);
-                                     reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                         @Override
-                                         public void onComplete(@NonNull Task<Void> task) {
-                                             if (task.isSuccessful()){
-                                                 progressDialog.show();
-                                                 Intent intent = new Intent(registration.this, MessageWindow.class);
-                                                 startActivity(intent);
-                                                 finish();
-                                             }else {
-                                                 Toast.makeText(registration.this, "Error in creating the user", Toast.LENGTH_SHORT).show();
-                                             }
-                                         }
-                                     });
-                                 }
-                             }else {
-                                 Toast.makeText(registration.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                             }
+                                if (imageURI != null) {
+                                    storageReference.putFile(imageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                    @Override
+                                                    public void onSuccess(Uri uri) {
+                                                        imageuri = uri.toString();
+                                                        Users users = new Users(id, namee, emaill, imageuri, status);
+                                                        reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    progressDialog.show();
+                                                                    // Send verification email
+                                                                    FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification() //EMAIL VERIFICATION!!!
+                                                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                @Override
+                                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                                    if (task.isSuccessful()) {
+                                                                                        Toast.makeText(registration.this, "Verification email sent", Toast.LENGTH_SHORT).show();
+                                                                                    } else {
+                                                                                        Toast.makeText(registration.this, "Failed to send verification email", Toast.LENGTH_SHORT).show();
+                                                                                    }
+                                                                                }
+                                                                            });
+                                                                    Intent intent = new Intent(registration.this, login.class);
+                                                                    startActivity(intent);
+                                                                    finish();
+                                                                } else {
+                                                                    Toast.makeText(registration.this, "Error in creating the user", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
+                                                        });
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                } else { // Have no profile picture
+                                    String status = "Hey I'm Using This Application";
+                                    imageuri = "https://firebasestorage.googleapis.com/v0/b/av-messenger-dc8f3.appspot.com/o/man.png?alt=media&token=880f431d-9344-45e7-afe4-c2cafe8a5257";
+                                    Users users = new Users(id, namee, emaill, imageuri, status);
+                                    reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                progressDialog.show();
+                                                // Send verification email
+                                                FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification()
+                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    Toast.makeText(registration.this, "Verification email sent", Toast.LENGTH_SHORT).show();
+                                                                } else {
+                                                                    Toast.makeText(registration.this, "Failed to send verification email", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
+                                                        });
+                                                Intent intent = new Intent(registration.this, login.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                Toast.makeText(registration.this, "Error in creating the user", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                }
+                            } else {
+                                Toast.makeText(registration.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
                 }
-
             }
         });
+
 
 
         rg_profileImg.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +191,18 @@ public class registration extends AppCompatActivity {
                startActivityForResult(Intent.createChooser(intent,"Select Picture"),10);
             }
         });
+
+
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(registration.this, login.class);
+        startActivity(intent);
+        finish();
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

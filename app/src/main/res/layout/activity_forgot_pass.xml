@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:background="@drawable/two"
     android:orientation="vertical"
     tools:context=".login.ForgotPass">
 
@@ -16,7 +17,7 @@
         android:baselineAligned="false"
         android:gravity="center"
         android:text="Forgot It?"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="50sp"
         android:textStyle="bold"/>
 
@@ -62,6 +63,8 @@ want to reset your password!"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="15dp"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/darkr"
                 android:text="Reset Password"
                 android:textSize="18sp"
                 app:cornerRadius="20dp" />
