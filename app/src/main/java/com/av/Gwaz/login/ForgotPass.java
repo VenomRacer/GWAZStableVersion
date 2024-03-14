@@ -1,8 +1,8 @@
-package com.av.avmessenger.Messaging.M1.m2.login;
+package com.av.Gwaz.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.av.avmessenger.R;
+import com.av.Gwaz.R;
 
 public class ForgotPass extends AppCompatActivity {
 

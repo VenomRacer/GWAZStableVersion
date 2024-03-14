@@ -1,7 +1,4 @@
-package com.av.avmessenger.Messaging.M1.m2.login;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+package com.av.Gwaz.login;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -14,8 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.av.avmessenger.Messaging.M1.m2.chat.MessageWindow;
-import com.av.avmessenger.R;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.av.Gwaz.chat.MessageWindow;
+import com.av.Gwaz.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -60,9 +60,10 @@ public class login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(login.this, ForgotPass.class);
                 startActivity(intent);
-
-            }
+             }
         });
+
+
 
 
         login.setOnClickListener(new View.OnClickListener() {

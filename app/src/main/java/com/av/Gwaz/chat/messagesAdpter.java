@@ -1,9 +1,6 @@
 
 
-package com.av.avmessenger.Messaging.M1.m2.chat;
-
-import static com.av.avmessenger.Messaging.M1.m2.chat.chatwindo.reciverIImg;
-import static com.av.avmessenger.Messaging.M1.m2.chat.chatwindo.senderImg;
+package com.av.Gwaz.chat;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -16,7 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.av.avmessenger.R;
+import com.av.Gwaz.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
@@ -74,10 +71,10 @@ public class messagesAdpter extends RecyclerView.Adapter {
         if (holder.getClass()==senderVierwHolder.class){
             senderVierwHolder viewHolder = (senderVierwHolder) holder;
             viewHolder.msgtxt.setText(messages.getMessage());
-            Picasso.get().load(senderImg).into(viewHolder.circleImageView);
+            Picasso.get().load(chatwindo.senderImg).into(viewHolder.circleImageView);
         }else { reciverViewHolder viewHolder = (reciverViewHolder) holder;
             viewHolder.msgtxt.setText(messages.getMessage());
-            Picasso.get().load(reciverIImg).into(viewHolder.circleImageView);
+            Picasso.get().load(chatwindo.reciverIImg).into(viewHolder.circleImageView);
 
 
         }

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".Messaging.M1.m2.login.ForgotPass">
+    tools:context=".login.ForgotPass">
 
     <TextView
         android:id="@+id/textView3"

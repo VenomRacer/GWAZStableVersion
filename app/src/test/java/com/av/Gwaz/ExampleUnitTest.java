@@ -1,4 +1,4 @@
-package com.av.avmessenger;
+package com.av.Gwaz;
 
 import org.junit.Test;
 

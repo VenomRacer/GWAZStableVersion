@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "AV Messenger"
+rootProject.name = "GWAZ"
 include ':app'

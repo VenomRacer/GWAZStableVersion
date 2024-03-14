@@ -13,38 +13,38 @@
         android:theme="@style/Theme.AVMessenger"
         tools:targetApi="31" >
         <activity
-            android:name=".Messaging.M1.m2.login.ForgotPass"
+            android:name=".login.ForgotPass"
             android:exported="false" />
         <activity
-            android:name=".Messaging.M1.m2.chat.setting"
+            android:name=".chat.setting"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Messaging.M1.m2.chat.chatwindo"
+            android:name=".chat.chatwindo"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Messaging.M1.m2.login.registration"
+            android:name=".login.registration"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Messaging.M1.m2.login.login"
+            android:name=".login.login"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Messaging.M1.m2.login.splash"
+            android:name=".login.splash"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,7 +57,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Messaging.M1.m2.chat.MessageWindow"
+            android:name=".chat.MessageWindow"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"

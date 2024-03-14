@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/chatback"
-    tools:context=".Messaging.M1.m2.chat.chatwindo">
+    tools:context=".chat.chatwindo">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/settingback"
-    tools:context=".Messaging.M1.m2.chat.setting">
+    tools:context=".chat.setting">
 
     <ImageView
         android:id="@+id/settingprofile"

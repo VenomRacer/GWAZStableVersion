@@ -1,6 +1,4 @@
-package com.av.avmessenger.Messaging.M1.m2.login;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.av.Gwaz.login;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,8 +9,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.av.avmessenger.Messaging.M1.m2.chat.MessageWindow;
-import com.av.avmessenger.R;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.av.Gwaz.chat.MessageWindow;
+import com.av.Gwaz.R;
 
 public class splash extends AppCompatActivity {
     ImageView logo;

@@ -1,8 +1,4 @@
-package com.av.avmessenger.Messaging.M1.m2.login;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+package com.av.Gwaz.login;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -15,9 +11,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.av.avmessenger.Messaging.M1.m2.chat.MessageWindow;
-import com.av.avmessenger.Messaging.M1.m2.chat.Users;
-import com.av.avmessenger.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.av.Gwaz.chat.MessageWindow;
+import com.av.Gwaz.chat.Users;
+import com.av.Gwaz.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;

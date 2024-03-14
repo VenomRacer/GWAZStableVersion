@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.av.avmessenger'
+    namespace 'com.av.Gwaz'
     compileSdk 33
 
     defaultConfig {
