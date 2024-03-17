@@ -14,3 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "GWAZ"
 include ':app'
+include ':admincms'
