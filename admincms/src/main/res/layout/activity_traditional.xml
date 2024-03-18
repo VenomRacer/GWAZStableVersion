@@ -67,10 +67,12 @@
         tools:ignore="NotSibling">
 
         <ImageView
+            android:id="@+id/Add"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/box2"
-            android:src="@drawable/add"/>
+            android:src="@drawable/add"
+            android:clickable="true"/>
 
     </LinearLayout>
 

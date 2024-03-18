@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradientb"
-    tools:context=".selection.GWIZ.Parts.Edit">
+    tools:context=".selection.GWIZ.Parts.Sub.AddItem">
 
     <LinearLayout
         android:id="@+id/linearLayout6"
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_black"
-            android:text="step#"
+            android:text="Add Item"
             android:textColor="@color/white"
             android:textSize="35dp" />
 
@@ -91,7 +91,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:textSize="20dp"
                         android:textAlignment="center"
-                        android:text="sample step nnumber"/>
+                        android:hint="sample step nnumber"/>
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -120,7 +120,8 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/green"
-                    android:text="Save"/>
+                    android:text="Save"
+                    android:clickable="true"/>
 
 
 
@@ -132,4 +133,5 @@
 
         </ScrollView>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

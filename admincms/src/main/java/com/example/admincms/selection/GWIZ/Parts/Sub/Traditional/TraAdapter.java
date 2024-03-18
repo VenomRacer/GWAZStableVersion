@@ -66,7 +66,7 @@ public class TraAdapter extends RecyclerView.Adapter<TraAdapter.StepViewHolder> 
 
                                     // Remove the item from the Firebase database
                                     DatabaseReference itemRef = FirebaseDatabase.getInstance().getReference()
-                                            .child("Service").child("GWIZ").child("Strings").child("Traditional Strings")
+                                            .child("Service").child("GWIZ").child("Strings").child("TraditionalStrings")
                                             .child(step.getT3()); // Assuming t3 contains the key of the item in the database
                                     itemRef.removeValue();
                                 }

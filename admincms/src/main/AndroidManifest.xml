@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GWAZ">
         <activity
+            android:name=".selection.GWIZ.Parts.Sub.AddItem"
+            android:exported="false" />
+        <activity
             android:name=".selection.GWIZ.Parts.Edit"
             android:exported="false" />
         <activity

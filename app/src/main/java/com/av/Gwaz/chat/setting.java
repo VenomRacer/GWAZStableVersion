@@ -156,11 +156,6 @@
 //
 //    }
 //}
-
-
-
-
-
 package com.av.Gwaz.chat;
 
 import android.app.ProgressDialog;
@@ -241,6 +236,7 @@ public class setting extends AppCompatActivity {
 
             }
         });
+
         setprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -297,13 +293,13 @@ public class setting extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
                                         progressDialog.dismiss();
-                                        Toast.makeText(setting.this, "Data Is save ", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(setting.this, "Data is saved ", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(setting.this, MessageWindow.class);
                                         startActivity(intent);
                                         finish();
                                     }else {
                                         progressDialog.dismiss();
-                                        Toast.makeText(setting.this, "Some thing went romg", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(setting.this, "Some thing went wrong", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
