@@ -1,4 +1,4 @@
-package com.example.admincms.selection.GWIZ.Parts.Sub.Nylon;
+package com.example.admincms.selection.GWIZ.Parts.Strings.Sub.Nylon;
 
 import android.os.Bundle;
 

@@ -1,4 +1,4 @@
-package com.example.admincms.selection.GWIZ.Parts.Sub.Traditional;
+package com.example.admincms.selection.GWIZ.Parts.Strings.Sub.Traditional;
 
 public class TraGet {
 

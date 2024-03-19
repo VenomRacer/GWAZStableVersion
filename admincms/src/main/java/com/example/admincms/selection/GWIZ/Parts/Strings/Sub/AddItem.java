@@ -1,4 +1,4 @@
-package com.example.admincms.selection.GWIZ.Parts.Sub;
+package com.example.admincms.selection.GWIZ.Parts.Strings.Sub;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -29,6 +29,7 @@ public class AddItem extends AppCompatActivity {
     EditText stepname,description;
     Button save;
     DatabaseReference databaseReference;
+    StorageReference storageReference;
     FirebaseStorage storage;
     Uri setImageUri;
     ProgressDialog progressDialog;
@@ -51,8 +52,10 @@ public class AddItem extends AppCompatActivity {
 
         //passed reference
         String databaseReferencePath = getIntent().getStringExtra("databaseReferencePath");
+        String storageReferencePath = getIntent().getStringExtra("storageReferencePath");
         // Convert databaseReferencePath back to a DatabaseReference object
         databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl(databaseReferencePath);
+        storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(storageReferencePath);
 
         image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,9 +81,8 @@ public class AddItem extends AppCompatActivity {
                 String sname = stepname.getText().toString(); // for root folder (parent)
                 String desc = description.getText().toString(); // for t1
 
-                // Storage reference
-                StorageReference imageRef = storage.getReference().child("gwazPic").child("GWIZ")
-                        .child("Strings").child("TraditionalStrings").child(sname + ".jpg");
+                // Set the storage reference with the desired name
+                StorageReference imageRef = storageReference.child(sname + ".jpg");
 
                 // Check if an image is selected
                 if (setImageUri != null) {

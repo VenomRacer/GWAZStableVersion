@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradientb"
-    tools:context=".selection.GWIZ.Parts.Sub.AddItem">
+    tools:context=".selection.GWIZ.Parts.Strings.Sub.AddItem">
 
     <LinearLayout
         android:id="@+id/linearLayout6"

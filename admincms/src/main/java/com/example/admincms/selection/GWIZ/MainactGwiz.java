@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.admincms.R;
-import com.example.admincms.selection.GWIZ.Parts.Strings;
+import com.example.admincms.selection.GWIZ.Parts.Strings.Strings;
 
 public class MainactGwiz extends AppCompatActivity {
 

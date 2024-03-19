@@ -1,4 +1,4 @@
-package com.example.admincms.selection.GWIZ.Parts.Sub.Traditional;
+package com.example.admincms.selection.GWIZ.Parts.Strings.Sub.Traditional;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.admincms.R;
 import com.example.admincms.selection.GWIZ.Parts.Edit;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -24,9 +23,11 @@ import java.util.List;
 public class TraAdapter extends RecyclerView.Adapter<TraAdapter.StepViewHolder> {
 
     private List<TraGet> stepList;
+    private DatabaseReference databaseReference; // Add this field
 
-    public TraAdapter(List<TraGet> stepList) {
+    public TraAdapter(List<TraGet> stepList, DatabaseReference databaseReference) {
         this.stepList = stepList;
+        this.databaseReference = databaseReference;
     }
 
     @NonNull
@@ -65,9 +66,7 @@ public class TraAdapter extends RecyclerView.Adapter<TraAdapter.StepViewHolder> 
                                     notifyItemRemoved(adapterPosition);
 
                                     // Remove the item from the Firebase database
-                                    DatabaseReference itemRef = FirebaseDatabase.getInstance().getReference()
-                                            .child("Service").child("GWIZ").child("Strings").child("TraditionalStrings")
-                                            .child(step.getT3()); // Assuming t3 contains the key of the item in the database
+                                    DatabaseReference itemRef = databaseReference.child(step.getT3()); // Assuming t3 contains the key of the item in the database
                                     itemRef.removeValue();
                                 }
                             }

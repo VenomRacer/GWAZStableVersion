@@ -1,4 +1,4 @@
-package com.example.admincms.selection.GWIZ.Parts.Sub.Traditional;
+package com.example.admincms.selection.GWIZ.Parts.Strings.Sub.Traditional;
 
 import static android.content.ContentValues.TAG;
 
@@ -15,12 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.admincms.R;
-import com.example.admincms.selection.GWIZ.Parts.Sub.AddItem;
+import com.example.admincms.selection.GWIZ.Parts.Strings.Sub.AddItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +32,7 @@ public class Traditional extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private DatabaseReference databaseReference;
+    private StorageReference storageReference;
     private List<TraGet> stepList;
     private TraAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -40,15 +43,31 @@ public class Traditional extends AppCompatActivity {
         setContentView(R.layout.activity_traditional);
 
 
+
+        // Retrieve databaseReference from intent extras
+        String databaseReferencePath = getIntent().getStringExtra("trastring");
+        String storageReferencePath = getIntent().getStringExtra("trastorage");
+        if (databaseReferencePath != null) {
+            // Initialize databaseReference using the path retrieved from intent
+            databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl(databaseReferencePath);
+            storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(storageReferencePath);
+        } else {
+            // Handle the case where databaseReference is not provided
+            // You may want to display an error message or handle it according to your app's logic
+        }
+
+        // Initialization of elements
         recyclerView = findViewById(R.id.rvt);
         Add = findViewById(R.id.Add);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout); // Initialize SwipeRefreshLayout
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         stepList = new ArrayList<>();
-        adapter = new TraAdapter(stepList);
+        adapter = new TraAdapter(stepList, databaseReference);
         recyclerView.setAdapter(adapter);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Service").child("GWIZ").child("Strings").child("TraditionalStrings");
+
+
+
 
         // Set up refresh listener
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -71,7 +90,10 @@ public class Traditional extends AppCompatActivity {
 
                 // Pass the databaseReference path as an extra to the AddItem activity
                 String databaseReferencePath = databaseReference.toString();
+                String storageReferencePath = storageReference.toString();
                 intent.putExtra("databaseReferencePath", databaseReferencePath);
+                intent.putExtra("storageReferencePath", storageReferencePath);
+
 
                 // Start the AddItem activity
                 startActivity(intent);
@@ -82,7 +104,7 @@ public class Traditional extends AppCompatActivity {
 
     // Method to fetch data from Firebase Database
     private void fetchData() {
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Service").child("GWIZ").child("Strings").child("TraditionalStrings");
+
 
         ValueEventListener stepListener = new ValueEventListener() {
             @Override

@@ -9,19 +9,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GWAZ">
         <activity
-            android:name=".selection.GWIZ.Parts.Sub.Nylon.Nylon"
+            android:name=".selection.GWIZ.Parts.Strings.Sub.Nylon.Nylon"
             android:exported="false" />
         <activity
-            android:name=".selection.GWIZ.Parts.Sub.AddItem"
+            android:name=".selection.GWIZ.Parts.Strings.Sub.AddItem"
             android:exported="false" />
         <activity
             android:name=".selection.GWIZ.Parts.Edit"
             android:exported="false" />
         <activity
-            android:name=".selection.GWIZ.Parts.Sub.Traditional.Traditional"
+            android:name=".selection.GWIZ.Parts.Strings.Sub.Traditional.Traditional"
             android:exported="false" />
         <activity
-            android:name=".selection.GWIZ.Parts.Strings"
+            android:name=".selection.GWIZ.Parts.Strings.Strings"
             android:exported="false" />
         <activity
             android:name=".selection.GWIZ.MainactGwiz"
