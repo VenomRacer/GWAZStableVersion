@@ -1,6 +1,6 @@
-package com.example.admincms.selection.GWIZ.Parts.Strings.Sub.Traditional;
+package com.example.admincms.selection.GWIZ.Parts;
 
-public class TraGet {
+public class PartGet {
 
     private String t1;
     private String t2;
@@ -10,7 +10,7 @@ public class TraGet {
         this.t3 = stepName;
     }
 
-    public TraGet() {
+    public PartGet() {
         // Required empty public constructor
     }
 

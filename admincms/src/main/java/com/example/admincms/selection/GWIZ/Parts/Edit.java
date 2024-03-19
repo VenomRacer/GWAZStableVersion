@@ -37,6 +37,7 @@ public class Edit extends AppCompatActivity {
 
     // Firebase database reference
     DatabaseReference databaseReference;
+    StorageReference storageReference;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -44,13 +45,17 @@ public class Edit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        // Initialize Firebase database reference
-        databaseReference = FirebaseDatabase.getInstance().getReference()
-                .child("Service").child("GWIZ").child("Strings").child("TraditionalStrings");
-        // Initialize FirebaseStorage
-        storage = FirebaseStorage.getInstance();
-        // Storage reference
-        StorageReference storageReference = storage.getReference().child("gwizPic");
+
+        //Passed storage path
+        String storageReferencePath = getIntent().getStringExtra("trastorage");
+        storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(storageReferencePath);
+
+        //Passed datab path
+        String databaseReferencePath = getIntent().getStringExtra("trastring");
+        databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl(databaseReferencePath);
+
+
+
 
         image = findViewById(R.id.image);
         stepname = findViewById(R.id.stepname);
@@ -123,7 +128,7 @@ public class Edit extends AppCompatActivity {
             storage = FirebaseStorage.getInstance();
 
             // Storage reference
-            StorageReference imageRef = storage.getReference().child("gwazPic").child("GWIZ").child("Strings").child("TraditionalStrings").child(stepName + ".jpg");
+            StorageReference imageRef = storageReference.child(stepName + ".jpg");
 
             // Upload image to Firebase Storage
             imageRef.putFile(setImageUri)

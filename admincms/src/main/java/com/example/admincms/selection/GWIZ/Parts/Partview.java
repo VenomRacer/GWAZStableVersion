@@ -1,12 +1,14 @@
-package com.example.admincms.selection.GWIZ.Parts.Strings.Sub.Traditional;
+package com.example.admincms.selection.GWIZ.Parts;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.admincms.R;
-import com.example.admincms.selection.GWIZ.Parts.Strings.Sub.AddItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,25 +29,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Traditional extends AppCompatActivity {
+public class Partview extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
-    private List<TraGet> stepList;
-    private TraAdapter adapter;
+    private List<PartGet> stepList;
+    private PartAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     ImageView Add;
+    TextView ttl;
 
+    @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_traditional);
+        setContentView(R.layout.activity_partview);
 
 
 
         // Retrieve databaseReference from intent extras
-        String databaseReferencePath = getIntent().getStringExtra("trastring");
-        String storageReferencePath = getIntent().getStringExtra("trastorage");
+        String TITLE = getIntent().getStringExtra("TITLE");
+        String databaseReferencePath = getIntent().getStringExtra("datab");
+        String storageReferencePath = getIntent().getStringExtra("store");
         if (databaseReferencePath != null) {
             // Initialize databaseReference using the path retrieved from intent
             databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl(databaseReferencePath);
@@ -59,11 +63,14 @@ public class Traditional extends AppCompatActivity {
         // Initialization of elements
         recyclerView = findViewById(R.id.rvt);
         Add = findViewById(R.id.Add);
+        ttl = findViewById(R.id.TITLE);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout); // Initialize SwipeRefreshLayout
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         stepList = new ArrayList<>();
-        adapter = new TraAdapter(stepList, databaseReference);
+        adapter = new PartAdapter(stepList, databaseReference, storageReference);
         recyclerView.setAdapter(adapter);
+
+        ttl.setText(TITLE);
 
 
 
@@ -86,7 +93,7 @@ public class Traditional extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Create an Intent to start the AddItem activity
-                Intent intent = new Intent(Traditional.this, AddItem.class);
+                Intent intent = new Intent(Partview.this, AddItem.class);
 
                 // Pass the databaseReference path as an extra to the AddItem activity
                 String databaseReferencePath = databaseReference.toString();
@@ -111,7 +118,7 @@ public class Traditional extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 stepList.clear();
                 for (DataSnapshot stepSnapshot : dataSnapshot.getChildren()) {
-                    TraGet step = stepSnapshot.getValue(TraGet.class);
+                    PartGet step = stepSnapshot.getValue(PartGet.class);
                     step.setT3(stepSnapshot.getKey()); // Set the step name using setT3 method
                     stepList.add(step);
                 }

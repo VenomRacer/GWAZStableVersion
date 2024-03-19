@@ -1,4 +1,4 @@
-package com.example.admincms.selection.GWIZ.Parts.Strings.Sub;
+package com.example.admincms.selection.GWIZ.Parts;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

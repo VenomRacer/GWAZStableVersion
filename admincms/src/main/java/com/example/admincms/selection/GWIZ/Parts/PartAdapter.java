@@ -1,4 +1,4 @@
-package com.example.admincms.selection.GWIZ.Parts.Strings.Sub.Traditional;
+package com.example.admincms.selection.GWIZ.Parts;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,33 +13,36 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.admincms.R;
-import com.example.admincms.selection.GWIZ.Parts.Edit;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 
-public class TraAdapter extends RecyclerView.Adapter<TraAdapter.StepViewHolder> {
+public class PartAdapter extends RecyclerView.Adapter<PartAdapter.StepViewHolder> {
 
-    private List<TraGet> stepList;
+    private List<PartGet> stepList;
     private DatabaseReference databaseReference; // Add this field
+    private StorageReference storageReference;
 
-    public TraAdapter(List<TraGet> stepList, DatabaseReference databaseReference) {
+
+    public PartAdapter(List<PartGet> stepList, DatabaseReference databaseReference, StorageReference storageReference) {
         this.stepList = stepList;
         this.databaseReference = databaseReference;
+        this.storageReference = storageReference;
     }
 
     @NonNull
     @Override
     public StepViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tra, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.part, parent, false);
         return new StepViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull StepViewHolder holder, int position) {
-        TraGet step = stepList.get(position);
+        PartGet step = stepList.get(position);
         holder.textm.setText(step.getT1());
         holder.textStep.setText(step.getT3());
         // Load image using Picasso
@@ -85,6 +88,10 @@ public class TraAdapter extends RecyclerView.Adapter<TraAdapter.StepViewHolder> 
         holder.editIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                StorageReference imageRef = storageReference;
+                DatabaseReference databref = databaseReference;
+
                 // Start EditActivity
                 Intent intent = new Intent(holder.itemView.getContext(), Edit.class);
                 // Pass any necessary data to EditActivity using intent extras
@@ -92,6 +99,8 @@ public class TraAdapter extends RecyclerView.Adapter<TraAdapter.StepViewHolder> 
                 intent.putExtra("StepName", step.getT3());
                 intent.putExtra("Description", step.getT1());
                 intent.putExtra("Img", step.getT2());
+                intent.putExtra("trastorage", imageRef.toString());
+                intent.putExtra("trastring", databref.toString());
                 holder.itemView.getContext().startActivity(intent);
             }
         });
