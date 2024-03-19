@@ -82,14 +82,16 @@ public class Edit extends AppCompatActivity {
                     // Get the updated values from EditText fields
                     String updatedStepName = stepname.getText().toString();
                     String updatedDescription = description.getText().toString();
+                    String existingName = title.getText().toString();
 
                     // Remove the old data if the stepName has changed
                     if (!updatedStepName.equals(stepName)) {
-                        databaseReference.child(stepName).removeValue();
+                        databaseReference.child(stepName).removeValue(); // Use updatedStepName instead of existingName
                     }
 
                     uploadImage(updatedStepName, updatedDescription);
-                    databaseReference.child(stepName).child("t1").setValue(updatedDescription);
+                    databaseReference.child(updatedStepName).child("t1").setValue(updatedDescription);
+                    databaseReference.child(updatedStepName).child("t2").setValue(imageUrl);
 
 
                     // Finish the activity after saving changes
