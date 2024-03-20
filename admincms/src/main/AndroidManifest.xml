@@ -9,6 +9,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GWAZ">
         <activity
+            android:name=".selection.GWIZ.Parts.Body.Body"
+            android:exported="false" />
+        <activity
+            android:name=".selection.GWIZ.Parts.Pickups.Pickups"
+            android:exported="false" />
+        <activity
+            android:name=".selection.GWIZ.Parts.TuningPegs.TuningPegs"
+            android:exported="false" />
+        <activity
             android:name=".selection.GWIZ.Parts.Bridge.Bridge"
             android:exported="false" />
         <activity

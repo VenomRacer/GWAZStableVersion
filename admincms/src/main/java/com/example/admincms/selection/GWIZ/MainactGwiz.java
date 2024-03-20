@@ -9,10 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.admincms.R;
+import com.example.admincms.selection.GWIZ.Parts.Body.Body;
 import com.example.admincms.selection.GWIZ.Parts.Bridge.Bridge;
 import com.example.admincms.selection.GWIZ.Parts.Fretboard.Fretboard;
 import com.example.admincms.selection.GWIZ.Parts.Partview;
+import com.example.admincms.selection.GWIZ.Parts.Pickups.Pickups;
 import com.example.admincms.selection.GWIZ.Parts.Strings.Strings;
+import com.example.admincms.selection.GWIZ.Parts.TuningPegs.TuningPegs;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -40,11 +43,17 @@ public class MainactGwiz extends AppCompatActivity {
         body = findViewById(R.id.body);
         rod = findViewById(R.id.rod);
 
-        // For nylon string
+        // For nut
         nutstring = FirebaseDatabase.getInstance().getReference().child("Service").child("GWIZ")
                 .child("Nut");
         nutstore = FirebaseStorage.getInstance().getReference().child("gwazPic").child("GWIZ")
                 .child("Nut");
+
+        // For truss rod
+        rodstring = FirebaseDatabase.getInstance().getReference().child("Service").child("GWIZ")
+                .child("TrussRod");
+        rodstore = FirebaseStorage.getInstance().getReference().child("gwazPic").child("GWIZ")
+                .child("TrussRod");
 
         strings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,10 +80,42 @@ public class MainactGwiz extends AppCompatActivity {
             }
         });
 
+        rod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainactGwiz.this, Partview.class);
+                intent.putExtra("TITLE","Truss Rod");
+                intent.putExtra("datab", rodstring.toString());
+                intent.putExtra("store", rodstore.toString());
+                startActivity(intent);
+            }
+        });
+
         bridge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainactGwiz.this, Bridge.class));
+            }
+        });
+
+        pegs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainactGwiz.this, TuningPegs.class));
+            }
+        });
+
+        pickups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainactGwiz.this, Pickups.class));
+            }
+        });
+
+        body.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainactGwiz.this, Body.class));
             }
         });
 
