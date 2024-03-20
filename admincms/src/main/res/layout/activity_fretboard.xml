@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradientb"
-    tools:context=".selection.GWIZ.Parts.Strings.Strings">
+    tools:context=".selection.GWIZ.Parts.Fretboard.Fretboard">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_black"
-            android:text="Strings"
+            android:text="Fretboard"
             android:textColor="@color/white"
             android:textSize="35dp" />
 
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/traditional"
+            android:id="@+id/rosewood"
             android:layout_width="300dp"
             android:layout_height="200dp"
             android:layout_marginBottom="20dp"
@@ -55,7 +55,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/steel"
+                    android:src="@drawable/rosewood"
                     android:clipToOutline="true"
                     android:scaleType="fitXY"/>
 
@@ -66,7 +66,7 @@
                     android:gravity="center"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:text="Traditional / Steel"
+                    android:text="Rosewood"
                     android:textSize="25dp"
                     android:textColor="@color/darkb"
                     android:fontFamily="sans-serif-medium"/>
@@ -76,7 +76,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/nylon"
+            android:id="@+id/maple"
             android:layout_width="300dp"
             android:layout_height="200dp"
             android:layout_marginBottom="20dp"
@@ -93,7 +93,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:src="@drawable/nylon"
+                    android:src="@drawable/maple"
                     android:clipToOutline="true"
                     android:scaleType="fitXY"/>
 
@@ -104,7 +104,45 @@
                     android:gravity="center"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:text="Nylon"
+                    android:text="Maple"
+                    android:textSize="25dp"
+                    android:textColor="@color/darkb"
+                    android:fontFamily="sans-serif-medium"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/ebony"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="10dp"
+            app:cardBackgroundColor="@color/gold">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/ebony"
+                    android:clipToOutline="true"
+                    android:scaleType="fitXY"/>
+
+
+                <TextView
+                    android:layout_width="211dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="Ebony"
                     android:textSize="25dp"
                     android:textColor="@color/darkb"
                     android:fontFamily="sans-serif-medium"/>

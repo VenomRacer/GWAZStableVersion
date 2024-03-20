@@ -9,6 +9,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GWAZ">
         <activity
+            android:name=".selection.GWIZ.Parts.Bridge.Bridge"
+            android:exported="false" />
+        <activity
+            android:name=".selection.GWIZ.Parts.Fretboard.Fretboard"
+            android:exported="false" />
+        <activity
+            android:name=".selection.GWIZ.Parts.Fretboard"
+            android:exported="false" />
+        <activity
             android:name=".selection.GWIZ.Parts.Strings.Sub.Nylon.Nylon"
             android:exported="false" />
         <activity
