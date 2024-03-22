@@ -37,6 +37,7 @@ public class home extends AppCompatActivity {
             public void onClick(View view) {
                 sound1.start();
                 startActivity(new Intent(home.this, MainactGwiz.class));
+                overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
 
             }
         });
