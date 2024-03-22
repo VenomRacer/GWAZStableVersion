@@ -14,6 +14,21 @@
         android:theme="@style/Theme.AVMessenger"
         tools:targetApi="31">
         <activity
+            android:name=".homepage.GWIZ.Parts.Body"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+        <activity
+            android:name=".homepage.GWIZ.Parts.Pickups"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".homepage.GWIZ.Parts.Bridge"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
             android:name=".homepage.GWIZ.Parts.TuningPegs"
             android:exported="false"
             android:screenOrientation="portrait"

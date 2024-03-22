@@ -11,7 +11,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.av.Gwaz.R;
+import com.av.Gwaz.homepage.GWIZ.Parts.Body;
+import com.av.Gwaz.homepage.GWIZ.Parts.Bridge;
 import com.av.Gwaz.homepage.GWIZ.Parts.Fretboard;
+import com.av.Gwaz.homepage.GWIZ.Parts.Pickups;
 import com.av.Gwaz.homepage.GWIZ.Parts.Strings;
 import com.av.Gwaz.homepage.GWIZ.Parts.TuningPegs;
 import com.google.firebase.database.DatabaseReference;
@@ -257,7 +260,30 @@ public class MainactGwiz extends AppCompatActivity {
             //for strings
             float target1XPercent = 0.503f;
             float target1YPercent = 0.456f;
-            float tolerance1 = 0.1f;
+            float tolerance1 = 0.05f;
+
+            //for bridge/saddle
+            float target5XPercent = 0.500f;
+            float target5YPercent = 0.606f;
+            float tolerance5 = 0.05f;
+
+            float target6XPercent = 0.485f;
+            float target6YPercent = 0.694f;
+            float tolerance6 = 0.05f;
+
+            //for pickups
+            float target7XPercent = 0.500f;
+            float target7YPercent = 0.370f;
+            float tolerance7 = 0.05f;
+
+            float target8XPercent = 0.495f;
+            float target8YPercent = 0.544f;
+            float tolerance8 = 0.05f;
+
+            //for body
+            float target9XPercent = 0.472f;
+            float target9YPercent = 0.832f;
+            float tolerance9 = 0.2f;
 
             // Check if the click occurred within the desired regions for overlayIndex 1
             if (isWithinTarget(x, y, target1XPercent, target1YPercent, tolerance1)) {
@@ -271,6 +297,26 @@ public class MainactGwiz extends AppCompatActivity {
                     isWithinTarget(x, y, target2XPercent, target2YPercent, tolerance2) ||
                     isWithinTarget(x, y, target4XPercent, target4YPercent, tolerance4)) {
                 Intent intent = new Intent(MainactGwiz.this, Fretboard.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
+            }
+
+            else if (isWithinTarget(x, y, target5XPercent, target5YPercent, tolerance5)||
+                    isWithinTarget(x, y, target6XPercent, target6YPercent, tolerance6)) {
+                Intent intent = new Intent(MainactGwiz.this, Bridge.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
+            }
+
+            else if (isWithinTarget(x, y, target7XPercent, target7YPercent, tolerance7)||
+                    isWithinTarget(x, y, target8XPercent, target8YPercent, tolerance8)) {
+                Intent intent = new Intent(MainactGwiz.this, Pickups.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
+            }
+
+            else if (isWithinTarget(x, y, target9XPercent, target9YPercent, tolerance9)) {
+                Intent intent = new Intent(MainactGwiz.this, Body.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
             }
