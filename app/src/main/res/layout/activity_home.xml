@@ -83,6 +83,12 @@
                     android:layout_height="600dp"
                     android:src="@drawable/chordm"/>
 
+                <ImageView
+                    android:id="@+id/tuner"
+                    android:layout_width="match_parent"
+                    android:layout_height="600dp"
+                    android:src="@drawable/tuner"/>
+
 
             </LinearLayout>
 

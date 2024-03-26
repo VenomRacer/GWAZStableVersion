@@ -12,10 +12,11 @@ import com.av.Gwaz.R;
 import com.av.Gwaz.homepage.AMPLIZ.MainactAmpliz;
 import com.av.Gwaz.homepage.CHORDM.MainactChordm;
 import com.av.Gwaz.homepage.GWIZ.MainactGwiz;
+import com.av.Gwaz.homepage.TUNER.TunerTrainer;
 
 public class home extends AppCompatActivity {
 
-    ImageView gwiz, amplizone,  chordmaster;
+    ImageView gwiz, amplizone,  chordmaster, tuner;
     MediaPlayer sound1, sound2, sound3;
 
     @Override
@@ -26,6 +27,7 @@ public class home extends AppCompatActivity {
         gwiz = findViewById(R.id.gwiz);
         amplizone = findViewById(R.id.amplizone);
         chordmaster = findViewById(R.id.chordmaster);
+        tuner = findViewById(R.id.tuner);
 
         // Initialize MediaPlayer with the sound file
         sound1 = MediaPlayer.create(this, R.raw.strum);
@@ -55,6 +57,13 @@ public class home extends AppCompatActivity {
             public void onClick(View view) {
                 sound3.start();
                 startActivity(new Intent(home.this, MainactChordm.class));
+            }
+        });
+
+        tuner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(home.this, TunerTrainer.class));
             }
         });
     }
