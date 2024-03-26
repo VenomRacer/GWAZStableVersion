@@ -80,6 +80,10 @@ public class OverlayView1Fragment extends Fragment {
         float clickedXPercent = x / imageView.getWidth() * 100;
         float clickedYPercent = y / imageView.getHeight() * 100;
 
+        // Show a toast message with the percentages
+        String message1 = String.format("Clicked at: X=%.2f%% of imageView width, Y=%.2f%% of imageView height", clickedXPercent, clickedYPercent);
+        Toast.makeText(getContext(), message1, Toast.LENGTH_SHORT).show();
+
 
 
         // low E

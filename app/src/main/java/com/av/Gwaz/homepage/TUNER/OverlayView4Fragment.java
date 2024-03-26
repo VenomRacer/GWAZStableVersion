@@ -15,20 +15,20 @@ import androidx.fragment.app.Fragment;
 
 import com.av.Gwaz.R;
 
-public class OverlayView3Fragment extends Fragment {
+public class OverlayView4Fragment extends Fragment {
 
     private ImageView imageView;
-    private View overlayView3;
-    private MediaPlayer dropD,A,D,G,B,e;
+    private View overlayView4;
+    private MediaPlayer d1,a1,d2,g1,a2,d3;
 
-    public OverlayView3Fragment() {
+    public OverlayView4Fragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_overlay_view3, container, false);
+        return inflater.inflate(R.layout.fragment_overlay_view4, container, false);
     }
 
     @Override
@@ -36,19 +36,19 @@ public class OverlayView3Fragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         imageView = view.findViewById(R.id.imageView);
-        overlayView3 = view.findViewById(R.id.overlayView3);
+        overlayView4 = view.findViewById(R.id.overlayView4);
 
         // Initialize MediaPlayer with the audio file
-        dropD = MediaPlayer.create(getContext(), R.raw.dropd);
-        A = MediaPlayer.create(getContext(),R.raw.a);
-        D = MediaPlayer.create(getContext(), R.raw.d);
-        G = MediaPlayer.create(getContext(), R.raw.g);
-        B = MediaPlayer.create(getContext(), R.raw.b);
-        e = MediaPlayer.create(getContext(), R.raw.highe);
+        d1 = MediaPlayer.create(getContext(), R.raw.d1);
+        a1 = MediaPlayer.create(getContext(),R.raw.a1);
+        d2 = MediaPlayer.create(getContext(), R.raw.d2);
+        g1 = MediaPlayer.create(getContext(), R.raw.g1);
+        a2 = MediaPlayer.create(getContext(), R.raw.a2);
+        d3 = MediaPlayer.create(getContext(), R.raw.d3);
 
 
 
-        overlayView3.setOnTouchListener(new View.OnTouchListener() {
+        overlayView4.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return handleTouch(event);
@@ -85,34 +85,35 @@ public class OverlayView3Fragment extends Fragment {
         Toast.makeText(getContext(), message1, Toast.LENGTH_SHORT).show();
 
 
-        // Drop D
-        float target1XPercent = 0.262f;
-        float target1YPercent = 0.650f;
+
+        // D
+        float target1XPercent = 0.261f;
+        float target1YPercent = 0.647f;
         float tolerance1 = 0.05f;
 
         // A
-        float target2XPercent = 0.306f;
-        float target2YPercent = 0.560f;
+        float target2XPercent = 0.285f;
+        float target2YPercent = 0.566f;
         float tolerance2 = 0.05f;
 
         // D
-        float target3XPercent = 0.352f;
-        float target3YPercent = 0.457f;
+        float target3XPercent = 0.328f;
+        float target3YPercent = 0.474f;
         float tolerance3 = 0.05f;
 
         // G
-        float target4XPercent = 0.385f;
-        float target4YPercent = 0.354f;
+        float target4XPercent = 0.350f;
+        float target4YPercent = 0.396f;
         float tolerance4 = 0.05f;
 
-        // B
-        float target5XPercent = 0.438f;
-        float target5YPercent = 0.262f;
+        // A
+        float target5XPercent = 0.376f;
+        float target5YPercent = 0.314f;
         float tolerance5 = 0.05f;
 
-        // high E
-        float target6XPercent = 0.467f;
-        float target6YPercent = 0.159f;
+        // D
+        float target6XPercent = 0.408f;
+        float target6YPercent = 0.220f;
         float tolerance6 = 0.05f;
 
 
@@ -122,68 +123,68 @@ public class OverlayView3Fragment extends Fragment {
             // Show a toast message with the percentages
             String message = String.format("D");
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-            if (dropD != null) {
-                dropD.release();
+            if (d1 != null) {
+                d1.release();
             }
             // Create a new instance of MediaPlayer and start playing the audio
-            dropD = MediaPlayer.create(getContext(), R.raw.dropd);
-            dropD.start();
+            d1 = MediaPlayer.create(getContext(), R.raw.d1);
+            d1.start();
         }
 
         if (isWithinTarget(x, y, target2XPercent, target2YPercent, tolerance2)) {
             // Release the previous instance of MediaPlayer if it exists
             String message = String.format("A");
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-            if (A != null) {
-                A.release();
+            if (a1 != null) {
+                a1.release();
             }
             // Create a new instance of MediaPlayer and start playing the audio
-            A = MediaPlayer.create(getContext(), R.raw.a);
-            A.start();
+            a1 = MediaPlayer.create(getContext(), R.raw.a1);
+            a2.start();
         }
         if (isWithinTarget(x, y, target3XPercent, target3YPercent, tolerance3)) {
             // Release the previous instance of MediaPlayer if it exists
             String message = String.format("D");
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-            if (D != null) {
-                D.release();
+            if (d2 != null) {
+                d2.release();
             }
             // Create a new instance of MediaPlayer and start playing the audio
-            D = MediaPlayer.create(getContext(), R.raw.d);
-            D.start();
+            d2 = MediaPlayer.create(getContext(), R.raw.d2);
+            d2.start();
         }
         if (isWithinTarget(x, y, target4XPercent, target4YPercent, tolerance4)) {
             // Release the previous instance of MediaPlayer if it exists
             String message = String.format("G");
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-            if (G != null) {
-                G.release();
+            if (g1 != null) {
+                g1.release();
             }
             // Create a new instance of MediaPlayer and start playing the audio
-            G = MediaPlayer.create(getContext(), R.raw.g);
-            G.start();
+            g1 = MediaPlayer.create(getContext(), R.raw.g1);
+            g1.start();
         }
         if (isWithinTarget(x, y, target5XPercent, target5YPercent, tolerance5)) {
             // Release the previous instance of MediaPlayer if it exists
-            String message = String.format("B");
+            String message = String.format("A");
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-            if (B != null) {
-                B.release();
+            if (a2 != null) {
+                a2.release();
             }
             // Create a new instance of MediaPlayer and start playing the audio
-            B = MediaPlayer.create(getContext(), R.raw.b);
-            B.start();
+            a2 = MediaPlayer.create(getContext(), R.raw.a2);
+            a2.start();
         }
         if (isWithinTarget(x, y, target6XPercent, target6YPercent, tolerance6)) {
             // Release the previous instance of MediaPlayer if it exists
-            String message = String.format("e");
+            String message = String.format("D");
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-            if (e != null) {
-                e.release();
+            if (d3 != null) {
+                d3.release();
             }
             // Create a new instance of MediaPlayer and start playing the audio
-            e = MediaPlayer.create(getContext(), R.raw.highe);
-            e.start();
+            d3 = MediaPlayer.create(getContext(), R.raw.d3);
+            d3.start();
         }
     }
 
@@ -192,58 +193,58 @@ public class OverlayView3Fragment extends Fragment {
     public void onResume() {
         super.onResume();
         // Reset MediaPlayer state
-        if (dropD != null) {
-            dropD.release();
-            dropD = MediaPlayer.create(getContext(),R.raw.dropd);
+        if (d1 != null) {
+            d1.release();
+            d1 = MediaPlayer.create(getContext(),R.raw.d1);
         }
-        if (A != null) {
-            A.release();
-            A = MediaPlayer.create(getContext(),R.raw.a);
+        if (a1 != null) {
+            a1.release();
+            a1= MediaPlayer.create(getContext(),R.raw.a);
         }
-        if (D != null) {
-            D.release();
-            D = MediaPlayer.create(getContext(),R.raw.d);
+        if (d2 != null) {
+            d2.release();
+            d2 = MediaPlayer.create(getContext(),R.raw.d2);
         }
-        if (G != null) {
-            G.release();
-            G = MediaPlayer.create(getContext(),R.raw.g);
+        if (g1 != null) {
+            g1.release();
+            g1 = MediaPlayer.create(getContext(),R.raw.g1);
         }
-        if (B != null) {
-            B.release();
-            B = MediaPlayer.create(getContext(),R.raw.b);
+        if (a2 != null) {
+            a2.release();
+            a2 = MediaPlayer.create(getContext(),R.raw.a2);
         }
-        if (e != null) {
-            e.release();
-            e = MediaPlayer.create(getContext(),R.raw.highe);
+        if (d3 != null) {
+            d3.release();
+            d3 = MediaPlayer.create(getContext(),R.raw.d3);
         }
     }
     @Override
     public void onDestroy() {
         super.onDestroy();
         // Release MediaPlayer resources when activity is destroyed
-        if (dropD != null) {
-            dropD.release();
-            dropD = null;
+        if (d1 != null) {
+            d1.release();
+            d1 = null;
         }
-        if (A != null) {
-            A.release();
-            A = null;
+        if (a1 != null) {
+            a1.release();
+            a1 = null;
         }
-        if (D != null) {
-            D.release();
-            D = null;
+        if (d2 != null) {
+            d2.release();
+            d2 = null;
         }
-        if (G != null) {
-            G.release();
-            G = null;
+        if (g1 != null) {
+            g1.release();
+            g1 = null;
         }
-        if (B != null) {
-            B.release();
-            B = null;
+        if (a2 != null) {
+            a2.release();
+            a2 = null;
         }
-        if (e != null) {
-            e.release();
-            e = null;
+        if (d3 != null) {
+            d3.release();
+            d3 = null;
         }
     }
 

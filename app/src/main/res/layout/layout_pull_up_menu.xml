@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:backgroundTint="@color/gold"
         android:text="Standard Tuning" />
 
     <Button
@@ -17,12 +18,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:backgroundTint="@color/gold"
         android:text="Half Step Down" />
+
 
     <Button
         android:id="@+id/btn_overlay3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
+        android:backgroundTint="@color/gold"
         android:text="Drop D" />
+
+    <Button
+        android:id="@+id/btn_overlay4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/gold"
+        android:text="DADGAD Tuning" />
+
 </LinearLayout>

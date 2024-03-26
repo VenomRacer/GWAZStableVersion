@@ -32,6 +32,8 @@ public class PullUpMenuFragment extends DialogFragment {
         Button btnOverlay1 = view.findViewById(R.id.btn_overlay1);
         Button btnOverlay2 = view.findViewById(R.id.btn_overlay2);
         Button btnOverlay3 = view.findViewById(R.id.btn_overlay3);
+        Button btnOverlay4 = view.findViewById(R.id.btn_overlay4);
+
 
         btnOverlay1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +58,16 @@ public class PullUpMenuFragment extends DialogFragment {
                 displayOverlay(new OverlayView3Fragment());
             }
         });
+
+        btnOverlay4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayOverlay(new OverlayView4Fragment());
+
+            }
+        });
+
+
     }
 
     private void displayOverlay(Fragment fragment) {
