@@ -1,0 +1,6 @@
+<!-- rounded_searchview_bg.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="20dp" /> <!-- Change the radius value to adjust the roundness of corners -->
+    <solid android:color="@color/white" /> <!-- Change the color as per your preference -->
+</shape>
