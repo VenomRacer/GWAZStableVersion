@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_black"
-            android:text="sample title"
+            android:text="All Settings"
             android:textColor="@color/white"
             android:textSize="35dp" />
 
@@ -46,7 +46,7 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvt"
+                android:id="@+id/rvt2"
                 android:layout_width="match_parent"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
@@ -56,25 +56,18 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:gravity="center"
-        android:orientation="horizontal"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/Add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        tools:ignore="NotSibling">
-
-        <ImageView
-            android:id="@+id/Add"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:src="@drawable/add"
-            android:clickable="true"/>
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/swipe_refresh_layout"
+        app:backgroundTint="@color/white"
+        app:rippleColor="@color/gold"
+        tools:ignore="NotSibling" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
