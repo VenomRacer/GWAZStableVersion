@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">AdminCMS</string>
+
+    <string-array name="genre_array">
+        <item>Pop</item>
+        <item>Rock</item>
+        <item>Blues</item>
+        <item>Metal</item>
+        <item>Jaazz</item>
+        <item>Country</item>
+        <item>Clean</item>
+        <item>Funk</item>
+        <item>Reggae</item>
+    </string-array>
+
 </resources>

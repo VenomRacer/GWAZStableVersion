@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradientb"
-    tools:context=".selection.AMPLIZONE.Add.AddAmp">
+    tools:context=".selection.AMPLIZONE.Add.additionalKnobs">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_black"
-            android:text="Add Settings"
+            android:text="Additional Knobs"
             android:textColor="@color/white"
             android:textSize="35dp" />
 
@@ -49,7 +49,6 @@
             <LinearLayout
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -57,11 +56,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_black"
-                    android:text="Treble"
+                    android:text="Reverb"
                     android:textColor="@color/white" />
 
                 <com.akaita.android.circularseekbar.CircularSeekBar
-                    android:id="@+id/treble"
+                    android:id="@+id/reverb"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:background="@drawable/knoboverlay3"
@@ -78,38 +77,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="50dp"
-                android:gravity="center"
-                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_black"
-                    android:text="Gain"
-                    android:textColor="@color/white" />
-
-                <com.akaita.android.circularseekbar.CircularSeekBar
-                    android:id="@+id/gain"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    app:showIndicator="true"
-                    app:showInnerCircle="true"
-                    app:innerCircleColor="@color/black"
-                    android:background="@drawable/knoboverlay3"
-                    app:min="0"
-                    app:max="11"
-                    app:progressTextSize="20"
-                    app:progressTextColor="@color/white"
-                    app:speedMultiplier="4.5"
-                    app:ringColor="@color/green2"/>
-
-
-
-            </LinearLayout>
 
 
         </LinearLayout>
@@ -124,7 +92,6 @@
             <LinearLayout
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -132,11 +99,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_black"
-                    android:text="Bass"
+                    android:text="Tone"
                     android:textColor="@color/white" />
 
                 <com.akaita.android.circularseekbar.CircularSeekBar
-                    android:id="@+id/bass"
+                    android:id="@+id/tone"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:background="@drawable/knoboverlay3"
@@ -152,36 +119,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:gravity="center"
-                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_black"
-                    android:text="Drive"
-                    android:textColor="@color/white" />
-
-                <com.akaita.android.circularseekbar.CircularSeekBar
-                    android:id="@+id/drive"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    app:showIndicator="true"
-                    app:showInnerCircle="true"
-                    app:innerCircleColor="@color/black"
-                    android:background="@drawable/knoboverlay3"
-                    app:min="0"
-                    app:max="11"
-                    app:progressTextSize="20"
-                    app:progressTextColor="@color/white"
-                    app:speedMultiplier="4.5"
-                    app:ringColor="@color/green2"/>
-
-            </LinearLayout>
 
 
         </LinearLayout>
@@ -196,7 +134,6 @@
             <LinearLayout
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -204,11 +141,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_black"
-                    android:text="Mid"
+                    android:text="Gain Staging"
                     android:textColor="@color/white" />
 
                 <com.akaita.android.circularseekbar.CircularSeekBar
-                    android:id="@+id/mid"
+                    android:id="@+id/gainstage"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     app:innerCircleColor="@color/black"
@@ -224,36 +161,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:gravity="center"
-                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_black"
-                    android:text="Presence"
-                    android:textColor="@color/white" />
-
-                <com.akaita.android.circularseekbar.CircularSeekBar
-                    android:id="@+id/presence"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    app:innerCircleColor="@color/black"
-                    app:showIndicator="true"
-                    app:showInnerCircle="true"
-                    android:background="@drawable/knoboverlay3"
-                    app:min="0"
-                    app:max="11"
-                    app:progressTextSize="20"
-                    app:progressTextColor="@color/white"
-                    app:speedMultiplier="4.5"
-                    app:ringColor="@color/green2"/>
-
-            </LinearLayout>
 
 
         </LinearLayout>
