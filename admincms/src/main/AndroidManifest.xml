@@ -1,13 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GWAZ">
+        <activity
+            android:name=".selection.AMPLIZONE.Add.AmpView"
+            android:exported="false" />
+        <activity
+            android:name=".selection.AMPLIZONE.Add.FinalizeAmp"
+            android:exported="false" />
+        <activity
+            android:name=".selection.AMPLIZONE.Add.GuitarEffects"
+            android:exported="false" />
+        <activity
+            android:name=".selection.AMPLIZONE.Add.additionalKnobs"
+            android:exported="false" />
+        <activity
+            android:name=".selection.AMPLIZONE.Add.AddAmp"
+            android:exported="false" />
+        <activity
+            android:name=".selection.AMPLIZONE.PopularSettings.PopularSettings"
+            android:exported="false" />
+        <activity
+            android:name=".selection.AMPLIZONE.AllSettings.AllSettings"
+            android:exported="false" />
+        <activity
+            android:name=".selection.AMPLIZONE.Genre.GenreSelection"
+            android:exported="false" />
+        <activity
+            android:name=".selection.AMPLIZONE.MainSelect"
+            android:exported="false" />
         <activity
             android:name=".selection.GWIZ.Parts.Body.Body"
             android:exported="false" />

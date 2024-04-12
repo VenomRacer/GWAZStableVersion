@@ -46,7 +46,6 @@ public class Partview extends AppCompatActivity {
         setContentView(R.layout.activity_partview);
 
 
-
         // Retrieve databaseReference from intent extras
         String TITLE = getIntent().getStringExtra("TITLE");
         String databaseReferencePath = getIntent().getStringExtra("datab");

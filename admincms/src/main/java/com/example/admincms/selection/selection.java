@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.admincms.R;
 import com.example.admincms.login.login;
+import com.example.admincms.selection.AMPLIZONE.MainSelect;
 import com.example.admincms.selection.GWIZ.MainactGwiz;
 
 public class selection extends AppCompatActivity {
@@ -41,6 +42,13 @@ public class selection extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(selection.this, MainactGwiz.class));
+            }
+        });
+
+        amplizone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(selection.this, MainSelect.class));
             }
         });
 
