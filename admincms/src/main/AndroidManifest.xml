@@ -3,6 +3,8 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -28,6 +30,18 @@
             android:exported="false" />
         <activity
             android:name=".selection.AMPLIZONE.AllSettings.SettingsView"
+            android:exported="false" />
+        <activity
+            android:name=".selection.AMPLIZONE.Add.AmpView"
+            android:exported="false" />
+        <activity
+            android:name=".selection.AMPLIZONE.Add.FinalizeAmp"
+            android:exported="false" />
+        <activity
+            android:name=".selection.AMPLIZONE.Add.GuitarEffects"
+            android:exported="false" />
+        <activity
+            android:name=".selection.AMPLIZONE.Add.additionalKnobs"
             android:exported="false" />
         <activity
             android:name=".selection.AMPLIZONE.Add.AmpView"
