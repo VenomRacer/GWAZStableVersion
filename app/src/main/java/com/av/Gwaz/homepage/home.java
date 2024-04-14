@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.av.Gwaz.R;
 import com.av.Gwaz.chat.setting;
-import com.av.Gwaz.homepage.AMPLIZ.MainactAmpliz;
+import com.av.Gwaz.homepage.AMPLIZ.MainSelect;
 import com.av.Gwaz.homepage.CHORDM.MainactChordm;
 import com.av.Gwaz.homepage.GWIZ.MainactGwiz;
 import com.av.Gwaz.homepage.TUNER.TunerTrainer;
@@ -50,7 +50,7 @@ public class home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sound2.start();
-                startActivity(new Intent(home.this, MainactAmpliz.class));
+                startActivity(new Intent(home.this, MainSelect.class));
             }
         });
 

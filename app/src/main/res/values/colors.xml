@@ -10,4 +10,7 @@
     <color name="darkr">#791c34</color>
     <color name="darkb">#001861</color>
     <color name="gold">#FDD835</color>
+    <color name="green2">#43A047</color>
+    <color name="sky">#039BE5</color>
+    <color name="gray">#959595</color>
 </resources>

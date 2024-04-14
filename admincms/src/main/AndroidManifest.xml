@@ -44,18 +44,6 @@
             android:name=".selection.AMPLIZONE.Add.additionalKnobs"
             android:exported="false" />
         <activity
-            android:name=".selection.AMPLIZONE.Add.AmpView"
-            android:exported="false" />
-        <activity
-            android:name=".selection.AMPLIZONE.Add.FinalizeAmp"
-            android:exported="false" />
-        <activity
-            android:name=".selection.AMPLIZONE.Add.GuitarEffects"
-            android:exported="false" />
-        <activity
-            android:name=".selection.AMPLIZONE.Add.additionalKnobs"
-            android:exported="false" />
-        <activity
             android:name=".selection.AMPLIZONE.Add.AddAmp"
             android:exported="false" />
         <activity
