@@ -158,6 +158,8 @@
 //}
 package com.av.Gwaz.chat;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -173,6 +175,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.av.Gwaz.R;
+import com.av.Gwaz.login.login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -190,7 +193,7 @@ import com.squareup.picasso.Picasso;
 public class setting extends AppCompatActivity {
     ImageView setprofile;
     EditText setname, setstatus;
-    Button donebut;
+    Button donebut, logoutBtn;
     FirebaseAuth auth;
     FirebaseDatabase database;
     FirebaseStorage storage;
@@ -200,6 +203,7 @@ public class setting extends AppCompatActivity {
 
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -212,9 +216,10 @@ public class setting extends AppCompatActivity {
         setname = findViewById(R.id.settingname);
         setstatus = findViewById(R.id.settingstatus);
         donebut = findViewById(R.id.donebutt);
+        logoutBtn = findViewById(R.id.logoutBtn);
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Saing...");
+        progressDialog.setMessage("Saving...");
         progressDialog.setCancelable(false);
 
         DatabaseReference reference = database.getReference().child("user").child(auth.getUid());
@@ -233,6 +238,34 @@ public class setting extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(setting.this,R.style.dialoge);
+                dialog.setContentView(R.layout.dialog_layout);
+                Button no,yes;
+                yes = dialog.findViewById(R.id.yesbnt);
+                no = dialog.findViewById(R.id.nobnt);
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(setting.this, login.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
 
             }
         });
@@ -268,13 +301,12 @@ public class setting extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
                                                 progressDialog.dismiss();
-                                                Toast.makeText(setting.this, "Data Is save ", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(setting.this, MessageWindow.class);
-                                                startActivity(intent);
+                                                Toast.makeText(setting.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
+                                                onBackPressed();
                                                 finish();
                                             }else {
                                                 progressDialog.dismiss();
-                                                Toast.makeText(setting.this, "Some thing went romg", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(setting.this, "Some thing went wrong!", Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
@@ -293,13 +325,12 @@ public class setting extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
                                         progressDialog.dismiss();
-                                        Toast.makeText(setting.this, "Data is saved ", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(setting.this, MessageWindow.class);
-                                        startActivity(intent);
+                                        Toast.makeText(setting.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
+                                        onBackPressed();
                                         finish();
                                     }else {
                                         progressDialog.dismiss();
-                                        Toast.makeText(setting.this, "Some thing went wrong", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(setting.this, "Some thing went wrong!", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -321,5 +352,11 @@ public class setting extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Call finish() to close the current activity and return to the previous activity
+        finish();
     }
 }

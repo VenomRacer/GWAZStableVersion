@@ -27,6 +27,8 @@ public class TunerTrainer extends AppCompatActivity {
         });
     }
 
+
+
     // Method to open OverlayView1Fragment
     private void openOverlayView1Fragment() {
         OverlayView1Fragment overlayFragment = new OverlayView1Fragment();
@@ -39,4 +41,8 @@ public class TunerTrainer extends AppCompatActivity {
         PullUpMenuFragment menuFragment = new PullUpMenuFragment();
         menuFragment.show(getSupportFragmentManager(), "pull_up_menu");
     }
+
+
+
+
 }

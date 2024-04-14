@@ -61,7 +61,8 @@
         <activity
             android:name=".homepage.AMPLIZ.MainactAmpliz"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar"/>
         <activity
             android:name=".homepage.GWIZ.MainactGwiz"
             android:exported="false"

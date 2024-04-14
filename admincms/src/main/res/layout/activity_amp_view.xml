@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_black"
-            android:text="sample name"
+            android:text="ito ay sample"
             android:textColor="@color/white"
             android:textSize="35dp" />
 
@@ -260,7 +260,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
-            android:id="@+id/amp"
+            android:id="@+id/viewamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -271,7 +271,7 @@
             android:text="View Amp" />
 
         <Button
-            android:id="@+id/effects"
+            android:id="@+id/vieweffects"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"

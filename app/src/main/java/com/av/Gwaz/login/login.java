@@ -21,7 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class login extends AppCompatActivity {
+public class  login extends AppCompatActivity {
     TextView logsignup;
     Button login, forgotPass;
     EditText email, password;
@@ -35,9 +35,12 @@ public class login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //for progress dialog
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please Wait...");
+        progressDialog.setMessage("Preparing Your Gear, Stay Amped!");
         progressDialog.setCancelable(false);
+
         getSupportActionBar().hide();
         auth = FirebaseAuth.getInstance();
         login = findViewById(R.id.logbutton);
@@ -45,6 +48,13 @@ public class login extends AppCompatActivity {
         email = findViewById(R.id.editTexLogEmail);
         password = findViewById(R.id.editTextLogPassword);
         logsignup = findViewById(R.id.logsignup);
+
+        // Check if user is already logged in
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            // User is already logged in, redirect to home activity
+            startActivity(new Intent(this, home.class));
+            finish(); // Finish the current activity to prevent user from coming back to login screen using back button
+        }
 
         logsignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +79,8 @@ public class login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.show();
+
                 String Email = email.getText().toString();
                 String pass = password.getText().toString();
 

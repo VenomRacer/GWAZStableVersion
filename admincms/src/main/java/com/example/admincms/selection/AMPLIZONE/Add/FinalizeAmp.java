@@ -231,7 +231,7 @@ public class FinalizeAmp extends AppCompatActivity {
         DatabaseReference mainRef = FirebaseDatabase.getInstance().getReference().child("Service").child("AMPLIZONE").child("Amplifier");
 
         // Check if the setName value already exists in the database
-        mainRef.child(setNameValue).addListenerForSingleValueEvent(new ValueEventListener() {
+        mainRef.child("Key"+setNameValue).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -245,6 +245,7 @@ public class FinalizeAmp extends AppCompatActivity {
                     ampData.put("description", descriptionValue);
                     ampData.put("genre", genreValue);
                     ampData.put("by", "GWAZ");
+                    ampData.put("key", "Key"+setNameValue);
 
                     // Create a HashMap to hold the data
                     Map<String, Object> settingsData = new HashMap<>();
@@ -274,12 +275,12 @@ public class FinalizeAmp extends AppCompatActivity {
 
                     // Initialize Firebase Storage reference
                     FirebaseStorage storage = FirebaseStorage.getInstance();
-                    StorageReference imageStorageRef = storage.getReference().child("gwazPic").child("AMPLIZONE").child("Amplifier").child(setNameValue).child(setNameValue + ".jpg");
-                    StorageReference audioStorageRef = storage.getReference().child("gwazPic").child("AMPLIZONE").child("Amplifier").child(setNameValue).child(setNameValue + ".mp3");
+                    StorageReference imageStorageRef = storage.getReference().child("gwazPic").child("AMPLIZONE").child("Amplifier").child("Key"+setNameValue).child(setNameValue + ".jpg");
+                    StorageReference audioStorageRef = storage.getReference().child("gwazPic").child("AMPLIZONE").child("Amplifier").child("Key"+setNameValue).child(setNameValue + ".mp3");
 
-                    DatabaseReference finalMainRef = mainRef.child(setNameValue);
-                    DatabaseReference finalSettingsRef = mainRef.child(setNameValue).child("Settings");
-                    DatabaseReference finalEffectsRef = mainRef.child(setNameValue).child("Effects");
+                    DatabaseReference finalMainRef = mainRef.child("Key"+ setNameValue);
+                    DatabaseReference finalSettingsRef = mainRef.child("Key"+ setNameValue).child("Settings");
+                    DatabaseReference finalEffectsRef = mainRef.child("Key"+ setNameValue).child("Effects");
 
                     // Use a Firebase transaction to ensure atomicity
                     finalMainRef.runTransaction(new Transaction.Handler() {

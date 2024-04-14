@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.av.Gwaz.R;
-import com.av.Gwaz.homepage.home;
 
 public class splash extends AppCompatActivity {
     ImageView logo;
@@ -41,7 +40,7 @@ public class splash extends AppCompatActivity {
       new Handler().postDelayed(new Runnable() {
           @Override
           public void run() {
-              Intent intent = new Intent(splash.this, home.class);
+              Intent intent = new Intent(splash.this, login.class);
               startActivity(intent);
               finish();
           }

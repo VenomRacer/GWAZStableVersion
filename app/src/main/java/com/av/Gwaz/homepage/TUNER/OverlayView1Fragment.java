@@ -267,6 +267,8 @@ public class OverlayView1Fragment extends Fragment {
     private float calculatePixelY(float percentageY, View view) {
         return percentageY * view.getHeight();
     }
+
+
 }
 
 

@@ -36,7 +36,8 @@
                 android:progressTint="@color/gold"
                 android:progressBackgroundTint="@color/white"
                 android:numStars="5"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:isIndicator="true" />
 
 
 
