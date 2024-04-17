@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.akaita.android.circularseekbar.CircularSeekBar;
 import com.av.Gwaz.R;
+import com.av.Gwaz.chat.setting;
 
 import java.text.DecimalFormat;
 
@@ -83,6 +84,7 @@ public class additionalKnobs extends AppCompatActivity {
                 intent.putExtra("gainstage", gainstageValue);
                 vibrate();
                 startActivity(intent);
+                finish();
 
 
             }
@@ -181,5 +183,12 @@ public class additionalKnobs extends AppCompatActivity {
         } else {
             vibrator.vibrate(100);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(additionalKnobs.this, setting.class));
+        super.onBackPressed();
+        finish();
     }
 }

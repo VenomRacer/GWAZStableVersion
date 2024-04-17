@@ -1,4 +1,4 @@
-package com.av.Gwaz.homepage.AMPLIZ.AllSettings;
+package com.av.Gwaz.homepage.AMPLIZ.MyAmp;
 
 import static android.content.ContentValues.TAG;
 
@@ -16,12 +16,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.av.Gwaz.R;
 import com.av.Gwaz.homepage.AMPLIZ.Add.AmpView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,101 +37,131 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemClickListener {
-
+public class MyAmp extends AppCompatActivity implements MyAmpAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
-    private List<AllGet> ampList;
-    private AllAdapter adapter;
+    private List<MyGet> myList;
+    private MyAmpAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ImageView Add;
     private Vibrator vibrator;
-    private AllAdapter.OnItemClickListener listener;
+    private String userName;
+    private MyAmpAdapter.OnItemClickListener listener;
     private ProgressDialog progressDialog; // Declare progressDialog here
     String bass,drive,gain,gainstage,mid,presence,reverb,tone,treble,
             chorus,compressor,delay,distortion,flanger,fuzz,overdrive,phaser,reverb1,tremolo,wah;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_settings);
+        setContentView(R.layout.activity_my_amp);
 
-        //Initialization
-        //Add = findViewById(R.id.Add);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-
-
-
-
-
         // Initialize the listener
         listener = this;
 
+
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Service").child("AMPLIZONE").child("Amplifier");
         storageReference = FirebaseStorage.getInstance().getReference().child("gwazPic").child("AMPLIZONE").child("Amplifier");
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String currentUserId = currentUser.getUid();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("user").child(currentUserId);
 
         recyclerView = findViewById(R.id.rvt2);
-        int numberOfColumns = 2;
+
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
-        ampList = new ArrayList<>();
-        adapter = new AllAdapter(ampList, databaseReference, storageReference, listener);
+        // Set up LinearLayoutManager
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+
+        myList = new ArrayList<>();
+        adapter = new MyAmpAdapter(myList, databaseReference, storageReference, listener);
         recyclerView.setAdapter(adapter);
-        fetchData();
+        //proper placement
+
+
+
+
+
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userName = snapshot.child("userName").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         // Set up refresh listener
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // Fetch data again when swipe gesture is performed
-                fetchData();
+                fetchDataAndPopulateRecyclerView();
             }
         });
 
+        fetchDataAndPopulateRecyclerView();
 
-        //Add.setOnClickListener(new View.OnClickListener() {
-            //@Override
-            //ublic void onClick(View v) {
 
-                //vibrate();
-                //startActivity(new Intent(AllSettings.this, AddAmp.class));
-
-            //}
-        //});
     }
 
-    private void fetchData() {
+    private void fetchDataAndPopulateRecyclerView() {
         // Check for internet connectivity
         if (isConnected()) {
-            ValueEventListener ampListener = new ValueEventListener() {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
+            ValueEventListener userListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    ampList.clear();
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        AllGet allGet = snapshot.getValue(AllGet.class);
-                        ampList.add(allGet);
-                    }
-                    Collections.reverse(ampList);
-                    adapter.notifyDataSetChanged();
-                    swipeRefreshLayout.setRefreshing(false);
+                    Query query = databaseReference.orderByChild("by").equalTo(userName);
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            myList.clear();
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                MyGet myGet = snapshot.getValue(MyGet.class);
+                                myList.add(myGet);
+                            }
+                            Collections.reverse(myList);
+                            adapter.notifyDataSetChanged();
+                            progressDialog.dismiss();
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.e(TAG, "Error fetching data: " + databaseError.getMessage());
+                            progressDialog.dismiss();
+                        }
+                    });
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                    Log.e(TAG, "Error fetching user data: " + databaseError.getMessage());
+                    progressDialog.dismiss();
                 }
             };
 
-            databaseReference.addListenerForSingleValueEvent(ampListener);
+            // Assuming your database reference is pointing to the root of the database
+            databaseReference.addListenerForSingleValueEvent(userListener);
         } else {
             // Display a message to the user indicating the lack of internet connectivity
-            // You can show a Snackbar, Toast, or any other UI element here
-            // For example:
             Toast.makeText(this, "No internet connection. Please check your connection and try again.", Toast.LENGTH_SHORT).show();
+            // Dismiss swipeRefreshLayout if it's refreshing
+            swipeRefreshLayout.setRefreshing(false);
         }
     }
 
@@ -143,7 +175,7 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
     }
 
     @Override
-    public void onItemClick(AllGet item) {
+    public void onItemClick(MyGet item) {
 
 
         if (progressDialog == null) {
@@ -200,7 +232,7 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
                                         // You can retrieve other effects similarly
 
                                         // Start the AmpView activity with the retrieved data
-                                        Intent intent = new Intent(AllSettings.this, AmpView.class);
+                                        Intent intent = new Intent(MyAmp.this, AmpView.class);
                                         intent.putExtra("setName", item.getSetName());
                                         intent.putExtra("by", item.getBy());
                                         intent.putExtra("imageUrl", item.getImageUrl());
@@ -208,8 +240,6 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
                                         intent.putExtra("ampUsed", item.getAmpUsed());
                                         intent.putExtra("description", item.getDescription());
                                         intent.putExtra("genre", item.getGenre());
-                                        intent.putExtra("key", item.getKey());
-                                        intent.putExtra("rating", item.getRating());
                                         // Pass the retrieved settings and effects data to the intent
 
                                         // knobs
@@ -268,7 +298,6 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
         });
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -284,6 +313,4 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
     }
-
-
 }

@@ -168,6 +168,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -175,10 +176,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.av.Gwaz.R;
+import com.av.Gwaz.homepage.AMPLIZ.Add.AddAmp;
+import com.av.Gwaz.homepage.AMPLIZ.MyAmp.MyAmp;
 import com.av.Gwaz.login.login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -191,14 +195,16 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 public class setting extends AppCompatActivity {
-    ImageView setprofile;
+    ImageView setprofile, myAmp;
     EditText setname, setstatus;
+    TextView displayText, ampCount, Email;
     Button donebut, logoutBtn;
+    FloatingActionButton Add;
     FirebaseAuth auth;
     FirebaseDatabase database;
     FirebaseStorage storage;
     Uri setImageUri;
-    String email,password;
+    String email,password,oldname;
     ProgressDialog progressDialog;
 
 
@@ -208,7 +214,6 @@ public class setting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        getSupportActionBar().hide();
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
@@ -217,21 +222,33 @@ public class setting extends AppCompatActivity {
         setstatus = findViewById(R.id.settingstatus);
         donebut = findViewById(R.id.donebutt);
         logoutBtn = findViewById(R.id.logoutBtn);
+        displayText = findViewById(R.id.displayName);
+        Add = findViewById(R.id.Add);
+        myAmp = findViewById(R.id.myAmp);
+        ampCount = findViewById(R.id.ampCount);
+        Email = findViewById(R.id.Email);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Saving...");
         progressDialog.setCancelable(false);
 
+
+
+
         DatabaseReference reference = database.getReference().child("user").child(auth.getUid());
-        StorageReference storageReference = storage.getReference().child("upload").child(auth.getUid());
-        reference.addValueEventListener(new ValueEventListener() {
+        StorageReference storageReference = storage.getReference().child("upload").child(auth.getUid());reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 email = snapshot.child("mail").getValue().toString();
+
                 String name = snapshot.child("userName").getValue().toString();
+                oldname = name;
+
                 String profile = snapshot.child("profilepic").getValue().toString();
                 String status = snapshot.child("status").getValue().toString();
+                Email.setText(email);
                 setname.setText(name);
+                displayText.setText(name);
                 setstatus.setText(status);
                 Picasso.get().load(profile).into(setprofile);
             }
@@ -239,6 +256,37 @@ public class setting extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        DatabaseReference amplifierRef = FirebaseDatabase.getInstance().getReference().child("Service").child("AMPLIZONE").child("Amplifier");
+
+        amplifierRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int count = 0;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (snapshot.hasChild("by") && snapshot.child("by").getValue(String.class).equals(oldname)) {
+                        count++;
+                    }
+                }
+                // Now count holds the number of children with "by" as "Venom"
+                String countString = String.valueOf(count);
+
+                // Set the count as text in the ampCount TextView
+                ampCount.setText(countString);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle error
+            }
+        });
+
+        myAmp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(setting.this, MyAmp.class));
             }
         });
 
@@ -270,6 +318,14 @@ public class setting extends AppCompatActivity {
             }
         });
 
+        Add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(setting.this, AddAmp.class));
+                finish();
+            }
+        });
+
         setprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -280,13 +336,40 @@ public class setting extends AppCompatActivity {
             }
         });
 
+
+
         donebut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 progressDialog.show();
 
+
+
+
                 String name = setname.getText().toString();
                 String Status = setstatus.getText().toString();
+
+                DatabaseReference amplifierRef = FirebaseDatabase.getInstance().getReference().child("Service").child("AMPLIZONE").child("Amplifier");
+                amplifierRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ampSnapshot : dataSnapshot.getChildren()) {
+                            String byValue = ampSnapshot.child("by").getValue(String.class);
+                            if (byValue.equals(oldname)) {
+                                // Update the "by" value to the new username
+                                ampSnapshot.getRef().child("by").setValue(name);
+                            }
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Handle error
+                    }
+
+                });
                 if (setImageUri!=null){
                     storageReference.putFile(setImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -300,6 +383,7 @@ public class setting extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()){
+
                                                 progressDialog.dismiss();
                                                 Toast.makeText(setting.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
                                                 onBackPressed();
@@ -314,6 +398,10 @@ public class setting extends AppCompatActivity {
                             });
                         }
                     });
+
+
+
+
                 }else {
                     storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
@@ -357,6 +445,7 @@ public class setting extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // Call finish() to close the current activity and return to the previous activity
+        super.onBackPressed();
         finish();
     }
 }

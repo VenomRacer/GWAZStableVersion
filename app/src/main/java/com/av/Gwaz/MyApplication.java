@@ -11,6 +11,9 @@ public class MyApplication extends Application {
         super.onCreate();
 
         // Enable offline persistence
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(false);
+
+
+
     }
 }

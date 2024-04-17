@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -15,70 +16,91 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AVMessenger"
         tools:targetApi="31">
-
+        <activity
+            android:name=".homepage.AMPLIZ.RateAndComment"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".homepage.AMPLIZ.MyAmp.MyAmp"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.AMPLIZ.AllSettings.AllEdit3"
             android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.AMPLIZ.AllSettings.AllEdit4"
             android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.AMPLIZ.AllSettings.AllEdit2"
             android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.AMPLIZ.AllSettings.AllEdit"
             android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.AMPLIZ.AllSettings.EffectsView"
             android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.AMPLIZ.AllSettings.SettingsView"
             android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.AMPLIZ.Add.AmpView"
             android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.AMPLIZ.Add.FinalizeAmp"
             android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.AMPLIZ.Add.GuitarEffects"
             android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.AMPLIZ.Add.additionalKnobs"
             android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
-
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.AMPLIZ.Add.AddAmp"
             android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.AMPLIZ.PopularSettings.PopularSettings"
             android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.AMPLIZ.Genre.GenreSelection"
             android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
-
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.AMPLIZ.AllSettings.AllSettings"
             android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.TUNER.TunerTrainer"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.GWIZ.Parts.Body"
             android:exported="false"
@@ -122,7 +144,7 @@
             android:name=".homepage.AMPLIZ.MainSelect"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.GWIZ.MainactGwiz"
             android:exported="false"
@@ -140,7 +162,8 @@
         <activity
             android:name=".chat.setting"
             android:exported="false"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

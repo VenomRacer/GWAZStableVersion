@@ -36,10 +36,11 @@
             android:src="@drawable/ylogo"/>
 
         <ImageView
+            android:id="@+id/chatBtn"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:src="@drawable/baseline_circle_notifications_24"/>
+            android:src="@drawable/chatchat"/>
 
     </LinearLayout>
 

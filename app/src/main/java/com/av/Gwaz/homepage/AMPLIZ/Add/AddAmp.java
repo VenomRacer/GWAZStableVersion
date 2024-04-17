@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.akaita.android.circularseekbar.CircularSeekBar;
 import com.av.Gwaz.R;
+import com.av.Gwaz.chat.setting;
 
 import java.text.DecimalFormat;
 
@@ -95,6 +96,7 @@ public class AddAmp extends AppCompatActivity {
                 // Start the next activity
                 vibrate();
                 startActivity(intent);
+                finish();
 
             }
         });https://firebasestorage.googleapis.com/v0/b/messengerclone-5d6db.appspot.com/o/gwazPic%2FAMPLIZONE%2FAmplifier%2Famp%2Famp.mp3?alt=media&token=1d9c7892-1bd0-4f96-8af6-bf1b28283705
@@ -274,5 +276,12 @@ public class AddAmp extends AppCompatActivity {
         } else {
             vibrator.vibrate(100);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AddAmp.this, setting.class));
+        super.onBackPressed();
+        finish();
     }
 }

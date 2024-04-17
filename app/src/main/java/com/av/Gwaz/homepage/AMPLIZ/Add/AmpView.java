@@ -10,14 +10,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.av.Gwaz.R;
 import com.av.Gwaz.homepage.AMPLIZ.AllSettings.EffectsView;
 import com.av.Gwaz.homepage.AMPLIZ.AllSettings.SettingsView;
+import com.av.Gwaz.homepage.AMPLIZ.RateAndComment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -33,6 +45,9 @@ public class AmpView extends AppCompatActivity {
     private Handler handler;
     private ProgressDialog progressDialog;
     private Button viewamp, vieweffects;
+    private RatingBar ratingBar;
+    private String userName;
+    private LinearLayout ratingLayout;
 
 
 
@@ -59,6 +74,8 @@ public class AmpView extends AppCompatActivity {
         seekBar = findViewById(R.id.seekBar);
         viewamp = findViewById(R.id.viewamp);
         vieweffects = findViewById(R.id.vieweffects);
+        ratingBar = findViewById(R.id.ratingBar);
+        ratingLayout = findViewById(R.id.ratingLayout);
 
         //retrieve main info
         String setName = getIntent().getStringExtra("setName");
@@ -68,6 +85,11 @@ public class AmpView extends AppCompatActivity {
         String desc = getIntent().getStringExtra("description");
         String img = getIntent().getStringExtra("imageUrl");
         String aud = getIntent().getStringExtra("audioUrl");
+        String key = getIntent().getStringExtra("key");
+
+        // Setting rating progress
+        float rating = getIntent().getFloatExtra("rating", 0.0f); // Default value 0.0f if key "rating" is not found
+        ratingBar.setRating(rating);
 
         //retrieve knobs 9
         String bass = getIntent().getStringExtra("bass");
@@ -92,6 +114,44 @@ public class AmpView extends AppCompatActivity {
         String reverb1 = getIntent().getStringExtra("reverb1");
         String tremolo = getIntent().getStringExtra("tremolo");
         String wah = getIntent().getStringExtra("wah");
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String uid = currentUser.getUid();
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        userName = dataSnapshot.child("userName").getValue(String.class);
+                        if (!by.equals(userName)) {
+                            ratingBar.setVisibility(View.VISIBLE);
+                        } else {
+                            ratingBar.setVisibility(View.GONE);
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Display the creatorString as a toast message
+                    Toast.makeText(getApplicationContext(), "Errors retrieving username.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+        ratingLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the next activity and pass the changed progress
+                Intent intent = new Intent(AmpView.this, RateAndComment.class);
+                intent.putExtra("key", key);
+                startActivity(intent);
+            }
+        });
+
+
 
         viewamp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,7 +197,12 @@ public class AmpView extends AppCompatActivity {
         //placing values
         ampName.setText(setName);
         genreName.setText(genre);
+
         userN.setText(by);
+
+
+
+
         ampUsed.setText(amp);
         description.setText(desc);
         Picasso.get().load(img).into(image);

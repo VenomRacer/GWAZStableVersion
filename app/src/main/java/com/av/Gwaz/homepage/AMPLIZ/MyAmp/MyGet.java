@@ -1,11 +1,8 @@
-package com.av.Gwaz.homepage.AMPLIZ.AllSettings;
+package com.av.Gwaz.homepage.AMPLIZ.MyAmp;
 
-public class AllGet {
+public class MyGet {
 
     private String setName,by,imageUrl,audioUrl, ampUsed,description,genre,key;
-    private Float rating;
-
-
 
     public String getSetName() {
         return setName;
@@ -37,9 +34,5 @@ public class AllGet {
 
     public String getKey() {
         return key;
-    }
-
-    public Float getRating() {
-        return rating;
     }
 }

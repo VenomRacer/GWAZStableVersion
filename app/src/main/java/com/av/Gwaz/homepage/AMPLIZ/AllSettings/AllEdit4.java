@@ -35,6 +35,8 @@ import com.av.Gwaz.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -68,6 +70,7 @@ public class AllEdit4 extends AppCompatActivity {
     // Declare img and aud variables
     private String img;
     private String aud;
+    private String userName;
 
     private boolean overdrive,distortion,fuzz,delay,reverb1,chorus,flanger,phaser,tremolo,wah,compressor;
 
@@ -143,6 +146,22 @@ public class AllEdit4 extends AppCompatActivity {
         setNamee.setText(setName);
         ampUsede.setText(amp);
         descriptione.setText(desc);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String currentUserId = currentUser.getUid();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("user").child(currentUserId);
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userName = snapshot.child("userName").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
         addImg.setOnClickListener(new View.OnClickListener() {
@@ -239,7 +258,7 @@ public class AllEdit4 extends AppCompatActivity {
                             ampData.put("ampUsed", ampUsedValue);
                             ampData.put("description", descriptionValue);
                             ampData.put("genre", genreValue);
-                            ampData.put("by", "GWAZ");
+                            ampData.put("by", userName);
                             ampData.put("imageUrl", img);
                             ampData.put("audioUrl", aud);
                             ampData.put("key", key);

@@ -29,7 +29,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.av.Gwaz.R;
+import com.av.Gwaz.chat.setting;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,7 +61,7 @@ public class FinalizeAmp extends AppCompatActivity {
     private Uri audioUri, imageUrl;
     private TextView audioTitle;
     private Spinner genreSpinner;
-    private String treble,gain,bass,drive,mid,presence,reverb2,tone,gainstage;
+    private String treble,gain,bass,drive,mid,presence,reverb2,tone,gainstage,userName;
     private boolean overdrive,distortion,fuzz,delay,reverb1,chorus,flanger,phaser,tremolo,wah,compressor;
 
     // Firebase Database reference
@@ -96,6 +99,30 @@ public class FinalizeAmp extends AppCompatActivity {
         Spinner spinner = findViewById(R.id.genreSpinner);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+
+        //getting username
+        // Assuming you have Firebase authentication set up and the user is logged in
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String uid = currentUser.getUid();
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("user").child(uid);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                         userName = dataSnapshot.child("userName").getValue(String.class);
+                        // Now you have the username
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Display the creatorString as a toast message
+                    Toast.makeText(getApplicationContext(), "Errors retrieving username.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
 
 
@@ -244,7 +271,7 @@ public class FinalizeAmp extends AppCompatActivity {
                     ampData.put("ampUsed", ampUsedValue);
                     ampData.put("description", descriptionValue);
                     ampData.put("genre", genreValue);
-                    ampData.put("by", "GWAZ");
+                    ampData.put("by", userName);
                     ampData.put("key", "Key"+setNameValue);
 
                     // Create a HashMap to hold the data
@@ -308,11 +335,9 @@ public class FinalizeAmp extends AppCompatActivity {
                                                                     imageStorageRef.getDownloadUrl().addOnSuccessListener(uri -> {
                                                                         finalMainRef.child("imageUrl").setValue(uri.toString());
                                                                         progressDialog.dismiss();
-                                                                        Toast.makeText(FinalizeAmp.this, "Data saved successfully", Toast.LENGTH_SHORT).show();
-                                                                        // Clear input fields after successful save
-                                                                        setName.setText("");
-                                                                        ampUsed.setText("");
-                                                                        description.setText("");
+                                                                        startActivity(new Intent(FinalizeAmp.this, setting.class));
+                                                                        finish();
+
                                                                     });
                                                                 })
                                                                 .addOnFailureListener(e -> {
@@ -395,11 +420,6 @@ public class FinalizeAmp extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        vibrate(); // Vibrate for 200 milliseconds when back button is pressed
-    }
 
     private void playAudio(Uri audioUri) {
         try {
@@ -473,6 +493,14 @@ public class FinalizeAmp extends AppCompatActivity {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(FinalizeAmp.this, setting.class));
+        vibrate();
+        super.onBackPressed();
+        finish();
     }
 
 

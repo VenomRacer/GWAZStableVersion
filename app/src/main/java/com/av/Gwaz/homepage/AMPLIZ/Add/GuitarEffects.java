@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.av.Gwaz.R;
+import com.av.Gwaz.chat.setting;
 
 public class GuitarEffects extends AppCompatActivity {
 
@@ -89,10 +90,18 @@ public class GuitarEffects extends AppCompatActivity {
                 Intent nextIntent = new Intent(GuitarEffects.this, FinalizeAmp.class);
                 nextIntent.putExtras(bundle);
                 startActivity(nextIntent);
+                finish();
             }
         });
 
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(GuitarEffects.this, setting.class));
+        super.onBackPressed();
+        finish();
     }
 }
