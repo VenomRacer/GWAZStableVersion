@@ -1,4 +1,4 @@
-    package com.av.Gwaz.homepage.AMPLIZ;
+    package com.av.Gwaz.homepage.AMPLIZ.Comments;
 
     import android.os.Bundle;
     import android.view.View;
@@ -83,6 +83,7 @@
                     commentRef.child("comment").setValue(commentText);
                     commentRef.child("rating").setValue(ratingValue);
                     commentRef.child("user").setValue(userName);
+                    commentRef.child("profilePic").setValue(dp);
 
                     // Calculate the average rating and store it in Amplifiers node
                     calculateAndStoreAverageRating(key);

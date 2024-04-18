@@ -22,7 +22,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.av.Gwaz.R;
 import com.av.Gwaz.homepage.AMPLIZ.AllSettings.EffectsView;
 import com.av.Gwaz.homepage.AMPLIZ.AllSettings.SettingsView;
-import com.av.Gwaz.homepage.AMPLIZ.RateAndComment;
+import com.av.Gwaz.homepage.AMPLIZ.Comments.RateAndComment;
+import com.av.Gwaz.homepage.AMPLIZ.Comments.Reviews;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,7 +45,7 @@ public class AmpView extends AppCompatActivity {
     private SeekBar seekBar;
     private Handler handler;
     private ProgressDialog progressDialog;
-    private Button viewamp, vieweffects;
+    private Button viewamp, vieweffects, reviews;
     private RatingBar ratingBar;
     private String userName;
     private LinearLayout ratingLayout;
@@ -76,6 +77,7 @@ public class AmpView extends AppCompatActivity {
         vieweffects = findViewById(R.id.vieweffects);
         ratingBar = findViewById(R.id.ratingBar);
         ratingLayout = findViewById(R.id.ratingLayout);
+        reviews = findViewById(R.id.reviews);
 
         //retrieve main info
         String setName = getIntent().getStringExtra("setName");
@@ -229,6 +231,16 @@ public class AmpView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 pauseAudio();
+            }
+        });
+
+        reviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (AmpView.this, Reviews.class);
+                intent.putExtra("key", key);
+                startActivity(intent);
+
             }
         });
     }

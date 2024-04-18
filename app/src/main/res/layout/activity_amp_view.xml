@@ -264,6 +264,16 @@
 
                 </androidx.cardview.widget.CardView>
 
+                <Button
+                    android:id="@+id/reviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/gold"
+                    android:fontFamily="@font/poppins_bold"
+                    android:elevation="10dp"
+                    android:text="See Reviews !" />
+
 
 
 
