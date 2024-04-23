@@ -1,18 +1,16 @@
-
-
 package com.av.Gwaz.chat;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.av.Gwaz.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,7 +32,7 @@ public class chatwindo extends AppCompatActivity {
     String reciverimg, reciverUid,reciverName,SenderUID;
     CircleImageView profile;
     TextView reciverNName;
-    FirebaseDatabase database;
+    FirebaseDatabase database,saveown,savereceiver;
     FirebaseAuth firebaseAuth;
     public  static String senderImg;
     public  static String reciverIImg;
@@ -49,8 +47,10 @@ public class chatwindo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatwindo);
-        getSupportActionBar().hide();
+
         database = FirebaseDatabase.getInstance();
+        saveown = FirebaseDatabase.getInstance();
+        savereceiver = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
         reciverName = getIntent().getStringExtra("nameeee");
@@ -142,8 +142,36 @@ public class chatwindo extends AppCompatActivity {
 
                                             }
                                         });
+
+                                saveown = FirebaseDatabase.getInstance();
+                                saveown.getReference().child("user")
+                                        .child(SenderUID)
+                                        .child("userCommunicated")
+                                        .child(reciverUid)
+                                        .child("time").setValue(date.getTime()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+
+                                            }
+                                        });
+
+                                savereceiver = FirebaseDatabase.getInstance();
+                                savereceiver.getReference().child("user")
+                                        .child(reciverUid)
+                                        .child("userCommunicated")
+                                        .child(SenderUID)
+                                        .child("time").setValue(date.getTime()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+
+                                            }
+                                        });
                             }
                         });
+
+
+
+
             }
         });
 

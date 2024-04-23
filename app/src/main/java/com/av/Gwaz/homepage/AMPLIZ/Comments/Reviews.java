@@ -1,6 +1,7 @@
 package com.av.Gwaz.homepage.AMPLIZ.Comments;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,11 +23,16 @@ public class Reviews extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RevAdapter adapter;
     private List<RegGet> reviewList;
+    private TextView ampName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reviews);
+
+        ampName = findViewById(R.id.ampName);
+
+
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -36,6 +42,9 @@ public class Reviews extends AppCompatActivity {
 
         // Retrieve the key passed from the previous activity
         String key = getIntent().getStringExtra("key");
+        String setName = getIntent().getStringExtra("setName");
+
+        ampName.setText(setName);
 
         // Reference to the Firebase database path based on the key
         DatabaseReference commentsRef = FirebaseDatabase.getInstance()

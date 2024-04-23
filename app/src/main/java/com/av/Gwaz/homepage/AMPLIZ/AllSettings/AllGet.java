@@ -2,7 +2,7 @@ package com.av.Gwaz.homepage.AMPLIZ.AllSettings;
 
 public class AllGet {
 
-    private String setName,by,imageUrl,audioUrl, ampUsed,description,genre,key;
+    private String setName,by,imageUrl,audioUrl, ampUsed,description,genre,key,uid,profilePic;
     private Float rating;
 
 
@@ -41,5 +41,13 @@ public class AllGet {
 
     public Float getRating() {
         return rating;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
     }
 }

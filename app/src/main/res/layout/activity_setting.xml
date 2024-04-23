@@ -48,7 +48,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sample Username"
+                        android:text=""
                         android:textColor="#fff"
                         android:textStyle="bold"
                         android:textSize="21sp"/>
@@ -150,7 +150,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:paddingLeft="2dp"
-                        android:text="sample"/>
+                        android:text=""/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_marginTop="25dp"
@@ -171,7 +171,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:textSize="14dp"
-                        android:text="sample"/>
+                        android:text=""/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_marginTop="25dp"
@@ -192,7 +192,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:textSize="14dp"
-                        android:text="sample"/>
+                        android:text=""/>
                 </LinearLayout>
 
 

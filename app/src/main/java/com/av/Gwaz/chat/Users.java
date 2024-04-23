@@ -3,6 +3,7 @@ package com.av.Gwaz.chat;
 public class Users {
     String profilepic,mail,userName,userId,lastMessage,status;
 
+
     public Users() {
         // Required empty constructor for Firebase
     }

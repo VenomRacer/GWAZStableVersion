@@ -147,6 +147,7 @@
                     android:layout_height="@dimen/_45sdp"
                     android:backgroundTint="@color/black"
                     android:text="Login"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp"
                     android:textStyle="bold"
                     android:layout_marginEnd="8dp" />
@@ -156,6 +157,7 @@
                     android:layout_width="@dimen/_250sdp"
                     android:layout_height="@dimen/_45sdp"
                     android:backgroundTint="@color/darkr"
+                    android:textColor="@color/white"
                     android:text="Forgot Pass ?"
                     android:textSize="@dimen/_20sdp"
                     android:textStyle="bold" />
@@ -166,14 +168,13 @@
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="152dp"
+        android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:gravity="center"
         android:text="Need an account?"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.536"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.954" />
@@ -181,7 +182,7 @@
 
     <TextView
         android:id="@+id/logsignup"
-        android:layout_width="@dimen/_124sdp"
+        android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:gravity="center"
         android:text="SIGN UP!"

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.av.Gwaz.R;
+import com.av.Gwaz.chat.MessageWindow;
 import com.av.Gwaz.chat.setting;
 import com.av.Gwaz.homepage.AMPLIZ.AllSettings.AllSettings;
 import com.av.Gwaz.homepage.CHORDM.MainactChordm;
@@ -17,7 +18,7 @@ import com.av.Gwaz.homepage.TUNER.TunerTrainer;
 
 public class home extends AppCompatActivity {
 
-    ImageView gwiz, amplizone,  chordmaster, tuner, profileBtn;
+    ImageView gwiz, amplizone,  chordmaster, tuner, profileBtn,chatBtn;
     MediaPlayer sound1, sound2, sound3;
 
     @Override
@@ -30,6 +31,7 @@ public class home extends AppCompatActivity {
         chordmaster = findViewById(R.id.chordmaster);
         tuner = findViewById(R.id.tuner);
         profileBtn = findViewById(R.id.profileBtn);
+        chatBtn = findViewById(R.id.chatBtn);
 
         // Initialize MediaPlayer with the sound file
         sound1 = MediaPlayer.create(this, R.raw.strum);
@@ -73,6 +75,14 @@ public class home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(home.this, setting.class));
+
+            }
+        });
+
+        chatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(home.this, MessageWindow.class));
             }
         });
     }

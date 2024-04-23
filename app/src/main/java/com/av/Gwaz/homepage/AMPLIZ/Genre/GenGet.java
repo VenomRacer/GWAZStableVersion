@@ -1,6 +1,6 @@
-package com.av.Gwaz.homepage.AMPLIZ.MyAmp;
+package com.av.Gwaz.homepage.AMPLIZ.Genre;
 
-public class MyGet {
+public class GenGet {
 
     private String setName,by,imageUrl,audioUrl, ampUsed,description,genre,key;
     private Float rating;

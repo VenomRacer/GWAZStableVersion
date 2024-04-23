@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class  login extends AppCompatActivity {
     TextView logsignup;
@@ -41,7 +42,7 @@ public class  login extends AppCompatActivity {
         progressDialog.setMessage("Preparing Your Gear, Stay Amped!");
         progressDialog.setCancelable(false);
 
-        getSupportActionBar().hide();
+
         auth = FirebaseAuth.getInstance();
         login = findViewById(R.id.logbutton);
         forgotPass = findViewById(R.id.forgotPass);
@@ -49,9 +50,11 @@ public class  login extends AppCompatActivity {
         password = findViewById(R.id.editTextLogPassword);
         logsignup = findViewById(R.id.logsignup);
 
-        // Check if user is already logged in
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            // User is already logged in, redirect to home activity
+        // Check if user is already logged in and email is verified
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null && currentUser.isEmailVerified()) {
+            // User is already logged in and email is verified, redirect to home activity
             startActivity(new Intent(this, home.class));
             finish(); // Finish the current activity to prevent user from coming back to login screen using back button
         }
@@ -61,7 +64,7 @@ public class  login extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(login.this,registration.class);
                 startActivity(intent);
-                finish();
+
             }
         });
 
@@ -113,9 +116,11 @@ public class  login extends AppCompatActivity {
 
                                 else {
                                     Toast.makeText(login.this, "Failed to Login. Verify Your Account First.",Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
                                 }
                             }else {
                                 Toast.makeText(login.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
                             }
                         }
                     });

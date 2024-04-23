@@ -30,7 +30,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp">
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
@@ -41,68 +43,102 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="5dp"
                         android:layout_marginEnd="10dp"
                         android:orientation="horizontal">
 
                         <!-- Box 1 -->
                         <ImageView
-                            android:id="@+id/imageView1"
+                            android:id="@+id/rock"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
                             android:layout_margin="5dp"
                             android:background="@drawable/roundcorner"
                             android:clipToOutline="true"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/rock" />
+                            android:src="@drawable/rock2" />
 
                         <ImageView
-                            android:id="@+id/imageView2"
+                            android:id="@+id/funk"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
                             android:layout_margin="5dp"
                             android:background="@drawable/roundcorner"
                             android:clipToOutline="true"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/pop" />
+                            android:src="@drawable/reggae2" />
 
                         <ImageView
+                            android:id="@+id/pop"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
                             android:layout_margin="5dp"
                             android:background="@drawable/roundcorner"
                             android:clipToOutline="true"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/pop" />
+                            android:src="@drawable/pop2" />
 
                         <ImageView
+                            android:id="@+id/metal"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
                             android:layout_margin="5dp"
                             android:background="@drawable/roundcorner"
                             android:clipToOutline="true"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/pop" />
+                            android:src="@drawable/metal2" />
 
                         <ImageView
+                            android:id="@+id/jazz"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
                             android:layout_margin="5dp"
                             android:background="@drawable/roundcorner"
                             android:clipToOutline="true"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/pop" />
+                            android:src="@drawable/jazz2" />
 
                         <ImageView
+                            android:id="@+id/reggae"
                             android:layout_width="55dp"
                             android:layout_height="55dp"
                             android:layout_margin="5dp"
                             android:background="@drawable/roundcorner"
                             android:clipToOutline="true"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/pop" />
+                            android:src="@drawable/funk2" />
+
+                        <ImageView
+                            android:id="@+id/country"
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/roundcorner"
+                            android:clipToOutline="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/country2" />
+
+                        <ImageView
+                            android:id="@+id/clean"
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/roundcorner"
+                            android:clipToOutline="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/clean2" />
+
+                        <ImageView
+                            android:id="@+id/blues"
+                            android:layout_width="57dp"
+                            android:layout_height="55dp"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/roundcorner"
+                            android:clipToOutline="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/blues2" />
 
                     </LinearLayout>
 

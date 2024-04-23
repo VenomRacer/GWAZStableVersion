@@ -77,6 +77,7 @@ public class registration extends AppCompatActivity {
         rg_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.show();
                 String namee = rg_username.getText().toString();
                 String emaill = rg_email.getText().toString();
                 String Password = rg_password.getText().toString();
@@ -128,9 +129,9 @@ public class registration extends AppCompatActivity {
                                                                                     }
                                                                                 }
                                                                             });
-                                                                    Intent intent = new Intent(registration.this, login.class);
-                                                                    startActivity(intent);
-                                                                    finish();
+                                                                    progressDialog.dismiss();
+                                                                    onBackPressed();
+
                                                                 } else {
                                                                     Toast.makeText(registration.this, "Error in creating the user", Toast.LENGTH_SHORT).show();
                                                                 }
@@ -162,9 +163,9 @@ public class registration extends AppCompatActivity {
                                                                 }
                                                             }
                                                         });
-                                                Intent intent = new Intent(registration.this, login.class);
-                                                startActivity(intent);
-                                                finish();
+                                                progressDialog.dismiss();
+                                                onBackPressed();
+
                                             } else {
                                                 Toast.makeText(registration.this, "Error in creating the user", Toast.LENGTH_SHORT).show();
                                             }
@@ -198,8 +199,6 @@ public class registration extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(registration.this, login.class);
-        startActivity(intent);
         finish();
     }
 

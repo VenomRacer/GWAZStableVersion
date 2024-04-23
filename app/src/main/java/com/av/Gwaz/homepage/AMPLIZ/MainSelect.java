@@ -10,7 +10,6 @@ import androidx.cardview.widget.CardView;
 
 import com.av.Gwaz.R;
 import com.av.Gwaz.homepage.AMPLIZ.AllSettings.AllSettings;
-import com.av.Gwaz.homepage.AMPLIZ.Genre.GenreSelection;
 import com.av.Gwaz.homepage.AMPLIZ.PopularSettings.PopularSettings;
 
 public class MainSelect extends AppCompatActivity {
@@ -30,12 +29,7 @@ public class MainSelect extends AppCompatActivity {
         all = findViewById(R.id.all);
 
 
-        genre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainSelect.this, GenreSelection.class));
-            }
-        });
+
 
         pop.setOnClickListener(new View.OnClickListener() {
             @Override

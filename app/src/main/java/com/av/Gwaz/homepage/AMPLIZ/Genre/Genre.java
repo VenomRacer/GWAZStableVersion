@@ -1,4 +1,4 @@
-package com.av.Gwaz.homepage.AMPLIZ.MyAmp;
+package com.av.Gwaz.homepage.AMPLIZ.Genre;
 
 import static android.content.ContentValues.TAG;
 
@@ -11,19 +11,17 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
-import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.av.Gwaz.R;
 import com.av.Gwaz.homepage.AMPLIZ.Add.AmpView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,131 +35,92 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MyAmp extends AppCompatActivity implements MyAmpAdapter.OnItemClickListener {
+public class Genre extends AppCompatActivity implements GenAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
-    private List<MyGet> myList;
-    private MyAmpAdapter adapter;
+    private List<GenGet> genList;
+    private GenAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ImageView Add;
+    private String genre;
     private Vibrator vibrator;
-    private String userName;
-    private MyAmpAdapter.OnItemClickListener listener;
+    private GenAdapter.OnItemClickListener listener;
     private ProgressDialog progressDialog; // Declare progressDialog here
+    private TextView genreName;
     String bass,drive,gain,gainstage,mid,presence,reverb,tone,treble,
             chorus,compressor,delay,distortion,flanger,fuzz,overdrive,phaser,reverb1,tremolo,wah;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_amp);
+        setContentView(R.layout.activity_genre);
 
+
+        genreName = findViewById(R.id.genreName);
+        genre = getIntent().getStringExtra("Genre");
+
+        genreName.setText(genre);
+        //Initialization
+        //Add = findViewById(R.id.Add);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        // Initialize the listener
-        listener = this;
 
+        listener = this;
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Service").child("AMPLIZONE").child("Amplifier");
         storageReference = FirebaseStorage.getInstance().getReference().child("gwazPic").child("AMPLIZONE").child("Amplifier");
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String currentUserId = currentUser.getUid();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("user").child(currentUserId);
 
-        recyclerView = findViewById(R.id.rvt2);
-
+        recyclerView = findViewById(R.id.rvt3);
+        int numberOfColumns = 2;
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
-        // Set up LinearLayoutManager
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-
-        myList = new ArrayList<>();
-        adapter = new MyAmpAdapter(myList, databaseReference, storageReference, listener);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
+        genList = new ArrayList<>();
+        adapter = new GenAdapter(genList, databaseReference, storageReference, listener);
         recyclerView.setAdapter(adapter);
-        //proper placement
-
-
-
-
-
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                userName = snapshot.child("userName").getValue().toString();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
+        fetchData();
 
         // Set up refresh listener
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // Fetch data again when swipe gesture is performed
-                fetchDataAndPopulateRecyclerView();
+                fetchData();
             }
         });
-
-        fetchDataAndPopulateRecyclerView();
-
-
     }
 
-    private void fetchDataAndPopulateRecyclerView() {
+    private void fetchData() {
         // Check for internet connectivity
         if (isConnected()) {
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Loading...");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-
-            ValueEventListener userListener = new ValueEventListener() {
+            ValueEventListener ampListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Query query = databaseReference.orderByChild("by").equalTo(userName);
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            myList.clear();
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                MyGet myGet = snapshot.getValue(MyGet.class);
-                                myList.add(myGet);
-                            }
-                            Collections.reverse(myList);
-                            adapter.notifyDataSetChanged();
-                            progressDialog.dismiss();
-                            swipeRefreshLayout.setRefreshing(false);
+                    genList.clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        GenGet genGet = snapshot.getValue(GenGet.class);
+                        // Check if the item's genre is "Pop"
+                        if (genGet != null && genGet.getGenre().equals(genre)) {
+                            genList.add(genGet);
                         }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Log.e(TAG, "Error fetching data: " + databaseError.getMessage());
-                            progressDialog.dismiss();
-                        }
-                    });
+                    }
+                    Collections.reverse(genList);
+                    adapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.e(TAG, "Error fetching user data: " + databaseError.getMessage());
-                    progressDialog.dismiss();
+                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
                 }
             };
 
-            // Assuming your database reference is pointing to the root of the database
-            databaseReference.addListenerForSingleValueEvent(userListener);
+            databaseReference.addListenerForSingleValueEvent(ampListener);
         } else {
             // Display a message to the user indicating the lack of internet connectivity
+            // You can show a Snackbar, Toast, or any other UI element here
+            // For example:
             Toast.makeText(this, "No internet connection. Please check your connection and try again.", Toast.LENGTH_SHORT).show();
-            // Dismiss swipeRefreshLayout if it's refreshing
-            swipeRefreshLayout.setRefreshing(false);
         }
     }
 
@@ -175,7 +134,7 @@ public class MyAmp extends AppCompatActivity implements MyAmpAdapter.OnItemClick
     }
 
     @Override
-    public void onItemClick(MyGet item) {
+    public void onItemClick(GenGet item) {
 
 
         if (progressDialog == null) {
@@ -232,7 +191,7 @@ public class MyAmp extends AppCompatActivity implements MyAmpAdapter.OnItemClick
                                         // You can retrieve other effects similarly
 
                                         // Start the AmpView activity with the retrieved data
-                                        Intent intent = new Intent(MyAmp.this, AmpView.class);
+                                        Intent intent = new Intent(Genre.this, AmpView.class);
                                         intent.putExtra("setName", item.getSetName());
                                         intent.putExtra("by", item.getBy());
                                         intent.putExtra("imageUrl", item.getImageUrl());

@@ -14,12 +14,13 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.av.Gwaz.R;
+import com.av.Gwaz.chat.chatwindo;
 import com.av.Gwaz.homepage.AMPLIZ.AllSettings.EffectsView;
 import com.av.Gwaz.homepage.AMPLIZ.AllSettings.SettingsView;
 import com.av.Gwaz.homepage.AMPLIZ.Comments.RateAndComment;
@@ -37,7 +38,7 @@ import java.io.IOException;
 
 public class AmpView extends AppCompatActivity {
 
-    private TextView ampName,genreName,userN,ampUsed,description;
+    private TextView ampName,genreName,userN,ampUsed,description, rateTxt;
 
     private ImageView image;
     private ImageButton playButton, pauseButton;
@@ -49,6 +50,7 @@ public class AmpView extends AppCompatActivity {
     private RatingBar ratingBar;
     private String userName;
     private LinearLayout ratingLayout;
+    private CardView sendMessage;
 
 
 
@@ -78,11 +80,15 @@ public class AmpView extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         ratingLayout = findViewById(R.id.ratingLayout);
         reviews = findViewById(R.id.reviews);
+        rateTxt = findViewById(R.id.rateTxt);
+        sendMessage = findViewById(R.id.sendMessage);
 
         //retrieve main info
         String setName = getIntent().getStringExtra("setName");
         String genre = getIntent().getStringExtra("genre");
         String by = getIntent().getStringExtra("by");
+        String userId = getIntent().getStringExtra("uid");
+        String profilePic = getIntent().getStringExtra("profilePic");
         String amp = getIntent().getStringExtra("ampUsed");
         String desc = getIntent().getStringExtra("description");
         String img = getIntent().getStringExtra("imageUrl");
@@ -126,19 +132,32 @@ public class AmpView extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         userName = dataSnapshot.child("userName").getValue(String.class);
-                        if (!by.equals(userName)) {
-                            ratingBar.setVisibility(View.VISIBLE);
+                        String realname = userName; // Move this assignment here
+                        if (!by.equals("GWAZ") && !by.equals(realname)) {
+                            sendMessage.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    ratingBar.setVisibility(View.VISIBLE);
+                                    rateTxt.setVisibility(View.VISIBLE);
+
+                                    Intent intent = new Intent(AmpView.this, chatwindo.class);
+                                    intent.putExtra("nameeee", by);
+                                    intent.putExtra("reciverImg", profilePic);
+                                    intent.putExtra("uid", userId);
+                                    startActivity(intent);
+                                }
+                            });
                         } else {
                             ratingBar.setVisibility(View.GONE);
-                        }
+                            rateTxt.setVisibility(View.GONE);
 
+                        }
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // Display the creatorString as a toast message
-                    Toast.makeText(getApplicationContext(), "Errors retrieving username.", Toast.LENGTH_SHORT).show();
+                    // Handle onCancelled
                 }
             });
         }
@@ -239,10 +258,15 @@ public class AmpView extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent (AmpView.this, Reviews.class);
                 intent.putExtra("key", key);
+                intent.putExtra("setName", setName);
                 startActivity(intent);
 
             }
         });
+
+
+
+
     }
 
     private void playAudio() {

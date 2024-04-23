@@ -4,22 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/chatback"
+    android:background="@drawable/patbackg2"
     tools:context=".chat.chatwindo">
+
     <LinearLayout
+        android:id="@+id/ll1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/ll1"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profileimgg"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_80sdp"
+            android:layout_marginTop="@dimen/_7sdp"
             android:src="@drawable/photocamera"
             app:civ_border_color="@color/white"
-            android:layout_marginTop="@dimen/_7sdp"
             app:civ_border_width="@dimen/_2sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,18 +32,19 @@
             android:id="@+id/recivername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ayushvishwakarma"
-            android:gravity="center"
-            android:textColor="@color/white"
+            android:layout_margin="@dimen/_10sdp"
             android:fontFamily="@font/poppins_regular"
-            android:textSize="@dimen/_15sdp"
-            android:layout_margin="@dimen/_10sdp"/>
+            android:gravity="center"
+            android:text="ayushvishwakarma"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15sdp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/msgadpter"
         android:layout_width="match_parent"
         android:layout_height="502dp"
+        android:background="@drawable/patbackg2"
         android:layout_above="@id/ll2"
         android:layout_below="@+id/ll1"
         android:layout_marginTop="7dp"

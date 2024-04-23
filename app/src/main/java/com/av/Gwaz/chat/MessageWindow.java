@@ -1,11 +1,8 @@
 package com.av.Gwaz.chat;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.content.Intent;
+import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -13,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.av.Gwaz.login.login;
 import com.av.Gwaz.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -33,19 +29,29 @@ public class MessageWindow extends AppCompatActivity{
     ArrayList<Users> usersArrayList;
     ImageView imglogout;
     ImageView cumbut,setbut;
+    ProgressDialog progressDialog;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_window);
-        getSupportActionBar().hide();
+
+        // Initialize ProgressDialog
+        progressDialog = new ProgressDialog(MessageWindow.this);
+        progressDialog.setMessage("Loading..."); // Set the message for the ProgressDialog
+        progressDialog.setCancelable(false); // Set whether the ProgressDialog is cancelable
+        progressDialog.show();
+
+
 
         database=FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         cumbut = findViewById(R.id.camBut);
         setbut = findViewById(R.id.settingBut);
         imglogout = findViewById(R.id.logoutimg);
+
+        String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         DatabaseReference reference = database.getReference().child("user");
 
@@ -60,69 +66,34 @@ public class MessageWindow extends AppCompatActivity{
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-               for (DataSnapshot dataSnapshot: snapshot.getChildren())
-               {
-                   Users users = dataSnapshot.getValue(Users.class);
-                   usersArrayList.add(users);
-               }
-               adapter.notifyDataSetChanged();
+                usersArrayList.clear(); // Clear the list before adding users
+                String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                // Get the reference to the current user's userCommunicated node
+                DataSnapshot currentUserCommunicatedSnapshot = snapshot.child(currentUserUid).child("userCommunicated");
+
+                // Loop through all users
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Users user = dataSnapshot.getValue(Users.class);
+                    String USERID = user.getUserId();
+                    // Check if the current user has communicated with this user
+                    DataSnapshot communicatedUserSnapshot = currentUserCommunicatedSnapshot.child(USERID);
+                    if (communicatedUserSnapshot.exists()) {// If the user exists in the userCommunicated node of the current user, add it to the list
+                        usersArrayList.add(user);
+                    }
+                }
+
+                adapter.notifyDataSetChanged();
+                progressDialog.dismiss();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
-
+                // Handle onCancelled event
             }
         });
 
 
-        imglogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Dialog dialog = new Dialog(MessageWindow.this,R.style.dialoge);
-                dialog.setContentView(R.layout.dialog_layout);
-                Button no,yes;
-                yes = dialog.findViewById(R.id.yesbnt);
-                no = dialog.findViewById(R.id.nobnt);
-                yes.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(MessageWindow.this, login.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
-                no.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
-            }
-        });
-
-        setbut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MessageWindow.this, setting.class);
-                startActivity(intent);
-            }
-        });
-
-        cumbut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent,10);
-            }
-        });
-
-        if (auth.getCurrentUser() == null){
-            Intent intent = new Intent(MessageWindow.this,login.class);
-            startActivity(intent);
-        }
 
     }
 }

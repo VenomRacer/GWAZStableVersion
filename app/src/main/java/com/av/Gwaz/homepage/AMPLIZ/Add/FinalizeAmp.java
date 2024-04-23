@@ -61,7 +61,7 @@ public class FinalizeAmp extends AppCompatActivity {
     private Uri audioUri, imageUrl;
     private TextView audioTitle;
     private Spinner genreSpinner;
-    private String treble,gain,bass,drive,mid,presence,reverb2,tone,gainstage,userName;
+    private String treble,gain,bass,drive,mid,presence,reverb2,tone,gainstage,userName,userId,profilepic;
     private boolean overdrive,distortion,fuzz,delay,reverb1,chorus,flanger,phaser,tremolo,wah,compressor;
 
     // Firebase Database reference
@@ -111,6 +111,8 @@ public class FinalizeAmp extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                          userName = dataSnapshot.child("userName").getValue(String.class);
+                         userId = dataSnapshot.child("userId").getValue(String.class);
+                         profilepic = dataSnapshot.child("profilepic").getValue(String.class);
                         // Now you have the username
 
                     }
@@ -272,6 +274,8 @@ public class FinalizeAmp extends AppCompatActivity {
                     ampData.put("description", descriptionValue);
                     ampData.put("genre", genreValue);
                     ampData.put("by", userName);
+                    ampData.put("uid",userId);
+                    ampData.put("profilePic",profilepic);
                     ampData.put("key", "Key"+setNameValue);
 
                     // Create a HashMap to hold the data

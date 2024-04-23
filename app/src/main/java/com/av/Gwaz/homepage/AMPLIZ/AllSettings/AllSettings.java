@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.av.Gwaz.R;
 import com.av.Gwaz.homepage.AMPLIZ.Add.AmpView;
+import com.av.Gwaz.homepage.AMPLIZ.Genre.Genre;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,7 +46,7 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
     private List<AllGet> ampList;
     private AllAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ImageView Add;
+    private ImageView pop,metal,rock,jazz,blues,funk,reggae,country,clean;
     private Vibrator vibrator;
     private AllAdapter.OnItemClickListener listener;
     private ProgressDialog progressDialog; // Declare progressDialog here
@@ -61,10 +63,15 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
         //Initialization
         //Add = findViewById(R.id.Add);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-
-
-
-
+        rock = findViewById(R.id.rock);
+        pop = findViewById(R.id.pop);
+        metal = findViewById(R.id.metal);
+        blues = findViewById(R.id.blues);
+        jazz = findViewById(R.id.jazz);
+        country  = findViewById(R.id.country);
+        clean = findViewById(R.id.clean);
+        funk = findViewById(R.id.funk);
+        reggae = findViewById(R.id.reggae);
 
         // Initialize the listener
         listener = this;
@@ -91,15 +98,97 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
         });
 
 
-        //Add.setOnClickListener(new View.OnClickListener() {
-            //@Override
-            //ublic void onClick(View v) {
+        pop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AllSettings.this, Genre.class);
+                intent.putExtra("Genre", "Pop");
+                startActivity(intent);
 
-                //vibrate();
-                //startActivity(new Intent(AllSettings.this, AddAmp.class));
+            }
+        });
 
-            //}
-        //});
+        metal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AllSettings.this, Genre.class);
+                intent.putExtra("Genre", "Metal");
+                startActivity(intent);
+
+            }
+        });
+
+        rock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AllSettings.this, Genre.class);
+                intent.putExtra("Genre", "Rock");
+                startActivity(intent);
+
+            }
+        });
+
+        blues.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AllSettings.this, Genre.class);
+                intent.putExtra("Genre", "Blues");
+                startActivity(intent);
+
+            }
+        });
+
+        jazz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AllSettings.this, Genre.class);
+                intent.putExtra("Genre", "Jazz");
+                startActivity(intent);
+
+            }
+        });
+
+        country.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AllSettings.this, Genre.class);
+                intent.putExtra("Genre", "Country");
+                startActivity(intent);
+
+            }
+        });
+
+        clean.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AllSettings.this, Genre.class);
+                intent.putExtra("Genre", "Clean");
+                startActivity(intent);
+
+            }
+        });
+
+        funk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AllSettings.this, Genre.class);
+                intent.putExtra("Genre", "Funk");
+                startActivity(intent);
+
+            }
+        });
+
+        reggae.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AllSettings.this, Genre.class);
+                intent.putExtra("Genre", "Reggae");
+                startActivity(intent);
+
+            }
+        });
+
+
     }
 
     private void fetchData() {
@@ -210,6 +299,8 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
                                         intent.putExtra("genre", item.getGenre());
                                         intent.putExtra("key", item.getKey());
                                         intent.putExtra("rating", item.getRating());
+                                        intent.putExtra("uid",item.getUid());
+                                        intent.putExtra("profilePic", item.getProfilePic());
                                         // Pass the retrieved settings and effects data to the intent
 
                                         // knobs
