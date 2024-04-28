@@ -42,6 +42,14 @@
             android:layout_weight="1"
             android:src="@drawable/chatchat"/>
 
+        <ImageView
+            android:id="@+id/chatNotify"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:src="@drawable/chatnotify"
+            android:visibility="gone"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -71,25 +79,25 @@
                     android:id="@+id/gwiz"
                     android:layout_width="match_parent"
                     android:layout_height="600dp"
-                    android:src="@drawable/guitarwiz"/>
+                    android:src="@drawable/maintenance_ic"/>
 
                 <ImageView
                     android:id="@+id/amplizone"
                     android:layout_width="match_parent"
                     android:layout_height="600dp"
-                    android:src="@drawable/ampliz"/>
+                    android:src="@drawable/amplizone_ic"/>
 
                 <ImageView
                     android:id="@+id/chordmaster"
                     android:layout_width="match_parent"
                     android:layout_height="600dp"
-                    android:src="@drawable/chordm"/>
+                    android:src="@drawable/chordm_ic"/>
 
                 <ImageView
                     android:id="@+id/tuner"
                     android:layout_width="match_parent"
                     android:layout_height="600dp"
-                    android:src="@drawable/tuner"/>
+                    android:src="@drawable/tuner_ic"/>
 
 
             </LinearLayout>

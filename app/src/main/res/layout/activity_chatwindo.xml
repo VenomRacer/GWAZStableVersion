@@ -43,12 +43,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/msgadpter"
         android:layout_width="match_parent"
-        android:layout_height="502dp"
+        android:layout_height="match_parent"
         android:background="@drawable/patbackg2"
         android:layout_above="@id/ll2"
         android:layout_below="@+id/ll1"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="-7dp"
         android:padding="@dimen/_10sdp" />
 
     <LinearLayout
@@ -74,9 +72,8 @@
 
             <EditText
                 android:id="@+id/textmsg"
-                android:layout_width="338dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_gravity="center"
                 android:background="@null"
                 android:fontFamily="@font/poppins_regular"

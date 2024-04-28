@@ -53,7 +53,6 @@ public class registration extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Establishing The Account");
         progressDialog.setCancelable(false);
-        getSupportActionBar().hide();
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
         auth = FirebaseAuth.getInstance();

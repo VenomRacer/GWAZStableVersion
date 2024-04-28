@@ -161,7 +161,10 @@ package com.av.Gwaz.chat;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -180,6 +183,7 @@ import com.av.Gwaz.homepage.AMPLIZ.Add.AddAmp;
 import com.av.Gwaz.homepage.AMPLIZ.MyAmp.MyAmp;
 import com.av.Gwaz.login.login;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -231,6 +235,10 @@ public class setting extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Saving...");
         progressDialog.setCancelable(false);
+
+        // Check for network connectivity
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
 
 
@@ -321,8 +329,16 @@ public class setting extends AppCompatActivity {
         Add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(setting.this, AddAmp.class));
-                finish();
+
+                if (networkInfo != null && networkInfo.isConnected()) {
+                    // If there is network connectivity, execute the code
+                    startActivity(new Intent(setting.this, AddAmp.class));
+                    finish();
+                } else {
+                    // If there's no network connectivity, display a toast
+                    Toast.makeText(setting.this, "No network connection", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -342,88 +358,184 @@ public class setting extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 progressDialog.show();
+                if (networkInfo != null && networkInfo.isConnected()) {
+                    // If there is network connectivity, execute the code
+
+
+                    // Get a reference to your Firebase database
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("user");
+                    // Assuming userUid is already obtained during authentication
+                    String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
 
+                    String name = setname.getText().toString();
+                    String Status = setstatus.getText().toString();
 
-                String name = setname.getText().toString();
-                String Status = setstatus.getText().toString();
 
-                DatabaseReference amplifierRef = FirebaseDatabase.getInstance().getReference().child("Service").child("AMPLIZONE").child("Amplifier");
-                amplifierRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot ampSnapshot : dataSnapshot.getChildren()) {
-                            String byValue = ampSnapshot.child("by").getValue(String.class);
-                            if (byValue.equals(oldname)) {
-                                // Update the "by" value to the new username
-                                ampSnapshot.getRef().child("by").setValue(name);
+                    DatabaseReference amplifierRef = FirebaseDatabase.getInstance().getReference().child("Service").child("AMPLIZONE").child("Amplifier");
+                    amplifierRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot ampSnapshot : dataSnapshot.getChildren()) {
+                                String byValue = ampSnapshot.child("by").getValue(String.class);
+                                if (byValue.equals(oldname)) {
+                                    // Update the "by" value to the new username
+                                    ampSnapshot.getRef().child("by").setValue(name);
+                                }
+
+
                             }
-
-
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        // Handle error
-                    }
-
-                });
-                if (setImageUri!=null){
-                    storageReference.putFile(setImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    String finalImageUri = uri.toString();
-                                    Users users = new Users(auth.getUid(),name,email,finalImageUri,Status);
-                                    reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()){
-
-                                                progressDialog.dismiss();
-                                                Toast.makeText(setting.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
-                                                onBackPressed();
-                                                finish();
-                                            }else {
-                                                progressDialog.dismiss();
-                                                Toast.makeText(setting.this, "Some thing went wrong!", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }
-                                    });
-                                }
-                            });
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // Handle error
                         }
                     });
 
-
-
-
-                }else {
-                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    DatabaseReference leaderboard = FirebaseDatabase.getInstance().getReference().child("Service").child("CHORDM").child("Leaderboard").child("Classic");
+                    leaderboard.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onSuccess(Uri uri) {
-                            String finalImageUri = uri.toString();
-                            Users users = new Users(auth.getUid(),name,email,finalImageUri,Status);
-                            reference.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot ampSnapshot : dataSnapshot.getChildren()) {
+                                String byValue = ampSnapshot.child("userName").getValue(String.class);
+                                if (byValue.equals(oldname)) {
+                                    // Update the "by" value to the new username
+                                    ampSnapshot.getRef().child("userName").setValue(name);
+                                }
+
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // Handle error
+                        }
+                    });
+                    if (setImageUri!=null){
+                        storageReference.putFile(setImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        String finalImageUri = uri.toString();
+
+                                        // Set values
+                                        myRef.child(userUid).child("userName").setValue(name)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(setting.this, "Something wrong", Toast.LENGTH_SHORT);
+
+                                                    }
+                                                });
+                                        myRef.child(userUid).child("status").setValue(Status)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(setting.this, "Something wrong", Toast.LENGTH_SHORT);
+
+                                                    }
+                                                });
+                                        myRef.child(userUid).child("profilepic").setValue(finalImageUri)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(setting.this, "Something wrong", Toast.LENGTH_SHORT);
+
+                                                    }
+                                                });
                                         progressDialog.dismiss();
-                                        Toast.makeText(setting.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
-                                        onBackPressed();
-                                        finish();
-                                    }else {
-                                        progressDialog.dismiss();
-                                        Toast.makeText(setting.this, "Some thing went wrong!", Toast.LENGTH_SHORT).show();
+
                                     }
-                                }
-                            });
-                        }
-                    });
+                                });
+                            }
+                        });
+
+
+
+
+                    }else {
+                        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                String finalImageUri = uri.toString();
+
+                                // Set values
+                                myRef.child(userUid).child("userName").setValue(name)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(setting.this, "Something wrong", Toast.LENGTH_SHORT);
+
+                                            }
+                                        });
+                                myRef.child(userUid).child("status").setValue(Status)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(setting.this, "Something wrong", Toast.LENGTH_SHORT);
+
+                                            }
+                                        });
+                                myRef.child(userUid).child("profilepic").setValue(finalImageUri)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(setting.this, "Something wrong", Toast.LENGTH_SHORT);
+
+                                            }
+                                        });
+                                progressDialog.dismiss();
+
+                            }
+                        });
+                    }
+
+                } else {
+                    // If there's no network connectivity, display a toast
+                    progressDialog.dismiss();
+                    Toast.makeText(setting.this, "No network connection", Toast.LENGTH_SHORT).show();
                 }
 
             }

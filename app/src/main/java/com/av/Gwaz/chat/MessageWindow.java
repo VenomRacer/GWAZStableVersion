@@ -3,6 +3,7 @@ package com.av.Gwaz.chat;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Pair;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class MessageWindow extends AppCompatActivity{
 
@@ -51,8 +55,6 @@ public class MessageWindow extends AppCompatActivity{
         setbut = findViewById(R.id.settingBut);
         imglogout = findViewById(R.id.logoutimg);
 
-        String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         DatabaseReference reference = database.getReference().child("user");
 
         usersArrayList = new ArrayList<>();
@@ -72,15 +74,38 @@ public class MessageWindow extends AppCompatActivity{
                 // Get the reference to the current user's userCommunicated node
                 DataSnapshot currentUserCommunicatedSnapshot = snapshot.child(currentUserUid).child("userCommunicated");
 
+                // Create a list to hold the users along with their time
+                List<Pair<Users, Long>> userListWithTime = new ArrayList<>();
+
                 // Loop through all users
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Users user = dataSnapshot.getValue(Users.class);
-                    String USERID = user.getUserId();
+                    String userId = user.getUserId();
                     // Check if the current user has communicated with this user
-                    DataSnapshot communicatedUserSnapshot = currentUserCommunicatedSnapshot.child(USERID);
+                    DataSnapshot communicatedUserSnapshot = currentUserCommunicatedSnapshot.child(userId);
                     if (communicatedUserSnapshot.exists()) {// If the user exists in the userCommunicated node of the current user, add it to the list
-                        usersArrayList.add(user);
+                        // Get the time of communication for this user
+                        Long time = communicatedUserSnapshot.child("time").getValue(Long.class);
+                        if (time != null) {
+                            userListWithTime.add(new Pair<>(user, time));
+                        }
                     }
+                }
+
+                // Sort the list based on the time in descending order (latest at the top)
+                Collections.sort(userListWithTime, new Comparator<Pair<Users, Long>>() {
+                    @Override
+                    public int compare(Pair<Users, Long> o1, Pair<Users, Long> o2) {
+                        return o2.second.compareTo(o1.second); // Compare based on time in descending order
+                    }
+                });
+
+                // Clear the existing list
+                usersArrayList.clear();
+
+                // Add the sorted users to the usersArrayList
+                for (Pair<Users, Long> pair : userListWithTime) {
+                    usersArrayList.add(pair.first);
                 }
 
                 adapter.notifyDataSetChanged();
@@ -89,7 +114,7 @@ public class MessageWindow extends AppCompatActivity{
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle onCancelled event
+
             }
         });
 

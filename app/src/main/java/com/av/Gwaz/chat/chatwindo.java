@@ -71,6 +71,7 @@ public class chatwindo extends AppCompatActivity {
         messageAdpter.setAdapter(mmessagesAdpter);
 
 
+
         Picasso.get().load(reciverimg).into(profile);
         reciverNName.setText(""+reciverName);
 
@@ -94,6 +95,7 @@ public class chatwindo extends AppCompatActivity {
                     messagesArrayList.add(messages);
                 }
                 mmessagesAdpter.notifyDataSetChanged();
+                scrollToBottom();
             }
 
             @Override
@@ -106,6 +108,7 @@ public class chatwindo extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 senderImg= snapshot.child("profilepic").getValue().toString();
                 reciverIImg=reciverimg;
+                scrollToBottom();
             }
 
             @Override
@@ -152,6 +155,14 @@ public class chatwindo extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
 
+                                                // Save the 'seen' attribute under the receiver's node as well
+                                                saveown.getReference().child("user")
+                                                        .child(SenderUID) // Use receiver's UID here
+                                                        .child("userCommunicated")
+                                                        .child(reciverUid) // Assuming you want to save this under the receiver's node
+                                                        .child("seen")
+                                                        .setValue(true);
+
                                             }
                                         });
 
@@ -164,6 +175,14 @@ public class chatwindo extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
 
+                                                // Save the 'seen' attribute under the receiver's node as well
+                                                saveown.getReference().child("user")
+                                                        .child(reciverUid) // Use receiver's UID here
+                                                        .child("userCommunicated")
+                                                        .child(SenderUID) // Assuming you want to save this under the receiver's node
+                                                        .child("seen")
+                                                        .setValue(false);
+
                                             }
                                         });
                             }
@@ -171,9 +190,20 @@ public class chatwindo extends AppCompatActivity {
 
 
 
-
+                scrollToBottom();
             }
         });
 
+    }
+
+    // Method to scroll the RecyclerView to the bottom
+    private void scrollToBottom() {
+        messageAdpter.post(new Runnable() {
+            @Override
+            public void run() {
+                // Scroll to the last item
+                messageAdpter.scrollToPosition(messagesArrayList.size() - 1);
+            }
+        });
     }
 }

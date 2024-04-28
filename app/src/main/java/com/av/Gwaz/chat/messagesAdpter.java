@@ -114,4 +114,6 @@ public class messagesAdpter extends RecyclerView.Adapter {
             msgtxt = itemView.findViewById(R.id.recivertextset);
         }
     }
+
+
 }

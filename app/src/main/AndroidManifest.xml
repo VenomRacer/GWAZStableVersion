@@ -17,10 +17,40 @@
         android:theme="@style/Theme.AVMessenger"
         tools:targetApi="31">
         <activity
-            android:name=".homepage.AMPLIZ.Genre.Genre"
+            android:name=".homepage.CHORDM.Classic.Levels.Level5"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar"/>
+        <activity
+            android:name=".homepage.CHORDM.Classic.Levels.Level4"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".homepage.CHORDM.Classic.Levels.Level3"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".homepage.CHORDM.Classic.Levels.Level2"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".homepage.CHORDM.Classic.Levels.Level1"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".homepage.CHORDM.Classic.LevelSelec"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".homepage.AMPLIZ.Genre.Genre"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.AMPLIZ.Comments.Reviews"
             android:exported="false"
@@ -144,7 +174,8 @@
         <activity
             android:name=".homepage.CHORDM.MainactChordm"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.AMPLIZ.MainSelect"
             android:exported="false"
@@ -164,7 +195,7 @@
             android:name=".login.ForgotPass"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".chat.setting"
             android:exported="false"

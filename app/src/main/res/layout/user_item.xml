@@ -9,16 +9,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/userimg"
+        
+        <FrameLayout
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:src="@drawable/photocamera"/>
+            android:layout_marginBottom="@dimen/_10sdp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userimg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/photocamera"/>
+
+            <ImageView
+                android:id="@+id/notify"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/unread"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+
+        
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,6 +60,8 @@
                 android:text="Status"/>
 
         </LinearLayout>
+
+
 
 
     </LinearLayout>
