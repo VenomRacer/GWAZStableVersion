@@ -117,6 +117,7 @@ public class home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(home.this, TunerTrainer.class));
+                finish();
             }
         });
 

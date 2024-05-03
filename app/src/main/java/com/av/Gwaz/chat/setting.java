@@ -399,11 +399,13 @@ public class setting extends AppCompatActivity {
                     leaderboard.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot ampSnapshot : dataSnapshot.getChildren()) {
-                                String byValue = ampSnapshot.child("userName").getValue(String.class);
+                            for (DataSnapshot leadSnap : dataSnapshot.getChildren()) {
+                                String byValue = leadSnap.child("userName").getValue(String.class);
                                 if (byValue.equals(oldname)) {
                                     // Update the "by" value to the new username
-                                    ampSnapshot.getRef().child("userName").setValue(name);
+                                    leadSnap.getRef().child("userName").setValue(name);
+
+
                                 }
 
 
@@ -415,6 +417,32 @@ public class setting extends AppCompatActivity {
                             // Handle error
                         }
                     });
+
+                    DatabaseReference leaderboardtimed = FirebaseDatabase.getInstance().getReference().child("Service").child("CHORDM").child("Leaderboard").child("Timed");
+                    leaderboardtimed.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot leadSnap : dataSnapshot.getChildren()) {
+                                String byValue = leadSnap.child("userName").getValue(String.class);
+                                if (byValue.equals(oldname)) {
+                                    // Update the "by" value to the new username
+                                    leadSnap.getRef().child("userName").setValue(name);
+
+
+                                }
+
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            // Handle error
+                        }
+                    });
+
+
+
                     if (setImageUri!=null){
                         storageReference.putFile(setImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                             @Override
@@ -458,6 +486,8 @@ public class setting extends AppCompatActivity {
                                                     @Override
                                                     public void onSuccess(Void unused) {
 
+                                                        progressDialog.dismiss();
+
                                                     }
                                                 })
                                                 .addOnFailureListener(new OnFailureListener() {
@@ -467,7 +497,51 @@ public class setting extends AppCompatActivity {
 
                                                     }
                                                 });
-                                        progressDialog.dismiss();
+
+                                        DatabaseReference leaderboard = FirebaseDatabase.getInstance().getReference().child("Service").child("CHORDM").child("Leaderboard").child("Classic");
+                                        leaderboard.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                for (DataSnapshot leadSnap : dataSnapshot.getChildren()) {
+                                                    String byValue = leadSnap.child("userName").getValue(String.class);
+                                                    if (byValue.equals(oldname)) {
+
+                                                        leadSnap.getRef().child("profilepic").setValue(finalImageUri);
+
+                                                    }
+
+
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                // Handle error
+                                            }
+                                        });
+
+                                        DatabaseReference leaderboardtimed = FirebaseDatabase.getInstance().getReference().child("Service").child("CHORDM").child("Leaderboard").child("Timed");
+                                        leaderboardtimed.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                for (DataSnapshot leadSnap : dataSnapshot.getChildren()) {
+                                                    String byValue = leadSnap.child("userName").getValue(String.class);
+                                                    if (byValue.equals(oldname)) {
+
+                                                        leadSnap.getRef().child("profilepic").setValue(finalImageUri);
+
+                                                    }
+
+
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                // Handle error
+                                            }
+                                        });
+
 
                                     }
                                 });
@@ -526,6 +600,55 @@ public class setting extends AppCompatActivity {
 
                                             }
                                         });
+                                progressDialog.dismiss();
+
+                                DatabaseReference leaderboard = FirebaseDatabase.getInstance().getReference().child("Service").child("CHORDM").child("Leaderboard").child("Classic");
+                                leaderboard.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot leadSnap : dataSnapshot.getChildren()) {
+                                            String byValue = leadSnap.child("userName").getValue(String.class);
+                                            if (byValue.equals(oldname)) {
+                                                String name = setname.getText().toString();
+                                                // Update the "by" value to the new username
+                                                leadSnap.getRef().child("userName").setValue(name);
+                                                Toast.makeText(setting.this, byValue,Toast.LENGTH_SHORT).show();
+
+                                            }
+
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        // Handle error
+                                    }
+                                });
+
+                                DatabaseReference leaderboardtimed = FirebaseDatabase.getInstance().getReference().child("Service").child("CHORDM").child("Leaderboard").child("Timed");
+                                leaderboardtimed.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot leadSnap : dataSnapshot.getChildren()) {
+                                            String byValue = leadSnap.child("userName").getValue(String.class);
+                                            if (byValue.equals(oldname)) {
+                                                String name = setname.getText().toString();
+                                                // Update the "by" value to the new username
+                                                leadSnap.getRef().child("userName").setValue(name);
+                                                Toast.makeText(setting.this, byValue,Toast.LENGTH_SHORT).show();
+
+                                            }
+
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        // Handle error
+                                    }
+                                });
                                 progressDialog.dismiss();
 
                             }

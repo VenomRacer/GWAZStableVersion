@@ -17,10 +17,35 @@
         android:theme="@style/Theme.AVMessenger"
         tools:targetApi="31">
         <activity
-            android:name=".homepage.CHORDM.Classic.Levels.Level5"
+            android:name=".homepage.CHORDM.Timed.Basic.sixty.fifteen.fifteenb"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar"/>
+        <activity
+            android:name=".homepage.CHORDM.Timed.Basic.sixty.thirty.thirtyb"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".homepage.CHORDM.Timed.TimeSelect"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".homepage.CHORDM.Timed.Basic.sixty.sixty.sixtyb"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".homepage.CHORDM.Classic.Leaderboards.LeaderboardRecycler.Leaderboard"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".homepage.CHORDM.Classic.Levels.Level5"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.CHORDM.Classic.Levels.Level4"
             android:exported="false"

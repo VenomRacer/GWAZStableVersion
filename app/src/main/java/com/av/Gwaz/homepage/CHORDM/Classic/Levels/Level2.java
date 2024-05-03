@@ -44,7 +44,7 @@ public class Level2 extends AppCompatActivity {
     private int prevsore;
     private TextView errors;
     private Vibrator vibrator;
-    private String userName;
+    private String userName,profilepic;
     ProgressDialog progressDialog;
     private int wrongGuessCount = 0;
     private static final int MAX_WRONG_GUESSES = 5;
@@ -160,7 +160,7 @@ public class Level2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 playChordSound(chords[2]);
-                firstchord.setClickable(false);
+
             }
         });
 
@@ -168,7 +168,7 @@ public class Level2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 playChordSound(chords[3]);
-                secondchord.setClickable(false);
+
             }
         });
 
@@ -219,8 +219,10 @@ public class Level2 extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     // Check if the dataSnapshot exists and contains the userName
-                    if (dataSnapshot.exists() && dataSnapshot.hasChild("userName")) {
+                    if (dataSnapshot.exists() && dataSnapshot.hasChild("userName")||
+                            dataSnapshot.exists() && dataSnapshot.hasChild("profilepic")) {
                         userName = dataSnapshot.child("userName").getValue(String.class);
+                        profilepic = dataSnapshot.child("profilepic").getValue(String.class);
 
                     } else {
                         // The userName is not available in the database
@@ -298,12 +300,15 @@ public class Level2 extends AppCompatActivity {
                                                     }
                                                 }
                                             });
+                                    upload.setClickable(false);
                                 } else {
                                     userRef2.child("score").setValue(score);
                                     userRef2.child("userId").setValue(userId);
                                     userRef2.child("userName").setValue(userName);
+                                    userRef2.child("profilepic").setValue(profilepic);
                                     Toast.makeText(Level2.this, "Score uploaded successfully", Toast.LENGTH_SHORT).show();
-                                    dialog.dismiss();
+                                    progressDialog.dismiss();
+                                    upload.setClickable(false);
 
                                 }
                             }

@@ -1,5 +1,6 @@
 package com.av.Gwaz.homepage.TUNER;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -7,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.av.Gwaz.R;
+import com.av.Gwaz.homepage.home;
 
 public class TunerTrainer extends AppCompatActivity {
 
@@ -40,6 +42,12 @@ public class TunerTrainer extends AppCompatActivity {
     private void openMenu() {
         PullUpMenuFragment menuFragment = new PullUpMenuFragment();
         menuFragment.show(getSupportFragmentManager(), "pull_up_menu");
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(TunerTrainer.this, home.class));
+        finish();
     }
 
 

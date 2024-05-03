@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.av.Gwaz.R;
 
@@ -72,12 +73,18 @@ public class PullUpMenuFragment extends DialogFragment {
 
     private void displayOverlay(Fragment fragment) {
         if (getActivity() != null) {
-            getActivity().getSupportFragmentManager()
-                    .beginTransaction()
+            // Get the fragment manager
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+            // Pop the back stack to remove the previous fragment
+            fragmentManager.popBackStack("overlay_fragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+            // Replace the fragment with the new one
+            fragmentManager.beginTransaction()
                     .replace(R.id.overlay_container, fragment)
                     .addToBackStack(null)
                     .commit();
         }
-        dismiss();
+        dismiss(); // Dismiss the menu fragment
     }
 }

@@ -86,8 +86,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Leaderboard -------->>>>"
+            android:text="Leaderboard"
+            android:gravity="center"
             android:layout_margin="10dp"
+            android:fontFamily="@font/poppins_black"
             android:textSize="20dp"
             android:textColor="@color/black"/>
 
@@ -110,23 +112,38 @@
 
             <FrameLayout
                 android:id="@+id/leaderDiag"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                >
+                android:layout_width="130dp"
+                android:layout_marginEnd="20dp"
+                android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/diagpic"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="20dp"
-                    android:clipToOutline="true"
-                    android:src="@drawable/profile"
-                    android:background="@drawable/circular_background2"/>
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:clipToOutline="true"
+                        android:scaleType="fitXY"
+                        android:background="@drawable/ring_background" />
+
+                    <ImageView
+                        android:id="@+id/diagpic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:clipToOutline="true"
+                        android:layout_margin="5dp"
+                        android:scaleType="fitXY"
+                        android:background="@drawable/circular_background2"
+                        android:src="@drawable/profile" />
+
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
                     android:layout_marginTop="10dp"
                     android:text="Diagram"
                     android:textColor="@color/white"
@@ -137,7 +154,6 @@
                     android:id="@+id/diaguser"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
                     android:text="Username"
                     android:textColor="@color/black"
@@ -149,22 +165,38 @@
 
             <FrameLayout
                 android:id="@+id/leaderTimed"
-                android:layout_width="150dp"
+                android:layout_width="130dp"
+                android:layout_marginStart="20dp"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/timedpic"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="20dp"
-                    android:src="@drawable/profile"
-                    android:clipToOutline="true"
-                    android:background="@drawable/circular_background2"/>
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:clipToOutline="true"
+                        android:scaleType="fitXY"
+                        android:background="@drawable/ring_background" />
+
+                    <ImageView
+                        android:id="@+id/timedpic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:clipToOutline="true"
+                        android:layout_margin="5dp"
+                        android:scaleType="fitXY"
+                        android:background="@drawable/circular_background2"
+                        android:src="@drawable/profile" />
+
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:text="Timed"
                     android:textColor="@color/white"
@@ -175,7 +207,6 @@
                     android:id="@+id/timeduser"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
                     android:layout_marginBottom="20dp"
                     android:text="Username"
                     android:textColor="@color/black"
@@ -203,13 +234,30 @@
                 android:layout_width="130dp"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/classicpic"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clipToOutline="true"
-                    android:background="@drawable/circular_background2"
-                    android:src="@drawable/profile" />
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:clipToOutline="true"
+                        android:scaleType="fitXY"
+                        android:background="@drawable/ring_background" />
+
+                    <ImageView
+                        android:id="@+id/classicpic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:clipToOutline="true"
+                        android:layout_margin="5dp"
+                        android:scaleType="fitXY"
+                        android:background="@drawable/circular_background2"
+                        android:src="@drawable/profile" />
+
+                </FrameLayout>
 
                 <TextView
                     android:layout_width="match_parent"

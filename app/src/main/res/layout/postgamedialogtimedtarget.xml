@@ -50,40 +50,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="30dp"
-                android:text="Continue?"
+                android:text="Target Reached!"
                 android:gravity="center"
                 android:fontFamily="@font/poppins_black"
                 android:textColor="@color/white"/>
 
             <Button
-                android:id="@+id/yes"
+                android:id="@+id/uploadScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Yes"
                 android:elevation="20dp"
                 android:backgroundTint="@color/white"
+                android:text="Upload Score On Leaderboard"
                 android:textColor="@color/gold"
                 android:textStyle="bold"/>
+
 
             <Button
                 android:id="@+id/exit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Exit"
                 android:elevation="20dp"
+                android:text="Exit"
                 android:backgroundTint="@color/white"
                 android:textColor="@color/gold"
                 android:textStyle="bold"/>
 
-            <Button
-                android:id="@+id/uploadScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                android:elevation="20dp"
-                android:text="Upload Score On Leaderboard"
-                android:textColor="@color/gold"
-                android:textStyle="bold"/>
+
 
 
 
