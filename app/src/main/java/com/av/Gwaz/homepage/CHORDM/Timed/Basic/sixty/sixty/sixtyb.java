@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
@@ -51,6 +52,7 @@ public class sixtyb extends AppCompatActivity {
     private int score = 0, target = 20;
     private Vibrator vibrator;
     private boolean chordGuessed = false;
+    boolean buttonClicked = false;
     ProgressDialog progressDialog;
 
     @SuppressLint("MissingInflatedId")
@@ -80,13 +82,21 @@ public class sixtyb extends AppCompatActivity {
         chordImage1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkGuess((String) chordImage1.getTag());
+                // Call the checkGuess method with the chord name if chordGuessed is false
+                if (!buttonClicked) {
+                    buttonClicked = true; // Set chordGuessed to true to disable further clicks
+                    checkGuess((String) chordImage1.getTag());
+                }
             }
         });
         chordImage2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkGuess((String) chordImage2.getTag());
+                // Call the checkGuess method with the chord name if chordGuessed is false
+                if (!buttonClicked) {
+                    buttonClicked = true; // Set chordGuessed to true to disable further clicks
+                    checkGuess((String) chordImage2.getTag());
+                }
             }
         });
     }
@@ -165,6 +175,14 @@ public class sixtyb extends AppCompatActivity {
                 vibrate();
 
             }
+
+            // After processing the guess, enable the button click again after a delay
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    buttonClicked = false; // Set chordGuessed to false to enable clicks again
+                }
+            }, 1000); // Delay of 1000 milliseconds (adjust as needed)
         } catch (ArrayIndexOutOfBoundsException e) {
             // Log any errors
             Log.e("CheckGuess", "Error checking guess: " + e.getMessage());

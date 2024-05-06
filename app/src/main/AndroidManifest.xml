@@ -17,10 +17,40 @@
         android:theme="@style/Theme.AVMessenger"
         tools:targetApi="31">
         <activity
-            android:name=".homepage.CHORDM.Timed.Basic.sixty.fifteen.fifteenb"
+            android:name=".homepage.CHORDM.Diagram.DLevel5"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar"/>
+        <activity
+            android:name=".homepage.CHORDM.Diagram.DLevel4"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".homepage.CHORDM.Diagram.DLevel3"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".homepage.CHORDM.Diagram.DLevel2"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".homepage.CHORDM.Diagram.DLevelSelec"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".homepage.CHORDM.Diagram.DLevel1"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".homepage.CHORDM.Timed.Basic.sixty.fifteen.fifteenb"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".homepage.CHORDM.Timed.Basic.sixty.thirty.thirtyb"
             android:exported="false"
@@ -37,7 +67,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
-            android:name=".homepage.CHORDM.Classic.Leaderboards.LeaderboardRecycler.Leaderboard"
+            android:name=".homepage.CHORDM.LeaderboardRecycler.Leaderboard"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.Light.NoActionBar" />

@@ -1,4 +1,4 @@
-package com.av.Gwaz.homepage.CHORDM.Classic.Levels;
+package com.av.Gwaz.homepage.CHORDM.Diagram;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -34,11 +34,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Random;
 
-public class Level1 extends AppCompatActivity {
+public class DLevel1 extends AppCompatActivity {
 
-    private ImageView speaker, g_press, em_press;
+    private ImageView chordDisplay, g_press, em_press;
     private MediaPlayer mediaPlayer,missnote,rightnote,allright;
-    private String[] chords = {"gchord", "emchord"};
+    private String[] chords = {"gdiagram", "emdiagram"};
     private TextView errors;
     private boolean[] chordGuessed = {false, false};
     private int currentChordIndex = 0;
@@ -58,9 +58,9 @@ public class Level1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_level1);
+        setContentView(R.layout.activity_dlevel1);
 
-        speaker = findViewById(R.id.speaker);
+        chordDisplay = findViewById(R.id.chordDisplay);
         g_press = findViewById(R.id.g_press);
         em_press = findViewById(R.id.em_press);
 
@@ -72,10 +72,12 @@ public class Level1 extends AppCompatActivity {
         progressDialog.setMessage("Saving...");
         progressDialog.setCancelable(false);
 
+        displayRandomChord();
 
 
 
-        showChordDialog();
+
+
 
 
 
@@ -87,7 +89,7 @@ public class Level1 extends AppCompatActivity {
                 // Call the checkGuess method with the chord name if buttonClicked is false
                 if (!buttonClicked) {
                     buttonClicked = true; // Set buttonClicked to true to disable further clicks
-                    checkGuess("gchord");
+                    checkGuess("gdiagram");
                 }
             }
         });
@@ -98,64 +100,15 @@ public class Level1 extends AppCompatActivity {
                 // Call the checkGuess method with the chord name if buttonClicked is false
                 if (!buttonClicked) {
                     buttonClicked = true; // Set buttonClicked to true to disable further clicks
-                    checkGuess("emchord");
+                    checkGuess("emdiagram");
                 }
             }
         });
     }
 
 
-    // Method to show dialog displaying the chords and their sounds
-    private void showChordDialog() {
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.pregamedialog1);
-        dialog.setCancelable(false);
-
-        ImageView firstchord = dialog.findViewById(R.id.firstchord);
-        ImageView secondchord = dialog.findViewById(R.id.secondchord);
-
-        TextView next = dialog.findViewById(R.id.next);
 
 
-
-
-        // Set click listener for the chord image views to play their sounds
-        firstchord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playChordSound(chords[0]);
-
-            }
-        });
-
-        secondchord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playChordSound(chords[1]);
-
-            }
-        });
-
-        // Set click listener for the start game button
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss(); // Dismiss the dialog
-                // Start the game by playing a random chord
-                playRandomChord();
-
-            }
-        });
-
-        dialog.show();
-    }
-
-    // Method to play the sound of a chord
-    private void playChordSound(String chord) {
-        int resID = getResources().getIdentifier(chord, "raw", getPackageName());
-        mediaPlayer = MediaPlayer.create(this, resID);
-        mediaPlayer.start();
-    }
 
     private void postgame(final int score) {
         final Dialog dialog = new Dialog(this);
@@ -213,7 +166,7 @@ public class Level1 extends AppCompatActivity {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Level1.this, Level2.class);
+                Intent intent = new Intent(DLevel1.this, DLevel2.class);
                 intent.putExtra("prevscore", score);
                 startActivity(intent);
                 finish();
@@ -235,7 +188,7 @@ public class Level1 extends AppCompatActivity {
                                 .child("Service")
                                 .child("CHORDM")
                                 .child("Leaderboard")
-                                .child("Classic")
+                                .child("Diagram")
                                 .child(userId);
 
                         // Retrieve the current score from the database
@@ -256,9 +209,9 @@ public class Level1 extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
                                                         progressDialog.dismiss();
-                                                        Toast.makeText(Level1.this, "Score uploaded successfully", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(DLevel1.this, "Score uploaded successfully", Toast.LENGTH_SHORT).show();
                                                     } else {
-                                                        Toast.makeText(Level1.this, "Failed to upload score", Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(DLevel1.this, "Failed to upload score", Toast.LENGTH_SHORT).show();
                                                     }
                                                 }
                                             });
@@ -268,7 +221,7 @@ public class Level1 extends AppCompatActivity {
                                     userRef2.child("userId").setValue(userId);
                                     userRef2.child("userName").setValue(userName);
                                     userRef2.child("profilepic").setValue(profilepic);
-                                    Toast.makeText(Level1.this, "Score uploaded successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(DLevel1.this, "Score uploaded successfully", Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
                                     upload.setClickable(false);
 
@@ -279,19 +232,19 @@ public class Level1 extends AppCompatActivity {
                             public void onCancelled(@NonNull DatabaseError databaseError) {
                                 // Handle errors
                                 progressDialog.dismiss();
-                                Toast.makeText(Level1.this, "Failed to retrieve score: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(DLevel1.this, "Failed to retrieve score: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                     } else {
                         // User is not signed in
                         progressDialog.dismiss();
-                        Toast.makeText(Level1.this, "User is not signed in", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DLevel1.this, "User is not signed in", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         } else {
             // If there's no network connectivity, display a toast
-            Toast.makeText(Level1.this, "No network connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DLevel1.this, "No network connection", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -309,16 +262,15 @@ public class Level1 extends AppCompatActivity {
 
 
     // Method to play a random chord
-    private void playRandomChord() {
+    private void displayRandomChord() {
         Random random = new Random();
         int randomIndex;
         do {
             randomIndex = random.nextInt(chords.length);
         } while (chordGuessed[randomIndex]); // Keep generating a new random index until we find a chord that hasn't been guessed
         currentChordIndex = randomIndex;
-        int resID = getResources().getIdentifier(chords[currentChordIndex], "raw", getPackageName());
-        mediaPlayer = MediaPlayer.create(this, resID);
-        mediaPlayer.start();
+        int resID = getResources().getIdentifier(chords[currentChordIndex], "drawable", getPackageName());
+        chordDisplay.setImageResource(resID);
     }
 
     // Method to check the user's guess
@@ -355,7 +307,7 @@ public class Level1 extends AppCompatActivity {
                 score -= (wrongGuessCount - MAX_WRONG_GUESSES); // Deduct extra wrong guesses from the score
                 postgame(score);
             } else {
-                mediaPlayer.start();
+
             }
         }
 
@@ -369,7 +321,7 @@ public class Level1 extends AppCompatActivity {
     private void playIncorrectGuessSound() {
         // Initialize MediaPlayer if not already initialized
         if (missnote == null) {
-            missnote = MediaPlayer.create(Level1.this, R.raw.wrong); // Replace R.raw.incorrect_guess_sound with the actual sound resource
+            missnote = MediaPlayer.create(DLevel1.this, R.raw.wrong); // Replace R.raw.incorrect_guess_sound with the actual sound resource
         }
         // Start playing the sound
         missnote.start();
@@ -379,14 +331,14 @@ public class Level1 extends AppCompatActivity {
     private void playCorrectGuessSound() {
         // Initialize MediaPlayer if not already initialized
         if (rightnote == null) {
-            rightnote = MediaPlayer.create(Level1.this, R.raw.right); // Replace R.raw.right with the actual sound resource
+            rightnote = MediaPlayer.create(DLevel1.this, R.raw.right); // Replace R.raw.right with the actual sound resource
         }
 
         // Set an OnCompletionListener to play the random chord after the correct guess sound finishes
         rightnote.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                playRandomChord();
+                displayRandomChord();
             }
         });
 
@@ -397,7 +349,7 @@ public class Level1 extends AppCompatActivity {
     private void playAllGuess() {
         // Initialize MediaPlayer if not already initialized
         if (allright == null) {
-            allright = MediaPlayer.create(Level1.this, R.raw.allguess); // Replace R.raw.incorrect_guess_sound with the actual sound resource
+            allright = MediaPlayer.create(DLevel1.this, R.raw.allguess); // Replace R.raw.incorrect_guess_sound with the actual sound resource
         }
         // Start playing the sound
         allright.start();
@@ -427,10 +379,7 @@ public class Level1 extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // Release the MediaPlayer resources
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
+
 
         if (missnote != null) {
             missnote.release();

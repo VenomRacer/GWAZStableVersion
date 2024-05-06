@@ -11,7 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.av.Gwaz.R;
-import com.av.Gwaz.homepage.CHORDM.Classic.Leaderboards.LeaderboardRecycler.Leaderboard;
+import com.av.Gwaz.homepage.CHORDM.Diagram.DLevelSelec;
+import com.av.Gwaz.homepage.CHORDM.LeaderboardRecycler.Leaderboard;
 import com.av.Gwaz.homepage.CHORDM.Classic.LevelSelec;
 import com.av.Gwaz.homepage.CHORDM.Timed.TimeSelect;
 import com.google.firebase.database.DataSnapshot;
@@ -24,10 +25,10 @@ import com.squareup.picasso.Picasso;
 
 public class MainactChordm extends AppCompatActivity {
 
-    private ImageView classicmode,timedmode;
-    private ImageView classicpic,timedpic;
-    private TextView classicuser,timeduser;
-    private FrameLayout leaderClassic,leaderTimed;
+    private ImageView classicmode,timedmode,diagrammode;
+    private ImageView classicpic,timedpic,diagrampic;
+    private TextView classicuser,timeduser,diagramuser;
+    private FrameLayout leaderClassic,leaderTimed,leaderDiagram;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,16 @@ public class MainactChordm extends AppCompatActivity {
         timeduser = findViewById(R.id.timeduser);
         leaderTimed = findViewById(R.id.leaderTimed);
         timedpic.setImageResource(R.drawable.profile);
+
+        diagrammode = findViewById(R.id.diagrammode);
+        diagrampic =  findViewById(R.id.diagpic);
+        diagramuser = findViewById(R.id.diaguser);
+        leaderDiagram = findViewById(R.id.leaderDiag);
+        diagrampic.setImageResource(R.drawable.profile);
+
+
+
+
 
         classicmode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +91,24 @@ public class MainactChordm extends AppCompatActivity {
 
             }
         });
+
+        diagrammode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainactChordm.this, DLevelSelec.class));
+            }
+        });
+
+        leaderDiagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (MainactChordm.this, Leaderboard.class);
+                intent.putExtra("mode", "Diagram");
+                startActivity(intent);
+            }
+        });
+
+
 
 
 
@@ -145,6 +174,42 @@ public class MainactChordm extends AppCompatActivity {
                     }
                     if (highestScoreUsername != null && !highestScoreUsername.isEmpty()) {
                         timeduser.setText(highestScoreUsername);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(MainactChordm.this, "An error occured", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // for timed leaderboard
+        DatabaseReference databaseReference3 = FirebaseDatabase.getInstance().getReference()
+                .child("Service")
+                .child("CHORDM")
+                .child("Leaderboard")
+                .child("Diagram");
+
+        // Query to get the highest scoring user
+        Query highestScoreQuery3 = databaseReference3.orderByChild("score").limitToLast(1);
+
+        highestScoreQuery3.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    // Retrieve the highest scoring user's data
+                    String highestScoreUserPicUrl = snapshot.child("profilepic").getValue(String.class);
+                    String highestScoreUsername = snapshot.child("userName").getValue(String.class);
+
+                    // Set the retrieved data to your image view and text view
+                    // You can use libraries like Picasso or Glide to load images from URLs
+                    // For simplicity, I'll assume you have the URLs ready and directly set them
+                    if (highestScoreUserPicUrl != null && !highestScoreUserPicUrl.isEmpty()) {
+                        Picasso.get().load(highestScoreUserPicUrl).into(diagrampic);
+                    }
+                    if (highestScoreUsername != null && !highestScoreUsername.isEmpty()) {
+                        diagramuser.setText(highestScoreUsername);
                     }
                 }
             }

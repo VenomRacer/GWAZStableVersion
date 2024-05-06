@@ -1,4 +1,4 @@
-package com.av.Gwaz.homepage.CHORDM.Classic.Leaderboards.LeaderboardRecycler;
+package com.av.Gwaz.homepage.CHORDM.LeaderboardRecycler;
 
 public class LeadGet {
 
