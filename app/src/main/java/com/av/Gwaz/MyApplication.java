@@ -2,6 +2,7 @@ package com.av.Gwaz;
 
 import android.app.Application;
 
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MyApplication extends Application {
@@ -11,7 +12,14 @@ public class MyApplication extends Application {
         super.onCreate();
 
         // Enable offline persistence
-        FirebaseDatabase.getInstance().setPersistenceEnabled(false);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+        DatabaseReference gwizref = FirebaseDatabase.getInstance().getReference("Service").child("GWIZ");
+        gwizref.keepSynced(true);
+
+        DatabaseReference leaderboardref = FirebaseDatabase.getInstance().getReference("Service").child("CHORDM");
+        leaderboardref.keepSynced(true);
+
 
 
 

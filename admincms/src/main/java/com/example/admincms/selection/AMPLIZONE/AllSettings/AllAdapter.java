@@ -54,6 +54,11 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.AllViewHolder> {
         void onItemClick(AllGet item);
     }
 
+    public void filterList(List<AllGet> filteredList) {
+        ampList = filteredList;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(@NonNull AllViewHolder holder, int position) {
         AllGet allGet = ampList.get(position);

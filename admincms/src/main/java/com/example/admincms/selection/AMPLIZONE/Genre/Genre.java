@@ -1,4 +1,4 @@
-package com.example.admincms.selection.AMPLIZONE.AllSettings;
+package com.example.admincms.selection.AMPLIZONE.Genre;
 
 import static android.content.ContentValues.TAG;
 
@@ -11,8 +11,6 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.admincms.R;
-import com.example.admincms.selection.AMPLIZONE.Add.AddAmp;
 import com.example.admincms.selection.AMPLIZONE.Add.AmpView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,59 +36,50 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemClickListener {
-
+public class Genre extends AppCompatActivity implements GenAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
-    private List<AllGet> ampList;
-    private AllAdapter adapter;
+    private List<GenGet> genList;
+    private GenAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ImageView Add;
-    private SearchView searchView;
-    private TextView TITLE;
+    private String genre;
     private Vibrator vibrator;
-    private AllAdapter.OnItemClickListener listener;
+    private GenAdapter.OnItemClickListener listener;
     private ProgressDialog progressDialog; // Declare progressDialog here
+    private TextView genreName;
+    private SearchView searchView;
     String bass,drive,gain,gainstage,mid,presence,reverb,tone,treble,
             chorus,compressor,delay,distortion,flanger,fuzz,overdrive,phaser,reverb1,tremolo,wah;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_settings);
+        setContentView(R.layout.activity_genre);
 
+
+        genreName = findViewById(R.id.genreName);
+        genre = getIntent().getStringExtra("Genre");
+        searchView = (SearchView)findViewById(R.id.searchView);
+
+
+        genreName.setText(genre);
         //Initialization
-        Add = findViewById(R.id.Add);
+        //Add = findViewById(R.id.Add);
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        TITLE = findViewById(R.id.TITLE);
-        searchView = findViewById(R.id.searchView);
 
-
-
-        // Initialize the listener
         listener = this;
 
-        // All settings intent
-        String databaseReferenceStr = getIntent().getStringExtra("databaseReference");
-        String storageReferenceStr = getIntent().getStringExtra("storageReference");
-        String tag = getIntent().getStringExtra("AllTag");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Service").child("AMPLIZONE").child("Amplifier");
+        storageReference = FirebaseStorage.getInstance().getReference().child("gwazPic").child("AMPLIZONE").child("Amplifier");
 
-        // Assignment
-        databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl(databaseReferenceStr);
-        storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(storageReferenceStr);
-        TITLE.setText(tag);
-
-
-        recyclerView = findViewById(R.id.rvt2);
+        recyclerView = findViewById(R.id.rvt3);
         int numberOfColumns = 2;
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         recyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
-        ampList = new ArrayList<>();
-        adapter = new AllAdapter(ampList, databaseReference, storageReference, listener);
+        genList = new ArrayList<>();
+        adapter = new GenAdapter(genList, databaseReference, storageReference, listener);
         recyclerView.setAdapter(adapter);
         fetchData();
 
@@ -104,17 +92,7 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
             }
         });
 
-
-        Add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                vibrate();
-                startActivity(new Intent(AllSettings.this, AddAmp.class));
-
-            }
-        });
-
+        //searchview
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -138,12 +116,16 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
             ValueEventListener ampListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    ampList.clear();
+                    genList.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        AllGet allGet = snapshot.getValue(AllGet.class);
-                        ampList.add(allGet);
+                        GenGet genGet = snapshot.getValue(GenGet.class);
+                        // Check if the item's genre is "Pop"
+                        if (genGet != null && genGet.getGenre().equals(genre)) {
+                            genList.add(genGet);
+                        }
+
                     }
-                    Collections.reverse(ampList);
+                    Collections.reverse(genList);
                     adapter.notifyDataSetChanged();
                     swipeRefreshLayout.setRefreshing(false);
                 }
@@ -163,8 +145,6 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
         }
     }
 
-
-
     private void vibrate() {
         // Vibrate for 50 milliseconds
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -175,7 +155,7 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
     }
 
     @Override
-    public void onItemClick(AllGet item) {
+    public void onItemClick(GenGet item) {
 
 
         if (progressDialog == null) {
@@ -232,7 +212,7 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
                                         // You can retrieve other effects similarly
 
                                         // Start the AmpView activity with the retrieved data
-                                        Intent intent = new Intent(AllSettings.this, AmpView.class);
+                                        Intent intent = new Intent(Genre.this, AmpView.class);
                                         intent.putExtra("setName", item.getSetName());
                                         intent.putExtra("by", item.getBy());
                                         intent.putExtra("imageUrl", item.getImageUrl());
@@ -240,6 +220,8 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
                                         intent.putExtra("ampUsed", item.getAmpUsed());
                                         intent.putExtra("description", item.getDescription());
                                         intent.putExtra("genre", item.getGenre());
+                                        intent.putExtra("key", item.getKey());
+                                        intent.putExtra("rating", item.getRating());
                                         // Pass the retrieved settings and effects data to the intent
 
                                         // knobs
@@ -298,10 +280,12 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
         });
     }
 
-    private void search(String query) {
-        List<AllGet> filteredList = new ArrayList<>();
 
-        for (AllGet item : ampList) {
+
+    private void search(String query) {
+        List<GenGet> filteredList = new ArrayList<>();
+
+        for (GenGet item : genList) {
             if (item.getSetName().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(item);
             }
@@ -309,8 +293,6 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
 
         adapter.filterList(filteredList);
     }
-
-
 
 
     @Override
@@ -328,6 +310,4 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
     }
-
-
 }

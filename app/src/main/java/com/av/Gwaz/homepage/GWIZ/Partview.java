@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,8 +52,7 @@ public class Partview extends AppCompatActivity {
             databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl(databaseReferencePath);
             storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(storageReferencePath);
         } else {
-            // Handle the case where databaseReference is not provided
-            // You may want to display an error message or handle it according to your app's logic
+            Toast.makeText(Partview.this, "Error fetching data.", Toast.LENGTH_SHORT).show();
         }
 
         // Initialization of elements
