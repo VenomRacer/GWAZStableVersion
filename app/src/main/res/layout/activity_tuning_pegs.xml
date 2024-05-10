@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradientb"
+    android:background="@drawable/patbackg2"
     tools:context=".homepage.GWIZ.Parts.TuningPegs">
 
     <LinearLayout
@@ -68,7 +68,7 @@
                     android:paddingEnd="16dp"
                     android:text="Conventional"
                     android:textSize="25dp"
-                    android:textColor="@color/darkb"
+                    android:textColor="@color/black"
                     android:fontFamily="sans-serif-medium"/>
 
             </LinearLayout>
@@ -101,13 +101,13 @@
                 <TextView
                     android:layout_width="211dp"
                     android:layout_height="match_parent"
+                    android:fontFamily="sans-serif-medium"
                     android:gravity="center"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     android:text="Locking"
-                    android:textSize="25dp"
-                    android:textColor="@color/darkb"
-                    android:fontFamily="sans-serif-medium"/>
+                    android:textColor="@color/black"
+                    android:textSize="25dp" />
 
             </LinearLayout>
 

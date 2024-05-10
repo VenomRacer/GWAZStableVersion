@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -108,8 +107,8 @@ public class MainactGwiz extends AppCompatActivity {
         float clickedYPercent = y / imageView.getHeight() * 100;
 
         // Show a toast message with the percentages
-        String message = String.format("Clicked at: X=%.2f%% of imageView width, Y=%.2f%% of imageView height", clickedXPercent, clickedYPercent);
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        //String message = String.format("Clicked at: X=%.2f%% of imageView width, Y=%.2f%% of imageView height", clickedXPercent, clickedYPercent);
+        //Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 
         // for overlay1
         if (overlayIndex == 1) {
@@ -119,13 +118,11 @@ public class MainactGwiz extends AppCompatActivity {
             float target1YPercent = 0.627f; // Percentage of imageView height for target 1
             float tolerance1 = 0.05f; // Tolerance as percentage of imageView width/height for target 1
 
-            float target9XPercent = 0.452f;
-            float target9YPercent = 0.475f;
-            float tolerance9 = 0.1f;
+
 
             float target10XPercent = 0.468f;
             float target10YPercent = 0.545f;
-            float tolerance10 = 0.1f;
+            float tolerance10 = 0.05f;
 
             float target11XPercent = 0.472f;
             float target11YPercent = 0.692f;
@@ -196,7 +193,6 @@ public class MainactGwiz extends AppCompatActivity {
 
             // Check if the click occurred within the desired regions for overlayIndex 1
             if (isWithinTarget(x, y, target1XPercent, target1YPercent, tolerance1) ||
-                    isWithinTarget(x, y, target9XPercent, target9YPercent, tolerance9) ||
                     isWithinTarget(x, y, target10XPercent, target10YPercent, tolerance10) ||
                     isWithinTarget(x, y, target11XPercent, target11YPercent, tolerance11) ||
                     isWithinTarget(x, y, target12XPercent, target12YPercent, tolerance12) ||

@@ -116,6 +116,7 @@
                                 app:layout_constraintTop_toBottomOf="@id/swipe_refresh_layout"
                                 app:backgroundTint="@color/pastelyellow"
                                 app:rippleColor="@color/darkr"
+                                android:tint="@color/black"
                                 tools:ignore="NotSibling" />
 
 

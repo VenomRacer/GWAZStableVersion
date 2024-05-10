@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradientb"
+    android:background="@drawable/patbackg2"
     tools:context=".homepage.GWIZ.Parts.Body">
 
     <LinearLayout
@@ -68,7 +68,7 @@
                     android:paddingEnd="16dp"
                     android:text="For Acoustic Guitar"
                     android:textSize="25dp"
-                    android:textColor="@color/darkb"
+                    android:textColor="@color/black"
                     android:fontFamily="sans-serif-medium"/>
 
             </LinearLayout>
@@ -106,7 +106,7 @@
                     android:paddingEnd="16dp"
                     android:text="For Electric Guitar"
                     android:textSize="25dp"
-                    android:textColor="@color/darkb"
+                    android:textColor="@color/black"
                     android:fontFamily="sans-serif-medium"/>
 
             </LinearLayout>

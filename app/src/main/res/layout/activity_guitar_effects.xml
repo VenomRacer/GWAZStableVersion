@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradientb"
+    android:background="@drawable/patbackg2"
     tools:context=".homepage.AMPLIZ.Add.GuitarEffects">
 
     <LinearLayout
@@ -51,8 +51,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Overdrive"
-                    android:textColor="@color/white"
+                    android:text="Overdrive "
+                    android:background="@color/gold"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <ImageView
@@ -77,7 +78,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
                     android:text="Distortion"
-                    android:textColor="@color/white"
+                    android:background="@color/gold"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <ImageView
@@ -102,7 +104,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
                     android:text="Fuzz"
-                    android:textColor="@color/white"
+                    android:background="@color/gold"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <ImageView
@@ -127,7 +130,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
                     android:text="Delay"
-                    android:textColor="@color/white"
+                    android:background="@color/gold"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <ImageView
@@ -152,7 +156,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
                     android:text="Reverb"
-                    android:textColor="@color/white"
+                    android:background="@color/gold"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <ImageView
@@ -177,7 +182,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
                     android:text="Chorus"
-                    android:textColor="@color/white"
+                    android:background="@color/gold"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <ImageView
@@ -202,7 +208,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
                     android:text="Flanger"
-                    android:textColor="@color/white"
+                    android:background="@color/gold"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <ImageView
@@ -227,7 +234,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
                     android:text="Phaser"
-                    android:textColor="@color/white"
+                    android:background="@color/gold"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <ImageView
@@ -252,7 +260,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
                     android:text="Tremolo"
-                    android:textColor="@color/white"
+                    android:background="@color/gold"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <ImageView
@@ -277,7 +286,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
                     android:text="Wah-Wah"
-                    android:textColor="@color/white"
+                    android:background="@color/gold"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <ImageView
@@ -302,7 +312,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
                     android:text="Compressor"
-                    android:textColor="@color/white"
+                    android:background="@color/gold"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <ImageView
