@@ -9,4 +9,7 @@
     <color name="red">#E53935</color>
     <color name="sky">#1E88E5</color>
     <color name="gray">#938989</color>
+    <color name="MediumTurquoise">##48d1cc</color>
+    <color name="buttonBlue">#1875FF</color>
+    <color name="cream">#FDE49E</color>
 </resources>

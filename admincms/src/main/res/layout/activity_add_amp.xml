@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradientb"
+    android:background="@drawable/home_background"
     tools:context=".selection.AMPLIZONE.Add.AddAmp">
 
     <LinearLayout
@@ -31,6 +31,7 @@
     <LinearLayout
         android:id="@+id/scroll1"
         android:layout_width="match_parent"
+
         android:layout_height="0dp"
         android:gravity="center"
         android:orientation="vertical"
@@ -266,7 +267,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="16dp"
             android:textColor="@color/black"
-            android:backgroundTint="@color/gold"
+            android:backgroundTint="@color/sky"
             android:text="Next >>>" />
 
 
