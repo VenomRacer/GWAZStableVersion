@@ -16,9 +16,9 @@ import com.google.firebase.storage.StorageReference;
 
 public class Fretboard extends AppCompatActivity {
 
-    CardView rosewood, maple, ebony;
-    DatabaseReference rosestring,mapstring, ebostring;
-    StorageReference rosestore, mapstore, ebostore;
+    CardView rosewood, maple;
+    DatabaseReference rosestring,mapstring;
+    StorageReference rosestore, mapstore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class Fretboard extends AppCompatActivity {
         //Element initialization
         rosewood = findViewById(R.id.rosewood);
         maple = findViewById(R.id.maple);
-        ebony = findViewById(R.id.ebony);
+
 
         // For rosewood
         rosestring = FirebaseDatabase.getInstance().getReference().child("Service").child("GWIZ")
@@ -42,11 +42,7 @@ public class Fretboard extends AppCompatActivity {
         mapstore = FirebaseStorage.getInstance().getReference().child("gwazPic").child("GWIZ")
                 .child("Fretboard").child("Maple");
 
-        // For rosewood
-        ebostring = FirebaseDatabase.getInstance().getReference().child("Service").child("GWIZ")
-                .child("Fretboard").child("Ebony");
-        ebostore = FirebaseStorage.getInstance().getReference().child("gwazPic").child("GWIZ")
-                .child("Fretboard").child("Ebony");
+
 
         rosewood.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,16 +68,6 @@ public class Fretboard extends AppCompatActivity {
             }
         });
 
-        ebony.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Pass databaseReference to Traditional activity
-                Intent intent = new Intent(Fretboard.this, Partview.class);
-                intent.putExtra("TITLE","Ebony");
-                intent.putExtra("datab", ebostring.toString());
-                intent.putExtra("store", ebostore.toString());
-                startActivity(intent);
-            }
-        });
+            
     }
 }

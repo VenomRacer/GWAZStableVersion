@@ -24,7 +24,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Partview extends AppCompatActivity {
@@ -101,7 +100,7 @@ public class Partview extends AppCompatActivity {
                 }
 
                 // Reverse the list to display in descending order
-                Collections.reverse(stepList);
+                //Collections.reverse(stepList);
                 adapter.notifyDataSetChanged();
 
                 // Stop refreshing animation
