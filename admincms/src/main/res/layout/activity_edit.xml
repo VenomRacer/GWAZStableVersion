@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradientb"
+    android:background="@drawable/home_background"
     tools:context=".selection.GWIZ.Parts.Edit">
 
     <LinearLayout
@@ -77,7 +77,7 @@
                     android:layout_width="350dp"
                     android:layout_height="60dp"
                     app:cardCornerRadius="20dp"
-                    app:cardBackgroundColor="@color/gold"
+                    app:cardBackgroundColor="@color/cream"
                     android:layout_marginBottom="20dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp">
@@ -98,7 +98,7 @@
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="20dp"
-                    app:cardBackgroundColor="@color/gold"
+                    app:cardBackgroundColor="@color/cream"
                     android:layout_marginBottom="20dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp">

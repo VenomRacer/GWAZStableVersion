@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradientb"
+    android:background="@drawable/home_background"
     tools:context=".selection.GWIZ.MainactGwiz">
 
     <LinearLayout
@@ -51,7 +51,7 @@
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/gold">
+                app:cardBackgroundColor="@color/cream">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -69,7 +69,7 @@
                         android:paddingEnd="16dp"
                         android:text="Strings"
                         android:textSize="25dp"
-                        android:textColor="@color/darkb"
+                        android:textColor="@color/black"
                         android:fontFamily="sans-serif-medium"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -80,7 +80,7 @@
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/gold">
+                app:cardBackgroundColor="@color/cream">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                         android:paddingEnd="16dp"
                         android:text="Fretboard"
                         android:textSize="25dp"
-                        android:textColor="@color/darkb"
+                        android:textColor="@color/black"
                         android:fontFamily="sans-serif-medium"/>
 
                 </LinearLayout>
@@ -116,7 +116,7 @@
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/gold">
+                app:cardBackgroundColor="@color/cream">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -134,7 +134,7 @@
                         android:paddingEnd="16dp"
                         android:text="Nut"
                         android:textSize="25dp"
-                        android:textColor="@color/darkb"
+                        android:textColor="@color/black"
                         android:fontFamily="sans-serif-medium"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -145,7 +145,7 @@
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/gold">
+                app:cardBackgroundColor="@color/cream">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -163,7 +163,7 @@
                         android:paddingEnd="16dp"
                         android:text="Bridge / Saddle"
                         android:textSize="25dp"
-                        android:textColor="@color/darkb"
+                        android:textColor="@color/black"
                         android:fontFamily="sans-serif-medium"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -174,7 +174,7 @@
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/gold">
+                app:cardBackgroundColor="@color/cream">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -192,7 +192,7 @@
                         android:paddingEnd="16dp"
                         android:text="Tuning Machine"
                         android:textSize="25dp"
-                        android:textColor="@color/darkb"
+                        android:textColor="@color/black"
                         android:fontFamily="sans-serif-medium"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -203,7 +203,7 @@
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/gold">
+                app:cardBackgroundColor="@color/cream">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -221,7 +221,7 @@
                         android:paddingEnd="16dp"
                         android:text="Pickups"
                         android:textSize="25dp"
-                        android:textColor="@color/darkb"
+                        android:textColor="@color/black"
                         android:fontFamily="sans-serif-medium"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -232,7 +232,7 @@
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/gold">
+                app:cardBackgroundColor="@color/cream">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -250,7 +250,7 @@
                         android:paddingEnd="16dp"
                         android:text="Body"
                         android:textSize="25dp"
-                        android:textColor="@color/darkb"
+                        android:textColor="@color/black"
                         android:fontFamily="sans-serif-medium"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -261,7 +261,7 @@
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/gold">
+                app:cardBackgroundColor="@color/cream">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -279,7 +279,7 @@
                         android:paddingEnd="16dp"
                         android:text="Truss Rod"
                         android:textSize="25dp"
-                        android:textColor="@color/darkb"
+                        android:textColor="@color/black"
                         android:fontFamily="sans-serif-medium"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
