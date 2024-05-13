@@ -26,6 +26,7 @@
                 android:layout_width="380dp"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
+                android:clickable="true"
                 android:src="@drawable/gradientg" />
 
             <!-- LinearLayout for the icons -->
@@ -52,6 +53,19 @@
                     android:layout_marginStart="8dp" />
             </LinearLayout>
         </FrameLayout>
+
+        <TextView
+            android:id="@+id/link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="step#"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/darkb"
+            android:fontFamily="sans-serif-medium"/>
 
         <TextView
             android:id="@+id/step"

@@ -12,10 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.admincms.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -45,8 +45,9 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.StepViewHolder
         PartGet step = stepList.get(position);
         holder.textm.setText(step.getT1());
         holder.textStep.setText(step.getT3());
-        // Load image using Picasso
-        Picasso.get().load(step.getT2()) // Pass the image URL from step.getT2()
+        // Inside onBindViewHolder method
+        Glide.with(holder.itemView.getContext())
+                .load(step.getT2()) // Pass the GIF URL from step.getT2()
                 .into(holder.digiPic); // Load into the ImageView
 
         // Set onClickListener for delete icon
