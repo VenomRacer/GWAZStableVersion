@@ -2,7 +2,7 @@ package com.example.admincms.selection.AMPLIZONE.AllSettings;
 
 public class AllGet {
 
-    private String setName,by,imageUrl,audioUrl, ampUsed,description,genre,key;
+    private String setName,by,imageUrl,audioUrl, ampUsed,description,genre,key,guitar,pickups;
 
 
 
@@ -36,5 +36,13 @@ public class AllGet {
 
     public String getKey() {
         return key;
+    }
+
+    public String getGuitar() {
+        return guitar;
+    }
+
+    public String getPickups() {
+        return pickups;
     }
 }

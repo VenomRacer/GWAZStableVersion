@@ -60,7 +60,7 @@ public class FinalizeAmp extends AppCompatActivity {
     private boolean isPlaying = false;
     private Uri audioUri, imageUrl;
     private TextView audioTitle;
-    private Spinner genreSpinner;
+    private Spinner genreSpinner, guitarSpinner, pickupsSpinner;
     private String treble,gain,bass,drive,mid,presence,reverb2,tone,gainstage,userName,userId,profilepic;
     private boolean overdrive,distortion,fuzz,delay,reverb1,chorus,flanger,phaser,tremolo,wah,compressor;
 
@@ -85,6 +85,8 @@ public class FinalizeAmp extends AppCompatActivity {
         setName = findViewById(R.id.setName);
         ampUsed = findViewById(R.id.ampUsed);
         genreSpinner = findViewById(R.id.genreSpinner);
+        guitarSpinner = findViewById(R.id.guitarSpinner);
+        pickupsSpinner = findViewById(R.id.pickupsSpinner);
         description = findViewById(R.id.description);
 
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
@@ -92,13 +94,35 @@ public class FinalizeAmp extends AppCompatActivity {
         // Retrieve the array of genre options from strings.xml
         String[] genresArray = getResources().getStringArray(R.array.genre_array);
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, genresArray);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, genresArray);
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Find the Spinner view
-        Spinner spinner = findViewById(R.id.genreSpinner);
+        Spinner spinner1 = findViewById(R.id.genreSpinner);
         // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        spinner1.setAdapter(adapter1);
+
+        // Retrieve the array of genre options from strings.xml
+        String[] guitarArray = getResources().getStringArray(R.array.guitar_array);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, guitarArray);
+        // Specify the layout to use when the list of choices appears
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Find the Spinner view
+        Spinner spinner2 = findViewById(R.id.guitarSpinner);
+        // Apply the adapter to the spinner
+        spinner2.setAdapter(adapter2);
+
+        // Retrieve the array of genre options from strings.xml
+        String[] pickupsArray = getResources().getStringArray(R.array.pickups_array);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, pickupsArray);
+        // Specify the layout to use when the list of choices appears
+        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Find the Spinner view
+        Spinner spinner3 = findViewById(R.id.pickupsSpinner);
+        // Apply the adapter to the spinner
+        spinner3.setAdapter(adapter3);
 
         //getting username
         // Assuming you have Firebase authentication set up and the user is logged in
@@ -242,6 +266,8 @@ public class FinalizeAmp extends AppCompatActivity {
         String ampUsedValue = ampUsed.getText().toString().trim();
         String descriptionValue = description.getText().toString().trim();
         String genreValue = genreSpinner.getSelectedItem().toString();
+        String guitarValue = guitarSpinner.getSelectedItem().toString();
+        String pickupsValue = pickupsSpinner.getSelectedItem().toString();
 
         // Check for network connectivity
         if (!isNetworkConnected()) {
@@ -273,6 +299,8 @@ public class FinalizeAmp extends AppCompatActivity {
                     ampData.put("ampUsed", ampUsedValue);
                     ampData.put("description", descriptionValue);
                     ampData.put("genre", genreValue);
+                    ampData.put("guitar", guitarValue);
+                    ampData.put("pickups", pickupsValue);
                     ampData.put("by", userName);
                     ampData.put("uid",userId);
                     ampData.put("profilePic",profilepic);

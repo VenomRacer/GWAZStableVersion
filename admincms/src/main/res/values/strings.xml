@@ -13,4 +13,27 @@
         <item>Reggae</item>
     </string-array>
 
+    <string-array name="guitar_array">
+        <item>Stratocaster</item>
+        <item>Les Paul</item>
+        <item>SG</item>
+        <item>Flying V</item>
+        <item>PRS</item>
+        <item>Telecaster</item>
+        <item>Jazzmaster</item>
+        <item>Explorer</item>
+        <item>Superstrat</item>
+        <item>Jaguar</item>
+        <item>Acoustic</item>
+    </string-array>
+
+    <string-array name="pickups_array">
+        <item>Default (Acoustic)</item>
+        <item>Bridge</item>
+        <item>Bridge and Middle</item>
+        <item>Middle</item>
+        <item>Middle and Neck</item>
+        <item>Neck</item>
+    </string-array>
+
 </resources>

@@ -24,7 +24,7 @@ import java.io.IOException;
 
 public class AmpView extends AppCompatActivity {
 
-    private TextView ampName,genreName,userN,ampUsed,description;
+    private TextView ampName,genreName,userN,ampUsed,guitarUsed,pickupsUsed,description;
 
     private ImageView image;
     private ImageButton playButton, pauseButton;
@@ -52,6 +52,8 @@ public class AmpView extends AppCompatActivity {
         genreName = findViewById(R.id.genreName);
         userN = findViewById(R.id.userN);
         ampUsed = findViewById(R.id.ampUsed);
+        guitarUsed = findViewById(R.id.guitarUsed);
+        pickupsUsed = findViewById(R.id.pickupsUsed);
         description = findViewById(R.id.description);
         image = findViewById(R.id.image);
         playButton = findViewById(R.id.playButton);
@@ -63,6 +65,8 @@ public class AmpView extends AppCompatActivity {
         //retrieve main info
         String setName = getIntent().getStringExtra("setName");
         String genre = getIntent().getStringExtra("genre");
+        String guitar = getIntent().getStringExtra("guitar");
+        String pickups = getIntent().getStringExtra("pickups");
         String by = getIntent().getStringExtra("by");
         String amp = getIntent().getStringExtra("ampUsed");
         String desc = getIntent().getStringExtra("description");
@@ -139,6 +143,8 @@ public class AmpView extends AppCompatActivity {
         genreName.setText(genre);
         userN.setText(by);
         ampUsed.setText(amp);
+        guitarUsed.setText(guitar);
+        pickupsUsed.setText(pickups);
         description.setText(desc);
         Picasso.get().load(img).into(image);
 

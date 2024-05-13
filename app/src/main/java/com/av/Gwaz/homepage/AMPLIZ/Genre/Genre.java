@@ -2,6 +2,7 @@ package com.av.Gwaz.homepage.AMPLIZ.Genre;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -42,6 +44,7 @@ public class Genre extends AppCompatActivity implements GenAdapter.OnItemClickLi
     private StorageReference storageReference;
     private List<GenGet> genList;
     private GenAdapter adapter;
+    private SearchView searchView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private String genre;
     private Vibrator vibrator;
@@ -51,10 +54,13 @@ public class Genre extends AppCompatActivity implements GenAdapter.OnItemClickLi
     String bass,drive,gain,gainstage,mid,presence,reverb,tone,treble,
             chorus,compressor,delay,distortion,flanger,fuzz,overdrive,phaser,reverb1,tremolo,wah;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_genre);
+
+        searchView = findViewById(R.id.searchView);
 
 
         genreName = findViewById(R.id.genreName);
@@ -85,6 +91,22 @@ public class Genre extends AppCompatActivity implements GenAdapter.OnItemClickLi
             public void onRefresh() {
                 // Fetch data again when swipe gesture is performed
                 fetchData();
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Trigger search
+                search(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Filter as you type
+                search(newText);
+                return true;
             }
         });
     }
@@ -257,6 +279,18 @@ public class Genre extends AppCompatActivity implements GenAdapter.OnItemClickLi
                 progressDialog.dismiss();
             }
         });
+    }
+
+    private void search(String query) {
+        List<GenGet> filteredList = new ArrayList<>();
+
+        for (GenGet item : genList) {
+            if (item.getSetName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        adapter.filterList(filteredList);
     }
 
     @Override

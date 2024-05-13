@@ -41,6 +41,8 @@ public class AllEdit2 extends AppCompatActivity {
         //retrieve main info
         String setName = getIntent().getStringExtra("setName");
         String genre = getIntent().getStringExtra("genre");
+        String guitar = getIntent().getStringExtra("guitar");
+        String pickups = getIntent().getStringExtra("pickups");
         String by = getIntent().getStringExtra("by");
         String amp = getIntent().getStringExtra("ampUsed");
         String desc = getIntent().getStringExtra("description");
@@ -126,8 +128,10 @@ public class AllEdit2 extends AppCompatActivity {
                 intent.putExtra("imageUrl", img);
                 intent.putExtra("audioUrl", aud);
                 intent.putExtra("ampUsed", amp);
-                intent.putExtra("description", genre);
-                intent.putExtra("genre", desc);
+                intent.putExtra("description", desc);
+                intent.putExtra("genre", genre);
+                intent.putExtra("guitar",guitar);
+                intent.putExtra("pickups",pickups);
                 intent.putExtra("key",key);
 
                 vibrate();

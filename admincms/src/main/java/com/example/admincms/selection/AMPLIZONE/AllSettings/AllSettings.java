@@ -240,6 +240,8 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
                                         intent.putExtra("ampUsed", item.getAmpUsed());
                                         intent.putExtra("description", item.getDescription());
                                         intent.putExtra("genre", item.getGenre());
+                                        intent.putExtra("guitar", item.getGuitar());
+                                        intent.putExtra("pickups", item.getPickups());
                                         // Pass the retrieved settings and effects data to the intent
 
                                         // knobs

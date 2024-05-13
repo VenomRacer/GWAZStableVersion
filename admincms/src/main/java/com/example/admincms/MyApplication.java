@@ -12,7 +12,7 @@ public class MyApplication extends Application {
         super.onCreate();
 
         // Enable offline persistence globally
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(false);
 
         // Enable persistence only for the specific path "Service/GWIZ"
         DatabaseReference gwizRef = FirebaseDatabase.getInstance().getReference().child("Service").child("GWIZ");

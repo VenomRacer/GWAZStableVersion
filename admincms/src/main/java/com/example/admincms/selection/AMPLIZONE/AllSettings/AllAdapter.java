@@ -196,6 +196,8 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.AllViewHolder> {
                                 intent.putExtra("ampUsed", clickedItem.getAmpUsed());
                                 intent.putExtra("description", clickedItem.getDescription());
                                 intent.putExtra("genre", clickedItem.getGenre());
+                                intent.putExtra("guitar", clickedItem.getGuitar());
+                                intent.putExtra("pickups", clickedItem.getPickups());
                                 intent.putExtra("key",clickedItem.getKey());
 
                                 // Pass the retrieved settings and effects data to the intent

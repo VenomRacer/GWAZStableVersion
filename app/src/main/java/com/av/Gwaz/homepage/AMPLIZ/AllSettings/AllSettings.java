@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -34,7 +35,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemClickListener {
@@ -45,6 +45,7 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
     private StorageReference storageReference;
     private List<AllGet> ampList;
     private AllAdapter adapter;
+    private SearchView searchView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ImageView pop,metal,rock,jazz,blues,funk,reggae,country,clean;
     private Vibrator vibrator;
@@ -72,6 +73,7 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
         clean = findViewById(R.id.clean);
         funk = findViewById(R.id.funk);
         reggae = findViewById(R.id.reggae);
+        searchView = findViewById(R.id.searchView);
 
         // Initialize the listener
         listener = this;
@@ -94,6 +96,22 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
             public void onRefresh() {
                 // Fetch data again when swipe gesture is performed
                 fetchData();
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Trigger search
+                search(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Filter as you type
+                search(newText);
+                return true;
             }
         });
 
@@ -202,7 +220,7 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
                         AllGet allGet = snapshot.getValue(AllGet.class);
                         ampList.add(allGet);
                     }
-                    Collections.reverse(ampList);
+
                     adapter.notifyDataSetChanged();
                     swipeRefreshLayout.setRefreshing(false);
                 }
@@ -297,6 +315,8 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
                                         intent.putExtra("ampUsed", item.getAmpUsed());
                                         intent.putExtra("description", item.getDescription());
                                         intent.putExtra("genre", item.getGenre());
+                                        intent.putExtra("guitar", item.getGuitar());
+                                        intent.putExtra("pickups", item.getPickups());
                                         intent.putExtra("key", item.getKey());
                                         intent.putExtra("rating", item.getRating());
                                         intent.putExtra("uid",item.getUid());
@@ -357,6 +377,18 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
                 progressDialog.dismiss();
             }
         });
+    }
+
+    private void search(String query) {
+        List<AllGet> filteredList = new ArrayList<>();
+
+        for (AllGet item : ampList) {
+            if (item.getSetName().toLowerCase().contains(query.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        adapter.filterList(filteredList);
     }
 
 

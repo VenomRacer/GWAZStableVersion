@@ -2,7 +2,7 @@ package com.av.Gwaz.homepage.AMPLIZ.MyAmp;
 
 public class MyGet {
 
-    private String setName,by,imageUrl,audioUrl, ampUsed,description,genre,key;
+    private String setName,by,imageUrl,audioUrl, ampUsed,description,genre,guitar,pickups,key;
     private Float rating;
 
     public String getSetName() {
@@ -39,5 +39,13 @@ public class MyGet {
 
     public Float getRating() {
         return rating;
+    }
+
+    public String getGuitar() {
+        return guitar;
+    }
+
+    public String getPickups() {
+        return pickups;
     }
 }

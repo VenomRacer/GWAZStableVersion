@@ -57,6 +57,8 @@ public class AllEdit extends AppCompatActivity {
         String genre = getIntent().getStringExtra("genre");
         String by = getIntent().getStringExtra("by");
         String amp = getIntent().getStringExtra("ampUsed");
+        String guitar = getIntent().getStringExtra("guitar");
+        String pickups = getIntent().getStringExtra("pickups");
         String desc = getIntent().getStringExtra("description");
         String img = getIntent().getStringExtra("imageUrl");
         String aud = getIntent().getStringExtra("audioUrl");
@@ -154,13 +156,16 @@ public class AllEdit extends AppCompatActivity {
                 intent.putExtra("imageUrl", img);
                 intent.putExtra("audioUrl", aud);
                 intent.putExtra("ampUsed", amp);
-                intent.putExtra("description", genre);
-                intent.putExtra("genre", desc);
+                intent.putExtra("guitar", guitar);
+                intent.putExtra("pickups", pickups);
+                intent.putExtra("description", desc);
+                intent.putExtra("genre", genre);
                 intent.putExtra("key",key);
 
                 // Start the next activity
                 vibrate();
                 startActivity(intent);
+                finish();
 
             }
         });

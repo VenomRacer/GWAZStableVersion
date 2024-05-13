@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradientb"
-    tools:context=".selection.AMPLIZONE.AllSettings.AllEdit">
+    android:background="@drawable/patbackg2"
+    tools:context=".av.Gwaz.homepage.AMPLIZ.AllSettings;">
 
     <LinearLayout
         android:id="@+id/linearLayout3"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradientb"
+    android:background="@drawable/patbackg2"
     tools:context=".homepage.AMPLIZ.AllSettings.AllEdit4">
 
     <LinearLayout
@@ -188,6 +188,12 @@
                         android:hint="Amp Used"/>
                 </androidx.cardview.widget.CardView>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Genre"
+                    android:textColor="@color/gold"
+                    android:fontFamily="@font/poppins_black"/>
                 <androidx.cardview.widget.CardView
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"
@@ -199,6 +205,52 @@
 
                     <Spinner
                         android:id="@+id/genreSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Guitar Used"
+                    android:textColor="@color/gold"
+                    android:fontFamily="@font/poppins_black"/>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/gold"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp">
+
+                    <Spinner
+                        android:id="@+id/guitarSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pickups Position"
+                    android:textColor="@color/gold"
+                    android:fontFamily="@font/poppins_black"/>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/gold"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp">
+
+                    <Spinner
+                        android:id="@+id/pickupsSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp" />
@@ -231,7 +283,7 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/darkr"
-                    android:text="Back"
+                    android:text="Cancel"
                     android:clickable="true"/>
 
                 <Button

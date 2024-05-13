@@ -42,6 +42,11 @@ public class GenAdapter extends RecyclerView.Adapter<GenAdapter.AllViewHolder>{
         void onItemClick(GenGet item);
     }
 
+    public void filterList(List<GenGet> filteredList) {
+        genList = filteredList;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(@NonNull AllViewHolder holder, int position) {
         GenGet genGet = genList.get(position);
