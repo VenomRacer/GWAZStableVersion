@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.av.Gwaz.R;
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -42,8 +43,10 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.StepViewHolder
         PartGet step = stepList.get(position);
         holder.textm.setText(step.getT1());
         holder.textStep.setText(step.getT3());
-        // Load image using Picasso
-        Picasso.get().load(step.getT2()) // Pass the image URL from step.getT2()
+        holder.creditLink.setText(step.getT4());
+        // using Glide not picasso
+        Glide.with(holder.itemView.getContext())
+                .load(step.getT2()) // Pass the GIF URL from step.getT2()
                 .into(holder.digiPic); // Load into the ImageView
 
     }
@@ -54,7 +57,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.StepViewHolder
     }
 
     static class StepViewHolder extends RecyclerView.ViewHolder {
-        TextView textStep,textm;
+        TextView textStep,textm,creditLink;
         ImageView digiPic,deleteIcon, editIcon;
 
         public StepViewHolder(@NonNull View itemView) {
@@ -62,6 +65,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.StepViewHolder
             textStep = itemView.findViewById(R.id.step);
             textm = itemView.findViewById(R.id.mtext);
             digiPic = itemView.findViewById(R.id.digiPic);
+            creditLink = itemView.findViewById(R.id.creditLink);
 
         }
     }

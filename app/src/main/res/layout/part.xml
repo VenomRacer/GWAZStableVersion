@@ -42,6 +42,12 @@
 
 
         </FrameLayout>
+        <TextView
+            android:id="@+id/creditLink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="link"
+            android:fontFamily="sans-serif-medium"/>
 
 
 
