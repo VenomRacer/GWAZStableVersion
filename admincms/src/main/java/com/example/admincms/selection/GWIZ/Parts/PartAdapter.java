@@ -45,6 +45,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.StepViewHolder
         PartGet step = stepList.get(position);
         holder.textm.setText(step.getT1());
         holder.textStep.setText(step.getT3());
+        holder.link.setText(step.getT4());
         // Inside onBindViewHolder method
         Glide.with(holder.itemView.getContext())
                 .load(step.getT2()) // Pass the GIF URL from step.getT2()
@@ -99,6 +100,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.StepViewHolder
                 // For example, you can pass step.getT3() as the key to retrieve data in EditActivity
                 intent.putExtra("StepName", step.getT3());
                 intent.putExtra("Description", step.getT1());
+                intent.putExtra("Link", step.getT4());
                 intent.putExtra("Img", step.getT2());
                 intent.putExtra("trastorage", imageRef.toString());
                 intent.putExtra("trastring", databref.toString());
@@ -115,7 +117,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.StepViewHolder
     }
 
     static class StepViewHolder extends RecyclerView.ViewHolder {
-        TextView textStep,textm;
+        TextView textStep,textm,link;
         ImageView digiPic,deleteIcon, editIcon;
 
         public StepViewHolder(@NonNull View itemView) {
@@ -125,6 +127,7 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.StepViewHolder
             digiPic = itemView.findViewById(R.id.digiPic);
             deleteIcon = itemView.findViewById(R.id.deleteIcon);
             editIcon = itemView.findViewById(R.id.editIcon);
+            link = itemView.findViewById(R.id.link);
         }
     }
 }

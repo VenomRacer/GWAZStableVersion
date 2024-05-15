@@ -26,7 +26,7 @@ import com.google.firebase.storage.UploadTask;
 public class AddItem extends AppCompatActivity {
 
     ImageView image;
-    EditText stepname,description;
+    EditText stepname,description,creditLink;
     Button save;
     DatabaseReference databaseReference;
     StorageReference storageReference;
@@ -48,6 +48,7 @@ public class AddItem extends AppCompatActivity {
         image = findViewById(R.id.image);
         stepname = findViewById(R.id.stepname);
         description = findViewById(R.id.description);
+        creditLink = findViewById(R.id.creditLink);
         save = findViewById(R.id.save);
 
         //passed reference
@@ -80,6 +81,7 @@ public class AddItem extends AppCompatActivity {
                 // Get the updated values from EditText fields
                 String sname = stepname.getText().toString(); // for root folder (parent)
                 String desc = description.getText().toString(); // for t1
+                String refLink = creditLink.getText().toString();
 
                 // Set the storage reference with the desired name
                 StorageReference imageRef = storageReference.child(sname + ".jpg");
@@ -100,6 +102,7 @@ public class AddItem extends AppCompatActivity {
                                         public void onSuccess(Uri uri) {
                                             // Save the download URL to the Firebase Realtime Database
                                             databaseReference.child(sname).child("t1").setValue(desc);
+                                            databaseReference.child(sname).child("t4").setValue(refLink);
                                             databaseReference.child(sname).child("t2").setValue(uri.toString());
                                             // Display a success message or perform any other actions
                                             Toast.makeText(AddItem.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();

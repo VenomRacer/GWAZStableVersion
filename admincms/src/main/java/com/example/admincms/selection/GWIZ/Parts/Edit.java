@@ -28,7 +28,7 @@ import com.squareup.picasso.Picasso;
 public class Edit extends AppCompatActivity {
 
     ImageView image;
-    EditText stepname,description;
+    EditText stepname,description,creditLink;
     Button save;
     TextView title;
     FirebaseDatabase database;
@@ -60,6 +60,7 @@ public class Edit extends AppCompatActivity {
         image = findViewById(R.id.image);
         stepname = findViewById(R.id.stepname);
         description = findViewById(R.id.description);
+        creditLink = findViewById(R.id.creditLink);
         save = findViewById(R.id.save);
         title = findViewById(R.id.title);
 
@@ -70,12 +71,14 @@ public class Edit extends AppCompatActivity {
         if (intent != null) {
             String stepName = intent.getStringExtra("StepName");
             String descriptionText = intent.getStringExtra("Description");
+            String stepLink = intent.getStringExtra("Link");
             String imageUrl = intent.getStringExtra("Img");
 
             // Now you can use these values as needed
             // For example, set them to your ImageView and EditText fields
             stepname.setText(stepName);
             title.setText(stepName);
+            creditLink.setText(stepLink);
             description.setText(descriptionText);
             // Set the image using Picasso or any other method you prefer
             Picasso.get().load(imageUrl).into(image);
@@ -87,6 +90,7 @@ public class Edit extends AppCompatActivity {
                     // Get the updated values from EditText fields
                     String updatedStepName = stepname.getText().toString();
                     String updatedDescription = description.getText().toString();
+                    String link = creditLink.getText().toString();
                     String existingName = title.getText().toString();
 
                     // Remove the old data if the stepName has changed
@@ -97,6 +101,7 @@ public class Edit extends AppCompatActivity {
                     uploadImage(updatedStepName, updatedDescription);
                     databaseReference.child(updatedStepName).child("t1").setValue(updatedDescription);
                     databaseReference.child(updatedStepName).child("t2").setValue(imageUrl);
+                    databaseReference.child(updatedStepName).child("t4").setValue(link);
 
 
                     // Finish the activity after saving changes

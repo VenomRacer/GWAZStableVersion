@@ -115,6 +115,27 @@
                         android:gravity="top|start" />
                 </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:layout_width="350dp"
+                    android:layout_height="60dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="#FDE49E"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp">
+
+                    <EditText
+                        android:id="@+id/creditLink"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textSize="20dp"
+                        android:textAlignment="center"
+                        android:hint="link"/>
+                </androidx.cardview.widget.CardView>
+
                 <Button
                     android:id="@+id/save"
                     android:layout_width="300dp"
