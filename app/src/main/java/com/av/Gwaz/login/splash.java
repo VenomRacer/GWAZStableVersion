@@ -2,6 +2,7 @@ package com.av.Gwaz.login;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.animation.Animation;
@@ -17,6 +18,7 @@ public class splash extends AppCompatActivity {
     ImageView logo;
     TextView name, own1, own2;
     Animation topAnim, bottomAnim;
+    MediaPlayer mediaPlayer;
 
 
 
@@ -36,6 +38,9 @@ public class splash extends AppCompatActivity {
         own1.setAnimation(bottomAnim);
         own2.setAnimation(bottomAnim);
 
+        mediaPlayer = MediaPlayer.create(this, R.raw.gchord);
+        mediaPlayer.start();
+
       new Handler().postDelayed(new Runnable() {
           @Override
           public void run() {
@@ -44,5 +49,15 @@ public class splash extends AppCompatActivity {
               finish();
           }
       },4000);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Release the MediaPlayer resources
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 }

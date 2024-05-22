@@ -9,14 +9,13 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.av.Gwaz.R;
 import com.av.Gwaz.chat.MessageWindow;
 import com.av.Gwaz.chat.setting;
-import com.av.Gwaz.homepage.AMPLIZ.AllSettings.AllSettings;
-import com.av.Gwaz.homepage.CHORDM.MainactChordm;
-import com.av.Gwaz.homepage.GWIZ.MainactGwiz;
-import com.av.Gwaz.homepage.TUNER.TunerTrainer;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,10 +42,7 @@ public class home extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(mAuth.getCurrentUser().getUid()).child("userCommunicated");
 
 
-        gwiz = findViewById(R.id.gwiz);
-        amplizone = findViewById(R.id.amplizone);
-        chordmaster = findViewById(R.id.chordmaster);
-        tuner = findViewById(R.id.tuner);
+
         profileBtn = findViewById(R.id.profileBtn);
         chatBtn = findViewById(R.id.chatBtn);
         chatNotify = findViewById(R.id.chatNotify);
@@ -56,6 +52,16 @@ public class home extends AppCompatActivity {
         sound1 = MediaPlayer.create(this, R.raw.strum);
         sound2 = MediaPlayer.create(this, R.raw.plug);
         sound3 = MediaPlayer.create(this,R.raw.chord);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        int[] images = {R.drawable.guitarwiz, R.drawable.ampliz, R.drawable.chordm, R.drawable.tuner};
+        ImageAdapter adapter = new ImageAdapter(this, images);
+        recyclerView.setAdapter(adapter);
+
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(recyclerView);
 
         // Set up ValueEventListener to listen for changes in communication status
         mDatabase.addValueEventListener(new ValueEventListener() {
@@ -87,39 +93,7 @@ public class home extends AppCompatActivity {
             }
         });
 
-        gwiz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sound1.start();
-                startActivity(new Intent(home.this, MainactGwiz.class));
-                overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
 
-            }
-        });
-
-        amplizone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sound2.start();
-                startActivity(new Intent(home.this, AllSettings.class));
-            }
-        });
-
-        chordmaster.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sound3.start();
-                startActivity(new Intent(home.this, MainactChordm.class));
-            }
-        });
-
-        tuner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(home.this, TunerTrainer.class));
-                finish();
-            }
-        });
 
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
