@@ -10,10 +10,8 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.av.Gwaz.R;
-import com.av.Gwaz.homepage.GWIZ.Parts.Body;
 import com.av.Gwaz.homepage.GWIZ.Parts.Bridge;
 import com.av.Gwaz.homepage.GWIZ.Parts.Fretboard;
-import com.av.Gwaz.homepage.GWIZ.Parts.Pickups;
 import com.av.Gwaz.homepage.GWIZ.Parts.Strings;
 import com.av.Gwaz.homepage.GWIZ.Parts.TuningPegs;
 import com.google.firebase.database.DatabaseReference;
@@ -26,8 +24,8 @@ public class MainactGwiz extends AppCompatActivity {
     ImageView imageView;
     View overlayView1, overlayView2;
 
-    DatabaseReference nutstring,rodstring;
-    StorageReference nutstore, rodstore;
+    DatabaseReference nutstring,rodstring,bodystring,pickupsstring;
+    StorageReference nutstore, rodstore, bodystore, pickupsstore;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -51,6 +49,18 @@ public class MainactGwiz extends AppCompatActivity {
                 .child("TrussRod");
         rodstore = FirebaseStorage.getInstance().getReference().child("gwazPic").child("GWIZ")
                 .child("TrussRod");
+
+        // For body
+        bodystring = FirebaseDatabase.getInstance().getReference().child("Service").child("GWIZ")
+                .child("Body").child("ElectricGuitar");
+        bodystore = FirebaseStorage.getInstance().getReference().child("gwazPic").child("GWIZ")
+                .child("Body").child("ElectricGuitar");
+
+        // For pickups
+        pickupsstring = FirebaseDatabase.getInstance().getReference().child("Service").child("GWIZ")
+                .child("Pickups").child("ElectricGuitar");
+        pickupsstore = FirebaseStorage.getInstance().getReference().child("gwazPic").child("GWIZ")
+                .child("Pickups").child("ElectricGuitar");
 
         overlayView1.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -306,13 +316,19 @@ public class MainactGwiz extends AppCompatActivity {
 
             else if (isWithinTarget(x, y, target7XPercent, target7YPercent, tolerance7)||
                     isWithinTarget(x, y, target8XPercent, target8YPercent, tolerance8)) {
-                Intent intent = new Intent(MainactGwiz.this, Pickups.class);
+                Intent intent = new Intent(MainactGwiz.this, Partview.class);
+                intent.putExtra("TITLE","Pickups");
+                intent.putExtra("datab", pickupsstring.toString());
+                intent.putExtra("store", pickupsstore.toString());
                 startActivity(intent);
                 overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
             }
 
             else if (isWithinTarget(x, y, target9XPercent, target9YPercent, tolerance9)) {
-                Intent intent = new Intent(MainactGwiz.this, Body.class);
+                Intent intent = new Intent(MainactGwiz.this, Partview.class);
+                intent.putExtra("TITLE","Body");
+                intent.putExtra("datab", bodystring.toString());
+                intent.putExtra("store", bodystore.toString());
                 startActivity(intent);
                 overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
             }

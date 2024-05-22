@@ -2,7 +2,8 @@ package com.av.Gwaz.homepage.AMPLIZ.AllSettings;
 
 import static android.content.ContentValues.TAG;
 
-import android.app.ProgressDialog;
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -25,6 +26,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.av.Gwaz.R;
 import com.av.Gwaz.homepage.AMPLIZ.Add.AmpView;
 import com.av.Gwaz.homepage.AMPLIZ.Genre.Genre;
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,18 +50,28 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
     private SearchView searchView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ImageView pop,metal,rock,jazz,blues,funk,reggae,country,clean;
+    private ImageView loadingCenter,nonet;
     private Vibrator vibrator;
     private AllAdapter.OnItemClickListener listener;
-    private ProgressDialog progressDialog; // Declare progressDialog here
+    private Dialog loadingDialog;
     String bass,drive,gain,gainstage,mid,presence,reverb,tone,treble,
             chorus,compressor,delay,distortion,flanger,fuzz,overdrive,phaser,reverb1,tremolo,wah;
 
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_settings);
+
+        // Initialize the custom loading dialog
+        loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.dialog_loading);
+        loadingDialog.setCancelable(false);
+
+        ImageView loadingImageView = loadingDialog.findViewById(R.id.loadingImageView);
+        Glide.with(this).asGif().load(R.drawable.loading_ic).into(loadingImageView);
 
         //Initialization
         //Add = findViewById(R.id.Add);
@@ -74,6 +86,12 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
         funk = findViewById(R.id.funk);
         reggae = findViewById(R.id.reggae);
         searchView = findViewById(R.id.searchView);
+        loadingCenter = findViewById(R.id.loadingCenter);
+        nonet = findViewById(R.id.noNet);
+
+        Glide.with(this).asGif().load(R.drawable.loading_ic2).into(loadingCenter);
+        nonet.setImageResource(R.drawable.nonet);
+
 
         // Initialize the listener
         listener = this;
@@ -212,6 +230,7 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
     private void fetchData() {
         // Check for internet connectivity
         if (isConnected()) {
+
             ValueEventListener ampListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -219,6 +238,7 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         AllGet allGet = snapshot.getValue(AllGet.class);
                         ampList.add(allGet);
+                        loadingCenter.setVisibility(View.GONE);
                     }
 
                     adapter.notifyDataSetChanged();
@@ -236,7 +256,32 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
             // Display a message to the user indicating the lack of internet connectivity
             // You can show a Snackbar, Toast, or any other UI element here
             // For example:
+
+            //nonet.setVisibility(View.VISIBLE);
+            //loadingCenter.setVisibility(View.GONE);
             Toast.makeText(this, "No internet connection. Please check your connection and try again.", Toast.LENGTH_SHORT).show();
+
+            ValueEventListener ampListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    ampList.clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        AllGet allGet = snapshot.getValue(AllGet.class);
+                        ampList.add(allGet);
+                        loadingCenter.setVisibility(View.GONE);
+                    }
+
+                    adapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                }
+            };
+
+            databaseReference.addListenerForSingleValueEvent(ampListener);
         }
     }
 
@@ -253,12 +298,7 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
     public void onItemClick(AllGet item) {
 
 
-        if (progressDialog == null) {
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Loading...");
-            progressDialog.setCancelable(false);
-        }
-        progressDialog.show();
+        loadingDialog.show();
 
         // Assuming each item has a unique key generated by Firebase
         Query query = databaseReference.orderByChild("key").equalTo(item.getKey()).limitToFirst(1);
@@ -350,13 +390,13 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
 
 
                                         startActivity(intent);
-                                        progressDialog.dismiss();
+                                        loadingDialog.dismiss();
                                     }
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
                                         Log.e(TAG, "Error fetching effects data: " + databaseError.getMessage());
-                                        progressDialog.dismiss();
+                                        loadingDialog.dismiss();
                                     }
                                 });
                             }
@@ -365,7 +405,7 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             Log.e(TAG, "Error fetching settings data: " + databaseError.getMessage());
-                            progressDialog.dismiss();
+                            loadingDialog.dismiss();
                         }
                     });
                 }
@@ -374,7 +414,7 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e(TAG, "Error fetching item data: " + databaseError.getMessage());
-                progressDialog.dismiss();
+                loadingDialog.dismiss();
             }
         });
     }
@@ -392,14 +432,14 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
     }
 
 
-    @Override
+    /*@Override
     protected void onResume() {
         super.onResume();
         // Dismiss the progress dialog if it's showing
-        if (progressDialog != null && progressDialog.isShowing()) {
-            progressDialog.dismiss();
+        if (loadingDialog != null && loadingDialog.isShowing()) {
+            loadingDialog.dismiss();
         }
-    }
+    }*/
 
     // Method to check internet connectivity
     private boolean isConnected() {

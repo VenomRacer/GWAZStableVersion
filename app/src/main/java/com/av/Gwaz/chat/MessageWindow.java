@@ -1,10 +1,12 @@
 package com.av.Gwaz.chat;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Pair;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.av.Gwaz.R;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,7 +36,8 @@ public class MessageWindow extends AppCompatActivity{
     ArrayList<Users> usersArrayList;
     ImageView imglogout;
     ImageView cumbut,setbut;
-    ProgressDialog progressDialog;
+    Dialog loadingDialog;
+    Handler handler = new Handler();
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -41,11 +45,25 @@ public class MessageWindow extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_window);
 
-        // Initialize ProgressDialog
-        progressDialog = new ProgressDialog(MessageWindow.this);
-        progressDialog.setMessage("Loading..."); // Set the message for the ProgressDialog
-        progressDialog.setCancelable(false); // Set whether the ProgressDialog is cancelable
-        progressDialog.show();
+        // Initialize the custom loading dialog
+        loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.dialog_loading);
+        loadingDialog.setCancelable(false);
+
+        ImageView loadingImageView = loadingDialog.findViewById(R.id.loadingImageView);
+        Glide.with(this).asGif().load(R.drawable.loading_ic).into(loadingImageView);
+        loadingDialog.show();
+
+        // Dismiss the loading dialog after 10 seconds if not already dismissed
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (loadingDialog.isShowing()) {
+                    loadingDialog.dismiss();
+                    Toast.makeText(MessageWindow.this, "Something went wrong, please try again later.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, 10000); // 10 seconds
 
 
 
@@ -109,7 +127,7 @@ public class MessageWindow extends AppCompatActivity{
                 }
 
                 adapter.notifyDataSetChanged();
-                progressDialog.dismiss();
+                loadingDialog.dismiss();
             }
 
             @Override
@@ -121,4 +139,6 @@ public class MessageWindow extends AppCompatActivity{
 
 
     }
+
+
 }

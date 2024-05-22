@@ -2,8 +2,10 @@ package com.av.Gwaz.homepage.GWIZ;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.av.Gwaz.R;
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,13 +37,18 @@ public class Partview extends AppCompatActivity {
     private List<PartGet> stepList;
     private PartAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    ImageView Add;
-    TextView ttl;
+    private ImageView loadingCenter;
+    private TextView ttl, loadingTxt;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partview);
+
+        loadingCenter = findViewById(R.id.loadingCenter);
+        loadingTxt = findViewById(R.id.loadingTxt);
+        Glide.with(this).asGif().load(R.drawable.loading_ic2).into(loadingCenter);
 
         // Retrieve databaseReference from intent extras
         String TITLE = getIntent().getStringExtra("TITLE");
@@ -97,6 +105,8 @@ public class Partview extends AppCompatActivity {
                     PartGet step = stepSnapshot.getValue(PartGet.class);
                     step.setT3(stepSnapshot.getKey()); // Set the step name using setT3 method
                     stepList.add(step);
+                    loadingTxt.setVisibility(View.GONE);
+                    loadingCenter.setVisibility(View.GONE);
                 }
 
                 // Reverse the list to display in descending order

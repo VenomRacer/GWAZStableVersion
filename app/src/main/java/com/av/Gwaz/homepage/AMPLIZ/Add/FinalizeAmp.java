@@ -1,7 +1,7 @@
 package com.av.Gwaz.homepage.AMPLIZ.Add;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -30,6 +30,7 @@ import androidx.cardview.widget.CardView;
 
 import com.av.Gwaz.R;
 import com.av.Gwaz.chat.setting;
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -257,10 +258,14 @@ public class FinalizeAmp extends AppCompatActivity {
     }
 
     private void saveDataToDatabase() {
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Saving data...");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+        // Initialize the custom loading dialog
+        Dialog loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.dialog_loading);
+        loadingDialog.setCancelable(false);
+
+        ImageView loadingImageView = loadingDialog.findViewById(R.id.loadingImageView);
+        Glide.with(this).asGif().load(R.drawable.loading_ic).into(loadingImageView);
+        loadingDialog.show();
 
         String setNameValue = setName.getText().toString().trim();
         String ampUsedValue = ampUsed.getText().toString().trim();
@@ -272,13 +277,13 @@ public class FinalizeAmp extends AppCompatActivity {
         // Check for network connectivity
         if (!isNetworkConnected()) {
             Toast.makeText(this, "No internet connection. Please check your network.", Toast.LENGTH_SHORT).show();
-            progressDialog.dismiss();
+            loadingDialog.dismiss();
             return;
         }
 
         if (TextUtils.isEmpty(setNameValue) || TextUtils.isEmpty(ampUsedValue) || TextUtils.isEmpty(descriptionValue) || audioUri == null || imageUrl == null) {
             Toast.makeText(this, "Please fill in all fields and select an image and audio file", Toast.LENGTH_SHORT).show();
-            progressDialog.dismiss();
+            loadingDialog.dismiss();
             return;
         }
 
@@ -290,7 +295,7 @@ public class FinalizeAmp extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    progressDialog.dismiss();
+                    loadingDialog.dismiss();
                     Toast.makeText(FinalizeAmp.this, "Amp with this name already exists. Please choose a different name.", Toast.LENGTH_SHORT).show();
                 } else {
                     // Create a HashMap to hold the data
@@ -366,7 +371,7 @@ public class FinalizeAmp extends AppCompatActivity {
                                                                     // Image uploaded successfully, get the download URL
                                                                     imageStorageRef.getDownloadUrl().addOnSuccessListener(uri -> {
                                                                         finalMainRef.child("imageUrl").setValue(uri.toString());
-                                                                        progressDialog.dismiss();
+                                                                        loadingDialog.dismiss();
                                                                         startActivity(new Intent(FinalizeAmp.this, setting.class));
                                                                         finish();
 
@@ -374,17 +379,17 @@ public class FinalizeAmp extends AppCompatActivity {
                                                                 })
                                                                 .addOnFailureListener(e -> {
                                                                     // Handle failed upload
-                                                                    progressDialog.dismiss();
+                                                                    loadingDialog.dismiss();
                                                                     Toast.makeText(FinalizeAmp.this, "Failed to upload image: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                                                 });
                                                     })
                                                     .addOnFailureListener(e -> {
-                                                        progressDialog.dismiss();
+                                                        loadingDialog.dismiss();
                                                         Toast.makeText(FinalizeAmp.this, "Failed to save data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                                     });
                                         })
                                         .addOnFailureListener(e -> {
-                                            progressDialog.dismiss();
+                                            loadingDialog.dismiss();
                                             Toast.makeText(FinalizeAmp.this, "Failed to save data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                         });
 
@@ -398,11 +403,11 @@ public class FinalizeAmp extends AppCompatActivity {
                                         })
                                         .addOnFailureListener(e -> {
                                             // Handle failed upload
-                                            progressDialog.dismiss();
+                                            loadingDialog.dismiss();
                                             Toast.makeText(FinalizeAmp.this, "Failed to upload audio: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                         });
                             } else {
-                                progressDialog.dismiss();
+                                loadingDialog.dismiss();
                                 Toast.makeText(FinalizeAmp.this, "Transaction failed. Please try again.", Toast.LENGTH_SHORT).show();
                                 // If the transaction fails, delete the partially saved data
                                 finalMainRef.removeValue();
@@ -414,7 +419,7 @@ public class FinalizeAmp extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                progressDialog.dismiss();
+                loadingDialog.dismiss();
                 Toast.makeText(FinalizeAmp.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

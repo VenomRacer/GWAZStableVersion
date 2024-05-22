@@ -3,7 +3,7 @@ package com.av.Gwaz.homepage.AMPLIZ.AllSettings;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -32,6 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.av.Gwaz.R;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
@@ -84,6 +85,14 @@ public class AllEdit4 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_edit4);
+
+        // Initialize the custom loading dialog
+        Dialog loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.dialog_loading);
+        loadingDialog.setCancelable(false);
+
+        ImageView loadingImageView = loadingDialog.findViewById(R.id.loadingImageView);
+        Glide.with(this).asGif().load(R.drawable.loading_ic).into(loadingImageView);
 
         addImg = findViewById(R.id.addImg);
         image1 = findViewById(R.id.image1);
@@ -262,10 +271,8 @@ public class AllEdit4 extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProgressDialog progressDialog = new ProgressDialog(AllEdit4.this);
-                progressDialog.setMessage("Saving data...");
-                progressDialog.setCancelable(false);
-                progressDialog.show();
+
+                loadingDialog.show();
 
                 String setNameValue = setNamee.getText().toString().trim();
                 String ampUsedValue = ampUsede.getText().toString().trim();
@@ -277,13 +284,13 @@ public class AllEdit4 extends AppCompatActivity {
                 // Check for network connectivity
                 if (!isNetworkConnected()) {
                     Toast.makeText(AllEdit4.this, "No internet connection. Please check your network.", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
+                    loadingDialog.dismiss();
                     return;
                 }
 
                 if (TextUtils.isEmpty(setNameValue) || TextUtils.isEmpty(ampUsedValue) || TextUtils.isEmpty(descriptionValue)) {
                     Toast.makeText(AllEdit4.this, "Please fill in all fields and select an image and audio file", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
+                    loadingDialog.dismiss();
                     return;
                 }
 
@@ -366,7 +373,7 @@ public class AllEdit4 extends AppCompatActivity {
                                 }
                             });
 
-                            progressDialog.dismiss();
+                        loadingDialog.dismiss();
 
                     }
 
