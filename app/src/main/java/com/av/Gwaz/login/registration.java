@@ -1,14 +1,18 @@
 package com.av.Gwaz.login;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.av.Gwaz.R;
 import com.av.Gwaz.chat.Users;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -43,16 +48,20 @@ public class registration extends AppCompatActivity {
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     FirebaseDatabase database;
     FirebaseStorage storage;
-    ProgressDialog progressDialog;
+    Dialog loadingDialog;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Establishing The Account");
-        progressDialog.setCancelable(false);
+        // Initialize the custom loading dialog
+        loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.dialog_loading);
+        loadingDialog.setCancelable(false);
+        ImageView loadingImageView = loadingDialog.findViewById(R.id.loadingImageView);
+        Glide.with(this).asGif().load(R.drawable.loading_ic).into(loadingImageView);
+
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -76,7 +85,14 @@ public class registration extends AppCompatActivity {
         rg_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog.show();
+                loadingDialog.show();
+
+                if (!isNetworkConnected()) {
+                    Toast.makeText(registration.this, "No internet connection. Please check your connection and try again.", Toast.LENGTH_SHORT).show();
+                    loadingDialog.dismiss();
+                    return;
+                }
+
                 String namee = rg_username.getText().toString();
                 String emaill = rg_email.getText().toString();
                 String Password = rg_password.getText().toString();
@@ -84,13 +100,13 @@ public class registration extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(namee) || TextUtils.isEmpty(emaill) ||
                         TextUtils.isEmpty(Password)) {
-                    progressDialog.dismiss();
+                    loadingDialog.dismiss();
                     Toast.makeText(registration.this, "Please Enter Valid Information", Toast.LENGTH_SHORT).show();
                 } else if (!emaill.matches(emailPattern)) {
-                    progressDialog.dismiss();
+                    loadingDialog.dismiss();
                     rg_email.setError("Type A Valid Email Here");
                 } else if (Password.length() < 6) {
-                    progressDialog.dismiss();
+                    loadingDialog.dismiss();
                     rg_password.setError("Password Must Be 6 Characters Or More");
                 } else {
                     auth.createUserWithEmailAndPassword(emaill, Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -115,7 +131,7 @@ public class registration extends AppCompatActivity {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                 if (task.isSuccessful()) {
-                                                                    progressDialog.show();
+                                                                    loadingDialog.show();
                                                                     // Send verification email
                                                                     FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification() //EMAIL VERIFICATION!!!
                                                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -128,7 +144,7 @@ public class registration extends AppCompatActivity {
                                                                                     }
                                                                                 }
                                                                             });
-                                                                    progressDialog.dismiss();
+                                                                    loadingDialog.dismiss();
                                                                     onBackPressed();
 
                                                                 } else {
@@ -149,7 +165,7 @@ public class registration extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
-                                                progressDialog.show();
+                                                loadingDialog.show();
                                                 // Send verification email
                                                 FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification()
                                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -162,7 +178,7 @@ public class registration extends AppCompatActivity {
                                                                 }
                                                             }
                                                         });
-                                                progressDialog.dismiss();
+                                                loadingDialog.dismiss();
                                                 onBackPressed();
 
                                             } else {
@@ -211,5 +227,11 @@ public class registration extends AppCompatActivity {
                 rg_profileImg.setImageURI(imageURI);
             }
         }
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 }

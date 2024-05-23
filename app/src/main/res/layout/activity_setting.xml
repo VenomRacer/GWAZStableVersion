@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".chat.setting"
-    android:background="@color/white">
+    android:background="@color/gray2">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll"
@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:background="@color/white"
+            android:background="@color/gray2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="405dp">
                 <LinearLayout
-                    android:background="@drawable/patbackg2"
+                    android:background="@drawable/patbackg3"
                     android:layout_width="match_parent"
                     android:layout_height="350dp"
                     android:orientation="vertical">
@@ -57,6 +57,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="340dp"
                     android:layout_height="100dp"
+                    app:cardBackgroundColor="@color/gray2"
                     android:layout_centerHorizontal="true"
                     app:cardCornerRadius="10dp"
                     android:layout_marginTop="275dp">
@@ -104,11 +105,19 @@
                             android:layout_width="0dp"
                             android:layout_weight="1">
 
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Add Amp"
+                                android:layout_marginBottom="10dp"
+                                android:textColor="@color/gold"
+                                android:fontFamily="sans-serif-medium"
+                                android:gravity="center"/>
+
                             <com.google.android.material.floatingactionbutton.FloatingActionButton
                                 android:id="@+id/Add"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="16dp"
                                 android:src="@drawable/add"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -141,11 +150,11 @@
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:src="@drawable/mail_icon"
-                        app:tint="@color/pastelyellow"/>
+                        app:tint="@color/white"/>
                     <TextView
                         android:id="@+id/Email"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -163,7 +172,7 @@
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:src="@drawable/baseline_person_24"
-                        app:tint="@color/pastelyellow"/>
+                        app:tint="@color/white"/>
                     <EditText
                         android:id="@+id/settingname"
                         android:textStyle="bold"
@@ -171,6 +180,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
+                        android:textColor="@color/white"
                         android:textSize="14dp"
                         android:text=""/>
                 </LinearLayout>
@@ -184,13 +194,14 @@
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:src="@drawable/phone_icon"
-                        app:tint="@color/pastelyellow"/>
+                        app:tint="@color/white"/>
                     <EditText
                         android:id="@+id/settingstatus"
                         android:textStyle="bold"
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/white"
                         android:layout_marginStart="10dp"
                         android:textSize="14dp"
                         android:text=""/>

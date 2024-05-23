@@ -160,7 +160,6 @@ package com.av.Gwaz.chat;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -182,6 +181,7 @@ import com.av.Gwaz.R;
 import com.av.Gwaz.homepage.AMPLIZ.Add.AddAmp;
 import com.av.Gwaz.homepage.AMPLIZ.MyAmp.MyAmp;
 import com.av.Gwaz.login.login;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -209,7 +209,7 @@ public class setting extends AppCompatActivity {
     FirebaseStorage storage;
     Uri setImageUri;
     String email,password,oldname;
-    ProgressDialog progressDialog;
+    Dialog loadingDialog;
 
 
 
@@ -232,9 +232,13 @@ public class setting extends AppCompatActivity {
         ampCount = findViewById(R.id.ampCount);
         Email = findViewById(R.id.Email);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Saving...");
-        progressDialog.setCancelable(false);
+        // Initialize the custom loading dialog
+        loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.dialog_loading);
+        loadingDialog.setCancelable(false);
+
+        ImageView loadingImageView = loadingDialog.findViewById(R.id.loadingImageView);
+        Glide.with(this).asGif().load(R.drawable.loading_ic).into(loadingImageView);
 
         // Check for network connectivity
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -357,7 +361,7 @@ public class setting extends AppCompatActivity {
         donebut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.show();
+                loadingDialog.show();
                 if (networkInfo != null && networkInfo.isConnected()) {
                     // If there is network connectivity, execute the code
 
@@ -509,7 +513,7 @@ public class setting extends AppCompatActivity {
                                                     @Override
                                                     public void onSuccess(Void unused) {
 
-                                                        progressDialog.dismiss();
+                                                        loadingDialog.dismiss();
 
                                                     }
                                                 })
@@ -645,7 +649,7 @@ public class setting extends AppCompatActivity {
 
                                             }
                                         });
-                                progressDialog.dismiss();
+                                loadingDialog.dismiss();
 
                                 DatabaseReference leaderboard = FirebaseDatabase.getInstance().getReference().child("Service").child("CHORDM").child("Leaderboard").child("Classic");
                                 leaderboard.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -716,7 +720,7 @@ public class setting extends AppCompatActivity {
                                         // Handle error
                                     }
                                 });
-                                progressDialog.dismiss();
+                                loadingDialog.dismiss();
 
                             }
                         });
@@ -724,7 +728,7 @@ public class setting extends AppCompatActivity {
 
                 } else {
                     // If there's no network connectivity, display a toast
-                    progressDialog.dismiss();
+                    loadingDialog.dismiss();
                     Toast.makeText(setting.this, "No network connection", Toast.LENGTH_SHORT).show();
                 }
 

@@ -1,13 +1,17 @@
 package com.av.Gwaz.login;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.av.Gwaz.R;
 import com.av.Gwaz.homepage.home;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -28,7 +33,7 @@ public class  login extends AppCompatActivity {
     EditText email, password;
     FirebaseAuth auth;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    android.app.ProgressDialog progressDialog;
+    Dialog loadingDialog;
 
 
     @SuppressLint("MissingInflatedId")
@@ -37,10 +42,14 @@ public class  login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //for progress dialog
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Preparing Your Gear, Stay Amped!");
-        progressDialog.setCancelable(false);
+        // Initialize the custom loading dialog
+        loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.dialog_loading);
+        loadingDialog.setCancelable(false);
+
+        ImageView loadingImageView = loadingDialog.findViewById(R.id.loadingImageView);
+        Glide.with(this).asGif().load(R.drawable.loading_ic).into(loadingImageView);
+
 
 
         auth = FirebaseAuth.getInstance();
@@ -82,53 +91,59 @@ public class  login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog.show();
+                loadingDialog.show();
+                if (!isNetworkConnected()) {
+                    Toast.makeText(login.this, "No internet connection. Please check your connection and try again.", Toast.LENGTH_SHORT).show();
+                    loadingDialog.dismiss();
+                    return;
+                }
+
+
 
                 String Email = email.getText().toString();
                 String pass = password.getText().toString();
 
-                if ((TextUtils.isEmpty(Email))){
-                    progressDialog.dismiss();
+                if (TextUtils.isEmpty(Email)) {
+                    loadingDialog.dismiss();
                     Toast.makeText(login.this, "Enter The Email", Toast.LENGTH_SHORT).show();
-                }else if (TextUtils.isEmpty(pass)){
-                    progressDialog.dismiss();
+                } else if (TextUtils.isEmpty(pass)) {
+                    loadingDialog.dismiss();
                     Toast.makeText(login.this, "Enter The Password", Toast.LENGTH_SHORT).show();
-                }else if (!Email.matches(emailPattern)){
-                    progressDialog.dismiss();
+                } else if (!Email.matches(emailPattern)) {
+                    loadingDialog.dismiss();
                     email.setError("Give Proper Email Address");
-                }else if (password.length()<6){
-                    progressDialog.dismiss();
-                    password.setError("More Then Six Characters");
-                    Toast.makeText(login.this, "Password Needs To Be Longer Then Six Characters", Toast.LENGTH_SHORT).show();
-                }else {
-                    auth.signInWithEmailAndPassword(Email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                } else if (password.length() < 6) {
+                    loadingDialog.dismiss();
+                    password.setError("More Than Six Characters");
+                    Toast.makeText(login.this, "Password Needs To Be Longer Than Six Characters", Toast.LENGTH_SHORT).show();
+                } else {
+                    auth.signInWithEmailAndPassword(Email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
-                                progressDialog.dismiss();
+                            loadingDialog.dismiss();
 
-
+                            if (task.isSuccessful()) {
                                 if (auth.getCurrentUser().isEmailVerified()) {
-                                    Intent intent = new Intent(login.this , home.class);
+                                    Intent intent = new Intent(login.this, home.class);
                                     startActivity(intent);
                                     finish();
+                                } else {
+                                    Toast.makeText(login.this, "Failed to Login. Verify Your Account First.", Toast.LENGTH_SHORT).show();
                                 }
-
-                                else {
-                                    Toast.makeText(login.this, "Failed to Login. Verify Your Account First.",Toast.LENGTH_SHORT).show();
-                                    progressDialog.dismiss();
-                                }
-                            }else {
-                                Toast.makeText(login.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                progressDialog.dismiss();
+                            } else {
+                                Toast.makeText(login.this, "Invalid Email or Password.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 }
-
-
             }
         });
 
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 }

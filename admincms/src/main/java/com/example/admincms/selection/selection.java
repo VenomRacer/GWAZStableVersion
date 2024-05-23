@@ -13,6 +13,7 @@ import com.example.admincms.R;
 import com.example.admincms.login.login;
 import com.example.admincms.selection.AMPLIZONE.MainSelect;
 import com.example.admincms.selection.GWIZ.MainactGwiz;
+import com.example.admincms.selection.LEADERBOARD.Leaders;
 
 public class selection extends AppCompatActivity {
 
@@ -29,7 +30,7 @@ public class selection extends AppCompatActivity {
         guitarwiz = findViewById(R.id.guitarwiz);
         amplizone = findViewById(R.id.amplizone);
         leaderboard = findViewById(R.id.leaderboard);
-        users = findViewById(R.id.users);
+        //users = findViewById(R.id.users);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +43,13 @@ public class selection extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(selection.this, MainactGwiz.class));
+            }
+        });
+
+        leaderboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(selection.this, Leaders.class));
             }
         });
 

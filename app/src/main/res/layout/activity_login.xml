@@ -141,25 +141,34 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/logbutton"
-                    android:layout_width="@dimen/_250sdp"
+                <FrameLayout
+                    android:layout_width="@dimen/_230sdp"
                     android:layout_height="@dimen/_45sdp"
                     android:backgroundTint="@color/black"
-                    android:text="Login"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_20sdp"
-                    android:textStyle="bold"
-                    android:layout_marginEnd="8dp" />
+                    android:layout_marginEnd="8dp">
+
+                    <Button
+                        android:id="@+id/logbutton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:backgroundTint="@color/black"
+                        android:text="Login"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_15sdp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
+
+
 
                 <Button
                     android:id="@+id/forgotPass"
-                    android:layout_width="@dimen/_250sdp"
+                    android:layout_width="@dimen/_230sdp"
                     android:layout_height="@dimen/_45sdp"
                     android:backgroundTint="@color/darkr"
                     android:textColor="@color/white"
                     android:text="Forgot Pass ?"
-                    android:textSize="@dimen/_20sdp"
+                    android:textSize="@dimen/_15sdp"
                     android:textStyle="bold" />
 
             </LinearLayout>

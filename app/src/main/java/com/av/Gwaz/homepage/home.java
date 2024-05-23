@@ -1,10 +1,12 @@
 package com.av.Gwaz.homepage;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -157,5 +159,27 @@ public class home extends AppCompatActivity {
             sound3.release();
             sound3 = null;
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        Dialog dialog = new Dialog(home.this,R.style.dialoge);
+        dialog.setContentView(R.layout.exit_dialog);
+        Button no,yes;
+        yes = dialog.findViewById(R.id.yesbnt);
+        no = dialog.findViewById(R.id.nobnt);
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                home.super.onBackPressed();
+            }
+        });
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }

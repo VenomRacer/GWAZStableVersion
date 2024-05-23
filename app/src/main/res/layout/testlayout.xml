@@ -8,102 +8,30 @@
     tools:context=".homepage.home">
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="123dp"
-        android:layout_marginBottom="1dp"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <FrameLayout
+        android:layout_width="@dimen/_230sdp"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/black"
+        tools:ignore="MissingConstraints">
 
-        <ImageView
-            android:id="@+id/profileBtn"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:src="@drawable/person"/>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/ylogo"/>
-
-        <ImageView
-            android:id="@+id/chatBtn"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:src="@drawable/chatchat"/>
-
-        <ImageView
-            android:id="@+id/chatNotify"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:src="@drawable/chatnotify"
-            android:visibility="gone"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="606dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-
-        <ScrollView
+        <Button
+            android:id="@+id/logbutton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none">
+            android:backgroundTint="@color/black"
+            android:text="Login"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20sdp"
+            android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/gwiz"
-                    android:layout_width="match_parent"
-                    android:layout_height="600dp"
-                    android:src="@drawable/guitarwiz"/>
-
-                <ImageView
-                    android:id="@+id/amplizone"
-                    android:layout_width="match_parent"
-                    android:layout_height="600dp"
-                    android:src="@drawable/ampliz"/>
-
-                <ImageView
-                    android:id="@+id/chordmaster"
-                    android:layout_width="match_parent"
-                    android:layout_height="600dp"
-                    android:src="@drawable/chordm"/>
-
-                <ImageView
-                    android:id="@+id/tuner"
-                    android:layout_width="match_parent"
-                    android:layout_height="600dp"
-                    android:src="@drawable/tuner"/>
-
-
-            </LinearLayout>
-
-        </ScrollView>
-    </LinearLayout>
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/arrow_right"
+            android:layout_gravity="center|end"
+            android:layout_marginEnd="10dp"/>
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

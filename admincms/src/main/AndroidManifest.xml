@@ -13,98 +13,130 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GWAZ">
         <activity
+            android:name=".selection.LEADERBOARD.Leaders"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".selection.LEADERBOARD.Leaderboard"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".selection.AMPLIZONE.Genre.Genre"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.AMPLIZONE.AllSettings.AllEdit3"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.AMPLIZONE.AllSettings.AllEdit4"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.AMPLIZONE.AllSettings.AllEdit2"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.AMPLIZONE.AllSettings.AllEdit"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.AMPLIZONE.AllSettings.EffectsView"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.AMPLIZONE.AllSettings.SettingsView"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.AMPLIZONE.Add.AmpView"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.AMPLIZONE.Add.FinalizeAmp"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.AMPLIZONE.Add.GuitarEffects"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.AMPLIZONE.Add.additionalKnobs"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.AMPLIZONE.Add.AddAmp"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.AMPLIZONE.PopularSettings.PopularSettings"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.AMPLIZONE.AllSettings.AllSettings"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.AMPLIZONE.Genre.GenreSelection"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.AMPLIZONE.MainSelect"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.GWIZ.Parts.Body.Body"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.GWIZ.Parts.Pickups.Pickups"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.GWIZ.Parts.TuningPegs.TuningPegs"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.GWIZ.Parts.Bridge.Bridge"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.GWIZ.Parts.Fretboard.Fretboard"
-            android:exported="false" />
-        <activity
-            android:name=".selection.GWIZ.Parts.Fretboard"
-            android:exported="false" />
-        <activity
-            android:name=".selection.GWIZ.Parts.Strings.Sub.Nylon.Nylon"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".selection.GWIZ.Parts.AddItem"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.GWIZ.Parts.Edit"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.GWIZ.Parts.Partview"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.GWIZ.Parts.Strings.Strings"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".selection.GWIZ.MainactGwiz"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".login.login"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".selection.selection"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".login.splash"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

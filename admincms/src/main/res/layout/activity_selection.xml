@@ -92,7 +92,6 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginEnd="50dp"
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/leaderboard"
@@ -109,26 +108,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginStart="50dp"
-                android:orientation="vertical">
-                <ImageView
-                    android:id="@+id/users"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/person"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_black"
-                    android:textColor="@color/white"
-                    android:text="Users"/>
-
-            </LinearLayout>
 
 
 
