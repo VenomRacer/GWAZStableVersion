@@ -34,6 +34,7 @@ public class  login extends AppCompatActivity {
     FirebaseAuth auth;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     Dialog loadingDialog;
+    //private static final int PERMISSION_REQUEST_CODE = 123;
 
 
     @SuppressLint("MissingInflatedId")
@@ -41,6 +42,11 @@ public class  login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Check and request permissions if needed
+        /*if (!checkPermissions()) {
+            requestPermissions();
+        }*/
 
         // Initialize the custom loading dialog
         loadingDialog = new Dialog(this);
@@ -146,4 +152,27 @@ public class  login extends AppCompatActivity {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
+
+
+    // Check if permissions are granted
+    /*private boolean checkPermissions() {
+        int permissionNetwork = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionVibrate = ContextCompat.checkSelfPermission(this, Manifest.permission.VIBRATE);
+        int permissionReadMediaAudio = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_AUDIO);
+        int permissionReadMediaImages = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES);
+        return permissionNetwork == PackageManager.PERMISSION_GRANTED &&
+                permissionVibrate == PackageManager.PERMISSION_GRANTED &&
+                permissionReadMediaAudio == PackageManager.PERMISSION_GRANTED &&
+                permissionReadMediaImages == PackageManager.PERMISSION_GRANTED;
+    }
+
+    // Request permissions
+    private void requestPermissions() {
+        ActivityCompat.requestPermissions(this, new String[]{
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.VIBRATE,
+                Manifest.permission.READ_MEDIA_AUDIO,
+                Manifest.permission.READ_MEDIA_IMAGES
+        }, PERMISSION_REQUEST_CODE);
+    }*/
 }

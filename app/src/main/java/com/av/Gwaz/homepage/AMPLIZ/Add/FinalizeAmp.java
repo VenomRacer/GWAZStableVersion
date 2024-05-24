@@ -45,6 +45,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -199,6 +200,7 @@ public class FinalizeAmp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Launch an intent to pick an audio file
+                pauseAudio(audioUri);
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("audio/*");
                 startActivityForResult(intent, 2);
@@ -443,17 +445,35 @@ public class FinalizeAmp extends AppCompatActivity {
             // Get the audio file URI
             audioUri = data.getData();
 
-            // Extract the file name from the URI
-            String audioFileName = getFileName(audioUri);
+            try {
+                // Get the file size
+                InputStream inputStream = getContentResolver().openInputStream(audioUri);
+                int fileSizeInBytes = inputStream.available();
+                inputStream.close();
 
-            // Set the file name as the title
-            audioTitle.setText(audioFileName);
+                // Convert the file size to MB
+                double fileSizeInMB = fileSizeInBytes / (1024.0 * 1024.0);
 
-            // Do something with the audio URI, such as displaying it or playing it
-            Toast.makeText(FinalizeAmp.this, "Audio Selected", Toast.LENGTH_SHORT).show();
+                if (fileSizeInMB > 10) {
+                    // Show an error message if the file size exceeds 10 MB
+                    audioUri = null;
+                    audioTitle.setText("No Audio Selected");
+                    Toast.makeText(FinalizeAmp.this, "File size exceeds 10 MB", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Extract the file name from the URI
+                    String audioFileName = getFileName(audioUri);
 
+                    // Set the file name as the title
+                    TextView audioTitle = findViewById(R.id.audioTitle); // Assuming audioTitle is a TextView
+                    audioTitle.setText(audioFileName);
 
-
+                    // Do something with the audio URI, such as displaying it or playing it
+                    Toast.makeText(FinalizeAmp.this, "Audio Selected", Toast.LENGTH_SHORT).show();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(FinalizeAmp.this, "Failed to get file size", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
