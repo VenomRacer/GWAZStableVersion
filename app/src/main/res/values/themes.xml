@@ -18,5 +18,7 @@
         <item name="windowNoTitle">true</item>
         <item name="windowMinWidthMajor">80%</item>
         <item name="windowActionBar">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.5</item>
     </style>
 </resources>

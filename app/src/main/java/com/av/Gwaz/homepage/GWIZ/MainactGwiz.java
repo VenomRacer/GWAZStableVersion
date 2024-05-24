@@ -1,6 +1,7 @@
 package com.av.Gwaz.homepage.GWIZ;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -14,6 +15,7 @@ import com.av.Gwaz.homepage.GWIZ.Parts.Bridge;
 import com.av.Gwaz.homepage.GWIZ.Parts.Fretboard;
 import com.av.Gwaz.homepage.GWIZ.Parts.Strings;
 import com.av.Gwaz.homepage.GWIZ.Parts.TuningPegs;
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -37,6 +39,8 @@ public class MainactGwiz extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         overlayView1 = findViewById(R.id.overlayView1);
         overlayView2 = findViewById(R.id.overlayView2);
+
+        instruction();
 
         // For nut
         nutstring = FirebaseDatabase.getInstance().getReference().child("Service").child("GWIZ")
@@ -356,5 +360,31 @@ public class MainactGwiz extends AppCompatActivity {
 
     private float calculatePixelY(float percentageY, View view) {
         return percentageY * view.getHeight();
+    }
+
+    public void instruction() {
+        Dialog dialog = new Dialog(MainactGwiz.this, R.style.dialoge);
+        dialog.setContentView(R.layout.gwiz_instruction);
+
+
+        ImageView tap = dialog.findViewById(R.id.tap);
+
+        Glide.with(MainactGwiz.this).asGif().load(R.drawable.gwiz_instruct1).into(tap);
+
+        final boolean[] isFirstClick = {true};
+
+        tap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isFirstClick[0]) {
+                    Glide.with(MainactGwiz.this).asGif().load(R.drawable.gwiz_instruct2).into(tap);
+                    isFirstClick[0] = false;
+                } else {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        dialog.show();
     }
 }

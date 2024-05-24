@@ -58,7 +58,7 @@ public class home extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        int[] images = {R.drawable.guitarwiz, R.drawable.ampliz, R.drawable.chordm, R.drawable.tuner};
+        int[] images = {R.drawable.guitarwiz2, R.drawable.ampliz2, R.drawable.chordm2, R.drawable.tuner2};
         ImageAdapter adapter = new ImageAdapter(this, images);
         recyclerView.setAdapter(adapter);
 
