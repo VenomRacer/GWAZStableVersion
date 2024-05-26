@@ -14,6 +14,7 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -50,10 +51,11 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
     private SearchView searchView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ImageView pop,metal,rock,jazz,blues,funk,reggae,country,clean;
-    private ImageView loadingCenter,nonet;
+    private ImageView loadingCenter,nonet, openGenre;
     private Vibrator vibrator;
     private AllAdapter.OnItemClickListener listener;
     private Dialog loadingDialog;
+    private ScrollView scroll1;
     String bass,drive,gain,gainstage,mid,presence,reverb,tone,treble,
             chorus,compressor,delay,distortion,flanger,fuzz,overdrive,phaser,reverb1,tremolo,wah;
 
@@ -63,7 +65,7 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_settings);
+        setContentView(R.layout.testlayout);
 
         // Initialize the custom loading dialog
         loadingDialog = new Dialog(this);
@@ -88,6 +90,8 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
         searchView = findViewById(R.id.searchView);
         loadingCenter = findViewById(R.id.loadingCenter);
         nonet = findViewById(R.id.noNet);
+        openGenre = findViewById(R.id.openGenre);
+        scroll1 = findViewById(R.id.scroll1);
 
         Glide.with(this).asGif().load(R.drawable.loading_ic2).into(loadingCenter);
         nonet.setImageResource(R.drawable.nonet);
@@ -107,6 +111,18 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
         adapter = new AllAdapter(ampList, databaseReference, storageReference, listener);
         recyclerView.setAdapter(adapter);
         fetchData();
+
+        openGenre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (scroll1.getVisibility() == View.GONE) {
+                    scroll1.setVisibility(View.VISIBLE);
+                } else {
+                    scroll1.setVisibility(View.GONE);
+                }
+
+            }
+        });
 
         // Set up refresh listener
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

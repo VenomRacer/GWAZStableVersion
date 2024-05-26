@@ -246,13 +246,14 @@ public class Level2 extends AppCompatActivity {
         Button exit = dialog.findViewById(R.id.exit);
         Button upload = dialog.findViewById(R.id.uploadScore);
 
-        scoredisplay.setText(String.valueOf(score));
+        scoredisplay.setText(String.valueOf(score + prevsore));
+        int firstScore = score + prevsore;
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Level2.this, Level3.class);
-                intent.putExtra("prevscore", score);
+                intent.putExtra("prevscore", firstScore);
                 startActivity(intent);
                 finish();
             }
@@ -285,7 +286,7 @@ public class Level2 extends AppCompatActivity {
                                     long currentScore = dataSnapshot.child("score").getValue(Long.class);
 
                                     // Add the new score to the current score
-                                    long updatedScore = currentScore + score;
+                                    long updatedScore = currentScore + score + prevsore;
 
                                     // Update the score in the database
                                     dataSnapshot.getRef().child("score").setValue(updatedScore)

@@ -47,6 +47,7 @@ public class DLevel3 extends AppCompatActivity {
     private String userName,profilepic;
     ProgressDialog progressDialog;
     private int wrongGuessCount = 0;
+    private int prevsore;
     private static final int MAX_WRONG_GUESSES = 5;
 
     // Declare a boolean flag
@@ -75,6 +76,8 @@ public class DLevel3 extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Saving...");
         progressDialog.setCancelable(false);
+
+        prevsore = getIntent().getIntExtra("prevscore", 0);
 
         displayRandomChord();
 
@@ -210,13 +213,14 @@ public class DLevel3 extends AppCompatActivity {
         Button exit = dialog.findViewById(R.id.exit);
         Button upload = dialog.findViewById(R.id.uploadScore);
 
-        scoredisplay.setText(String.valueOf(score));
+        scoredisplay.setText(String.valueOf(score + prevsore));
+        int firstScore = score + prevsore;
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DLevel3.this, DLevel4.class);
-                intent.putExtra("prevscore", score);
+                intent.putExtra("prevscore", firstScore);
                 startActivity(intent);
                 finish();
             }
@@ -249,7 +253,7 @@ public class DLevel3 extends AppCompatActivity {
                                     long currentScore = dataSnapshot.child("score").getValue(Long.class);
 
                                     // Add the new score to the current score
-                                    long updatedScore = currentScore + score;
+                                    long updatedScore = currentScore + score + prevsore;
 
                                     // Update the score in the database
                                     dataSnapshot.getRef().child("score").setValue(updatedScore)

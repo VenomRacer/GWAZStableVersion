@@ -37,7 +37,7 @@
                         android:contentDescription="Profile Image"
                         android:layout_marginBottom="16dp"
                         android:layout_marginTop="40dp"
-                        android:scaleType="fitXY"
+                        android:scaleType="centerCrop"
                         android:background="@drawable/circular_background"
                         android:clipToOutline="true"
                         android:outlineProvider="background"/>
@@ -147,6 +147,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:id="@+id/mailIC"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:src="@drawable/mail_icon"
@@ -169,6 +170,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:id="@+id/nameIC"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:src="@drawable/baseline_person_24"
@@ -191,9 +193,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:id="@+id/statusIC"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:src="@drawable/phone_icon"
+                        android:src="@drawable/info_ic"
                         app:tint="@color/white"/>
                     <EditText
                         android:id="@+id/settingstatus"

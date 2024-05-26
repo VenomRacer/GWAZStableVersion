@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -46,6 +45,7 @@ public class DLevel5 extends AppCompatActivity {
     private Vibrator vibrator;
     private String userName,profilepic;
     ProgressDialog progressDialog;
+    private int prevsore;
     private int wrongGuessCount = 0;
     private static final int MAX_WRONG_GUESSES = 5;
 
@@ -76,6 +76,8 @@ public class DLevel5 extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Saving...");
         progressDialog.setCancelable(false);
+
+        prevsore = getIntent().getIntExtra("prevscore", 0);
 
         displayRandomChord();
 
@@ -219,18 +221,23 @@ public class DLevel5 extends AppCompatActivity {
 
         TextView scoredisplay = dialog.findViewById(R.id.scoreDisplay);
         Button yes = dialog.findViewById(R.id.yes);
+        yes.setVisibility(View.GONE);
+        TextView continueTxt = dialog.findViewById(R.id.continueTxt);
+        continueTxt.setVisibility(View.GONE);
         Button exit = dialog.findViewById(R.id.exit);
         Button upload = dialog.findViewById(R.id.uploadScore);
 
-        scoredisplay.setText(String.valueOf(score));
+        scoredisplay.setText(String.valueOf(score + prevsore));
+        int firstScore = score + prevsore;
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DLevel5.this, DLevel1.class);
-                intent.putExtra("prevscore", score);
+
+                /*Intent intent = new Intent(Level5.this, Level3.class);
+                intent.putExtra("prevscore", firstScore);
                 startActivity(intent);
-                finish();
+                finish();*/
             }
         });
 
@@ -261,7 +268,7 @@ public class DLevel5 extends AppCompatActivity {
                                     long currentScore = dataSnapshot.child("score").getValue(Long.class);
 
                                     // Add the new score to the current score
-                                    long updatedScore = currentScore + score;
+                                    long updatedScore = currentScore + score + prevsore;
 
                                     // Update the score in the database
                                     dataSnapshot.getRef().child("score").setValue(updatedScore)

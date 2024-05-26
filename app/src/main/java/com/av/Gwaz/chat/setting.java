@@ -47,7 +47,7 @@
     import com.squareup.picasso.Picasso;
 
     public class setting extends AppCompatActivity {
-        ImageView setprofile, myAmp;
+        ImageView setprofile, myAmp, mailIC, nameIC,statusIC;
         EditText setname, setstatus;
         TextView displayText, ampCount, Email;
         Button donebut, logoutBtn;
@@ -81,6 +81,14 @@
             myAmp = findViewById(R.id.myAmp);
             ampCount = findViewById(R.id.ampCount);
             Email = findViewById(R.id.Email);
+            mailIC = findViewById(R.id.mailIC);
+            nameIC = findViewById(R.id.nameIC);
+            statusIC = findViewById(R.id.statusIC);
+
+            Glide.with(this).asGif().load(R.drawable.profile_loading).into(setprofile);
+            Glide.with(this).asGif().load(R.drawable.loading_yellow).into(mailIC);
+            Glide.with(this).asGif().load(R.drawable.loading_yellow).into(nameIC);
+            Glide.with(this).asGif().load(R.drawable.loading_yellow).into(statusIC);
 
 
 
@@ -115,6 +123,9 @@
                     displayText.setText(name);
                     setstatus.setText(status);
                     Picasso.get().load(profile).into(setprofile);
+                    mailIC.setImageResource(R.drawable.mail_icon);
+                    nameIC.setImageResource(R.drawable.baseline_person_24);
+                    statusIC.setImageResource(R.drawable.info_ic);
                 }
 
                 @Override
