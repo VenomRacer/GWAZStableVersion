@@ -64,15 +64,17 @@
         app:layout_constraintEnd_toEndOf="parent" >
 
         <ImageView
+            android:id="@+id/upArrow"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/uparrow"
+            android:src="@drawable/up2"
             android:layout_gravity="center|top"/>
 
         <ImageView
+            android:id="@+id/downArrow"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/downarrow"
+            android:src="@drawable/down2"
             android:layout_gravity="center|bottom"/>
 
         <androidx.recyclerview.widget.RecyclerView

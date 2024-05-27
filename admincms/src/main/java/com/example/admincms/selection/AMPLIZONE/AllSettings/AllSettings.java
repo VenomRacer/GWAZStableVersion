@@ -37,6 +37,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemClickListener {
@@ -143,7 +144,14 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
                         AllGet allGet = snapshot.getValue(AllGet.class);
                         ampList.add(allGet);
                     }
-                    Collections.reverse(ampList);
+                    // Sort the list by the "date" field
+                    Collections.sort(ampList, new Comparator<AllGet>() {
+                        @Override
+                        public int compare(AllGet o1, AllGet o2) {
+                            // Assuming "date" is a field of type long in AllGet class
+                            return Long.compare(o2.getDate(), o1.getDate());
+                        }
+                    });
                     adapter.notifyDataSetChanged();
                     swipeRefreshLayout.setRefreshing(false);
                 }

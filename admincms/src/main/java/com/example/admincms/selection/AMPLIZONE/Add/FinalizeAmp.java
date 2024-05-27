@@ -41,6 +41,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -234,6 +235,8 @@ public class FinalizeAmp extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.show();
 
+        Date date = new Date();
+
         String setNameValue = setName.getText().toString().trim();
         String ampUsedValue = ampUsed.getText().toString().trim();
         String descriptionValue = description.getText().toString().trim();
@@ -275,6 +278,7 @@ public class FinalizeAmp extends AppCompatActivity {
                     ampData.put("pickups", pickupsValue);
                     ampData.put("by", "GWAZ");
                     ampData.put("key", "Key"+setNameValue);
+                    ampData.put("date", date.getTime());
 
                     // Create a HashMap to hold the data
                     Map<String, Object> settingsData = new HashMap<>();

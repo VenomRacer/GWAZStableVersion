@@ -46,6 +46,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -265,6 +266,8 @@ public class FinalizeAmp extends AppCompatActivity {
         loadingDialog.setContentView(R.layout.dialog_loading);
         loadingDialog.setCancelable(false);
 
+        Date date = new Date();
+
         ImageView loadingImageView = loadingDialog.findViewById(R.id.loadingImageView);
         Glide.with(this).asGif().load(R.drawable.loading_ic).into(loadingImageView);
         loadingDialog.show();
@@ -312,6 +315,7 @@ public class FinalizeAmp extends AppCompatActivity {
                     ampData.put("uid",userId);
                     ampData.put("profilePic",profilepic);
                     ampData.put("key", "Key"+setNameValue);
+                    ampData.put("date", date.getTime());
 
                     // Create a HashMap to hold the data
                     Map<String, Object> settingsData = new HashMap<>();

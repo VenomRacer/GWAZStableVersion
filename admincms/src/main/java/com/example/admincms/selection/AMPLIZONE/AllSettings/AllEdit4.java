@@ -47,6 +47,7 @@ import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -241,6 +242,8 @@ public class AllEdit4 extends AppCompatActivity {
                 progressDialog.setCancelable(false);
                 progressDialog.show();
 
+                Date date = new Date();
+
                 String setNameValue = setNamee.getText().toString().trim();
                 String ampUsedValue = ampUsede.getText().toString().trim();
                 String descriptionValue = descriptione.getText().toString().trim();
@@ -284,6 +287,7 @@ public class AllEdit4 extends AppCompatActivity {
                             ampData.put("imageUrl", img);
                             ampData.put("audioUrl", aud);
                             ampData.put("key", key);
+                            ampData.put("date", date.getTime());
 
                             // Create a HashMap to hold the data
                             Map<String, Object> settingsData = new HashMap<>();

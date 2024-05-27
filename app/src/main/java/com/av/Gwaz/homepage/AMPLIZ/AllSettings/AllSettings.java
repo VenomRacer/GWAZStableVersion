@@ -38,6 +38,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemClickListener {
@@ -65,7 +67,7 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.testlayout);
+        setContentView(R.layout.activity_all_settings);
 
         // Initialize the custom loading dialog
         loadingDialog = new Dialog(this);
@@ -117,8 +119,10 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
             public void onClick(View v) {
                 if (scroll1.getVisibility() == View.GONE) {
                     scroll1.setVisibility(View.VISIBLE);
+                    openGenre.setImageResource(R.drawable.downarrow);
                 } else {
                     scroll1.setVisibility(View.GONE);
+                    openGenre.setImageResource(R.drawable.uparrow);
                 }
 
             }
@@ -256,6 +260,15 @@ public class AllSettings extends AppCompatActivity implements AllAdapter.OnItemC
                         ampList.add(allGet);
                         loadingCenter.setVisibility(View.GONE);
                     }
+
+                    // Sort the list by the "date" field
+                    Collections.sort(ampList, new Comparator<AllGet>() {
+                        @Override
+                        public int compare(AllGet o1, AllGet o2) {
+                            // Assuming "date" is a field of type long in AllGet class
+                            return Long.compare(o2.getDate(), o1.getDate());
+                        }
+                    });
 
                     adapter.notifyDataSetChanged();
                     swipeRefreshLayout.setRefreshing(false);

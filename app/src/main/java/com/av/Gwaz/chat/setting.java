@@ -1,4 +1,3 @@
-
     package com.av.Gwaz.chat;
 
     import android.Manifest;

@@ -28,7 +28,7 @@ import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class chatwindo extends AppCompatActivity {
+public class    chatwindo extends AppCompatActivity {
     String reciverimg, reciverUid,reciverName,SenderUID;
     CircleImageView profile;
     TextView reciverNName;

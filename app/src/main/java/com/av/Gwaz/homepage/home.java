@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 public class home extends AppCompatActivity {
 
     ImageView gwiz, amplizone,  chordmaster, tuner, profileBtn,chatBtn,chatNotify;
+    ImageView downArrow,upArrow;
     MediaPlayer sound1, sound2, sound3;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -48,6 +49,10 @@ public class home extends AppCompatActivity {
         profileBtn = findViewById(R.id.profileBtn);
         chatBtn = findViewById(R.id.chatBtn);
         chatNotify = findViewById(R.id.chatNotify);
+        downArrow = findViewById(R.id.downArrow);
+        upArrow = findViewById(R.id.upArrow);
+
+
 
 
         // Initialize MediaPlayer with the sound file

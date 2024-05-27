@@ -5,14 +5,13 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="8dp"
-    app:cardCornerRadius="20dp"
-    app:cardBackgroundColor="@color/gold"
-    android:layout_margin="16dp">
+    app:cardCornerRadius="10dp"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/gray2">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
         android:orientation="vertical">
 
         <!-- FrameLayout for the image and icons -->
@@ -23,7 +22,7 @@
             <!-- ImageView for the image -->
             <ImageView
                 android:id="@+id/playPic"
-                android:layout_width="380dp"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/gradientg" />
@@ -72,13 +71,14 @@
 
         <TextView
             android:id="@+id/setName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
             android:text="settings name"
             android:textSize="18dp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/gold2"
             android:gravity="center"
             android:fontFamily="sans-serif-medium"/>
 
@@ -89,10 +89,12 @@
 
             <TextView
                 android:id="@+id/userN"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10dp"
+                android:layout_marginStart="10dp"
                 android:gravity="center"
+                android:textColor="@color/gray"
                 android:layout_marginBottom="5dp"
                 android:text="By: name of creator"
                 android:fontFamily="sans-serif-medium"/>

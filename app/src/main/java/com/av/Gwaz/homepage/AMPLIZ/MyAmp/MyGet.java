@@ -4,6 +4,7 @@ public class MyGet {
 
     private String setName,by,imageUrl,audioUrl, ampUsed,description,genre,guitar,pickups,key;
     private Float rating;
+    private Long date;
 
     public String getSetName() {
         return setName;
@@ -47,5 +48,9 @@ public class MyGet {
 
     public String getPickups() {
         return pickups;
+    }
+
+    public Long getDate() {
+        return date;
     }
 }

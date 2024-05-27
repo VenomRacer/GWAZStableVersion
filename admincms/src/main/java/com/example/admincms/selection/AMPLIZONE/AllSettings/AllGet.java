@@ -3,6 +3,7 @@ package com.example.admincms.selection.AMPLIZONE.AllSettings;
 public class AllGet {
 
     private String setName,by,imageUrl,audioUrl, ampUsed,description,genre,key,guitar,pickups;
+    private Long date;
 
 
 
@@ -44,5 +45,9 @@ public class AllGet {
 
     public String getPickups() {
         return pickups;
+    }
+
+    public Long getDate() {
+        return date;
     }
 }
