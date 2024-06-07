@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -43,10 +44,15 @@ public class  login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Check and request permissions if needed
-        /*if (!checkPermissions()) {
-            requestPermissions();
-        }*/
+        // Check if activity was launched from a notification click
+        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("link")) {
+            String url = getIntent().getStringExtra("link");
+            if (url != null && !url.isEmpty()) {
+                // Open the URL if available
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+
+            }
+        }
 
         // Initialize the custom loading dialog
         loadingDialog = new Dialog(this);

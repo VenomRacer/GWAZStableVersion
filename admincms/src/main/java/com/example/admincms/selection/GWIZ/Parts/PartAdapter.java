@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.admincms.R;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
@@ -73,6 +74,14 @@ public class PartAdapter extends RecyclerView.Adapter<PartAdapter.StepViewHolder
                                     // Remove the item from the Firebase database
                                     DatabaseReference itemRef = databaseReference.child(step.getT3()); // Assuming t3 contains the key of the item in the database
                                     itemRef.removeValue();
+
+                                    // Remove the image from Firebase Storage
+                                    StorageReference imageRef = FirebaseStorage.getInstance().getReferenceFromUrl(step.getT2());
+                                    imageRef.delete().addOnSuccessListener(aVoid -> {
+                                        // Image deleted successfully
+                                    }).addOnFailureListener(exception -> {
+                                        // An error occurred while deleting the image
+                                    });
                                 }
                             }
                         })

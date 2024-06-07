@@ -78,6 +78,14 @@ public class sixtyb extends AppCompatActivity {
         playRandomChord();
         startTimer();
 
+        speaker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayer.start();
+
+            }
+        });
+
         // Set OnClickListener for chord choices
         chordImage1.setOnClickListener(new View.OnClickListener() {
             @Override

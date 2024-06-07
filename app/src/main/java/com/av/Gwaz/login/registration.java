@@ -154,7 +154,7 @@ public class registration extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     String id = task.getResult().getUser().getUid();
                     DatabaseReference reference = database.getReference().child("user").child(id);
-                    StorageReference storageReference = storage.getReference().child("Upload").child(id);
+                    StorageReference storageReference = storage.getReference().child("upload").child(id);
 
                     if (imageURI != null) {
                         storageReference.putFile(imageURI).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {

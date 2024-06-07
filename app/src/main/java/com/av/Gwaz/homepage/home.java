@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -44,7 +45,14 @@ public class home extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("user").child(mAuth.getCurrentUser().getUid()).child("userCommunicated");
 
-
+        // Check if activity was launched from a notification click
+        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("link")) {
+            String url = getIntent().getStringExtra("link");
+            if (url != null && !url.isEmpty()) {
+                // Open the URL if available
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            }
+        }
 
         profileBtn = findViewById(R.id.profileBtn);
         chatBtn = findViewById(R.id.chatBtn);

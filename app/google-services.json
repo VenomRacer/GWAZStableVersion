@@ -1,21 +1,22 @@
 {
   "project_info": {
-    "project_number": "850693919105",
-    "project_id": "messengerclone-5d6db",
-    "storage_bucket": "messengerclone-5d6db.appspot.com"
+    "project_number": "817606548182",
+    "firebase_url": "https://official-gwaz-default-rtdb.firebaseio.com",
+    "project_id": "official-gwaz",
+    "storage_bucket": "official-gwaz.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:850693919105:android:02b9f5a735036338c15880",
+        "mobilesdk_app_id": "1:817606548182:android:e6a5e2ae392efa074b0777",
         "android_client_info": {
-          "package_name": "com.av.avmessenger"
+          "package_name": "com.av.Gwaz"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAmJpGl00V7hv1Mn7AKcSDY0O1lIwXJ6e0"
+          "current_key": "AIzaSyAf71wAtR-u-r4H4fZ1oDMsRhxQKbaKSTw"
         }
       ],
       "services": {

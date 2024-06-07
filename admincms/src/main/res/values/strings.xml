@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AdminCMS</string>
+    <string name="app_name">CMS</string>
 
     <string-array name="genre_array">
         <item>Pop</item>

@@ -77,6 +77,14 @@ public class Level1 extends AppCompatActivity {
 
         showChordDialog();
 
+        speaker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayer.start();
+
+            }
+        });
+
 
 
 

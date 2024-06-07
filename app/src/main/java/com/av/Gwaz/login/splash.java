@@ -3,6 +3,7 @@ package com.av.Gwaz.login;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -38,6 +39,22 @@ public class splash extends AppCompatActivity {
         gwaztxt = findViewById(R.id.gwaztxt);
         own1 = findViewById(R.id.ownone);
         own2 = findViewById(R.id.owntwo);
+
+        // Check if activity was launched from a notification click
+        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("link")) {
+            String url = getIntent().getStringExtra("link");
+            if (url != null && !url.isEmpty()) {
+                // Open the URL if available
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                finish();
+                return;
+
+            }
+        }
+
+
+
+
 
         topAnim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
         logoAnimSet = AnimationUtils.loadAnimation(this, R.anim.logo_animation_set);
@@ -78,11 +95,14 @@ public class splash extends AppCompatActivity {
           @Override
           public void run() {
               Intent intent = new Intent(splash.this, login.class);
+
               startActivity(intent);
               finish();
           }
       },4000);
     }
+
+
 
     @Override
     protected void onDestroy() {
@@ -98,6 +118,8 @@ public class splash extends AppCompatActivity {
         shimmerFrameLayout.stopShimmer();
         super.onPause();
     }
+
+
 
 
 

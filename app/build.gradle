@@ -8,8 +8,8 @@ android {
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.av.avmessenger"
-        minSdk 24
+        applicationId 'com.av.Gwaz'
+        minSdk 25
         multiDexEnabled true
         targetSdk 33
         versionCode 1

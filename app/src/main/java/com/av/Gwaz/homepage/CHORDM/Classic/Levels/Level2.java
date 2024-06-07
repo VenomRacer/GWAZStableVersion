@@ -76,6 +76,14 @@ public class Level2 extends AppCompatActivity {
 
         showChordDialog();
 
+        speaker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayer.start();
+
+            }
+        });
+
 
         // Set OnClickListener for the option ImageViews
         g_press.setOnClickListener(new View.OnClickListener() {

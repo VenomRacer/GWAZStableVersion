@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GWAZ</string>
+    <string name="app_name">GWAZ Demo</string>
 
     <string-array name="genre_array">
         <item>Pop</item>
@@ -35,4 +35,6 @@
         <item>Middle and Neck</item>
         <item>Neck</item>
     </string-array>
+    <string name="channel_name">Default Channel</string>
+    <string name="channel_description">This is the default notification channel</string>
 </resources>
