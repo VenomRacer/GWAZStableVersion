@@ -1,7 +1,6 @@
 package com.av.Gwaz.homepage.TUNER;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.av.Gwaz.R;
-import com.av.Gwaz.homepage.home;
 import com.bumptech.glide.Glide;
 
 public class TunerTrainer extends AppCompatActivity {
@@ -52,7 +50,6 @@ public class TunerTrainer extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(TunerTrainer.this, home.class));
         finish();
     }
 

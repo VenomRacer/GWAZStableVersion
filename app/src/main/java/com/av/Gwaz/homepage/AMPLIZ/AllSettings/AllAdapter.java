@@ -6,27 +6,38 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.av.Gwaz.R;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.List;
 
 public class AllAdapter extends RecyclerView.Adapter<AllAdapter.AllViewHolder> {
@@ -35,6 +46,8 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.AllViewHolder> {
     private DatabaseReference databaseReference;
     private StorageReference storageReference;
     private OnItemClickListener listener;
+    private static MediaPlayer currentMediaPlayer = null;
+    private static AllViewHolder currentViewHolder = null;
 
     public AllAdapter(List<AllGet> ampList, DatabaseReference databaseReference, StorageReference storageReference, OnItemClickListener listener) {
         this.ampList = ampList;
@@ -64,17 +77,125 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.AllViewHolder> {
         AllGet allGet = ampList.get(position);
 
         holder.setName.setText(allGet.getSetName());
-        holder.userN.setText("By: " + allGet.getBy());
+        holder.userN.setText(allGet.getBy());
 
-        Picasso.get().load(allGet.getImageUrl()) // Pass the image URL from step.getT2()
-                .into(holder.playPic); // Load into the ImageView
+        Float rating = allGet.getRating(); // Note that the type is Float, not float
+        if (rating != null) {
+            holder.ratingBar.setRating(rating);
+        } else {
+            holder.ratingBar.setRating(0); // Set a default rating value, e.g., 0
+        }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        // Load the placeholder GIF with Glide
+        Glide.with(holder.itemView.getContext())
+                .asGif()
+                .load(R.drawable.loading_yellow) // Resource ID of the GIF
+                .into(holder.postprof);
+        // Load the actual image with Picasso
+        Picasso.get()
+                .load(R.drawable.default_prof1)
+                .into(holder.postprof, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        // Clear the placeholder loaded by Glide
+                        Glide.with(holder.itemView.getContext()).clear(holder.postprof);
+                        FirebaseStorage storage = FirebaseStorage.getInstance();
+                        StorageReference storageRef = storage.getReference();
+                        StorageReference imageRef = storageRef.child("upload/" + allGet.getUid());
+                        imageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                            @Override
+                            public void onSuccess(byte[] bytes) {
+                                // Use BitmapFactory to decode the byte array to a bitmap
+                                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                holder.postprof.setImageBitmap(bitmap);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle any errors that occurred while fetching the image
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        // Handle the error if needed
+                    }
+                });
+
+        // Load the placeholder GIF with Glide
+        Glide.with(holder.itemView.getContext())
+                .asGif()
+                .load(R.drawable.loading_yellow) // Resource ID of the GIF
+                .into(holder.playPic);
+
+        // Load the actual image with Picasso
+        Picasso.get()
+                .load(allGet.getImageUrl())
+                .into(holder.playPic, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        // Clear the placeholder loaded by Glide
+                        Glide.with(holder.itemView.getContext()).clear(holder.playPic);
+                        Picasso.get().load(allGet.getImageUrl()) // Pass the image URL from step.getT2()
+                                .into(holder.playPic); // Load into the ImageViewd
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        // Handle the error if needed
+                    }
+                });
+
+        holder.playaud.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                listener.onItemClick(allGet);
+            public void onClick(View v) {
+                holder.toggleAudio(allGet.getAudioUrl());
+
             }
         });
+
+        holder.menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(holder.itemView.getContext(), v);
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.all_menu, popup.getMenu());
+
+                popup.show();
+            }
+        });
+
+        holder.itemView.setOnTouchListener(new View.OnTouchListener() {
+            GestureDetector gestureDetector = new GestureDetector(holder.itemView.getContext(), new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onDoubleTap(MotionEvent e) {
+                    // Handle the double-tap event
+                    holder.stopCurrentAudio(); // Stop the currently playing audio
+                    listener.onItemClick(allGet);
+                    Log.d("Double tap engaged" ,"Double Tap Activated");
+                    return true;
+                }
+
+                @Override
+                public boolean onSingleTapConfirmed(MotionEvent e) {
+                    // Handle the single tap event if needed
+                    return true;
+                }
+
+                @Override
+                public boolean onDown(MotionEvent e) {
+                    return true;
+                }
+            });
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
+
+
 
     }
 
@@ -88,7 +209,11 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.AllViewHolder> {
     public class AllViewHolder extends RecyclerView.ViewHolder {
 
         TextView setName, userN;
-        ImageView playPic,editIcon,deleteIcon;
+        ImageView menu, playaud;
+        ImageView playPic,editIcon,deleteIcon, postprof;
+        RatingBar ratingBar;
+        MediaPlayer mediaPlayer;
+        boolean isPlaying = false;
         public AllViewHolder(@NonNull View itemView) {
             super(itemView);
             setName = itemView.findViewById(R.id.setName);
@@ -96,6 +221,14 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.AllViewHolder> {
             playPic = itemView.findViewById(R.id.playPic);
             editIcon = itemView.findViewById(R.id.editIcon);
             deleteIcon = itemView.findViewById(R.id.deleteIcon);
+            postprof = itemView.findViewById(R.id.postprof);
+            menu = itemView.findViewById(R.id.menu);
+            ratingBar = itemView.findViewById(R.id.ratingBar);
+            playaud = itemView.findViewById(R.id.playaud);
+
+            mediaPlayer = new MediaPlayer();
+
+
 
             deleteIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -237,6 +370,67 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.AllViewHolder> {
                 }
             });
 
+        }
+
+        public void toggleAudio(String audioUrl) {
+            if (isPlaying) {
+                stopAudio();
+            } else {
+                if (currentMediaPlayer != null && currentMediaPlayer.isPlaying()) {
+                    if (currentViewHolder != null) {
+                        currentViewHolder.stopAudio();
+                    }
+                }
+                playAudio(audioUrl);
+                currentMediaPlayer = mediaPlayer;
+                currentViewHolder = this;
+            }
+        }
+
+        private void playAudio(String audioUrl) {
+            if (mediaPlayer == null) {
+                mediaPlayer = new MediaPlayer();
+            }
+
+            try {
+                mediaPlayer.reset(); // Reset the MediaPlayer before setting data source
+                mediaPlayer.setDataSource(audioUrl);
+                mediaPlayer.prepare();
+                mediaPlayer.start();
+                isPlaying = true;
+                playaud.setImageResource(R.drawable.stopaud); // Set image to stop icon when playing
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    stopAudio();
+                }
+            });
+        }
+
+        private void stopAudio() {
+            if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                mediaPlayer.stop();
+                mediaPlayer.release();
+                mediaPlayer = null;
+                isPlaying = false;
+                playaud.setImageResource(R.drawable.playaud); // Set image to play icon when stopped
+            }
+        }
+
+        private void stopCurrentAudio() {
+            if (currentMediaPlayer != null && currentMediaPlayer.isPlaying()) {
+                currentMediaPlayer.stop();
+                currentMediaPlayer.release();
+                currentMediaPlayer = null;
+                if (currentViewHolder != null) {
+                    currentViewHolder.isPlaying = false;
+                    currentViewHolder.playaud.setImageResource(R.drawable.playaud); // Set image to play icon
+                }
+            }
         }
 
 

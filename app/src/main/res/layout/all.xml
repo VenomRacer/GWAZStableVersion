@@ -7,12 +7,58 @@
     app:cardElevation="8dp"
     app:cardCornerRadius="10dp"
     android:layout_margin="5dp"
-    app:cardBackgroundColor="@color/gray2">
+    app:cardBackgroundColor="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <ImageView
+                android:id="@+id/postprof"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:src="@drawable/default_prof"
+                android:contentDescription="Profile Image"
+                android:scaleType="centerCrop"
+                android:background="@drawable/circular_background"
+                android:clipToOutline="true"
+                android:outlineProvider="background"/>
+            
+            <TextView
+                android:id="@+id/userN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                app:layout_constraintStart_toEndOf="@+id/postprof"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageButton
+                android:id="@+id/menu"
+                android:layout_width="20dp"
+                android:layout_height="30dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/morevert"
+                android:backgroundTint="@android:color/transparent"
+                app:tint="@color/gold" />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- FrameLayout for the image and icons -->
         <FrameLayout
@@ -23,23 +69,9 @@
             <ImageView
                 android:id="@+id/playPic"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/gradientg" />
-
-            <RatingBar
-                android:id="@+id/ratingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom|end"
-                android:progressTint="@color/gold"
-                android:progressBackgroundTint="@color/white"
-                android:numStars="5"
-                android:textSize="15sp"
-                android:isIndicator="true"
-                android:visibility="gone"/>
-
-
+                android:layout_height="wrap_content"
+                android:scaleType="center"
+                android:src="@drawable/loading_yellow" />
 
 
             <!-- LinearLayout for the icons -->
@@ -69,39 +101,72 @@
             </LinearLayout>
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/setName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"
-            android:text="settings name"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:textColor="@color/gold2"
-            android:gravity="center"
-            android:fontFamily="sans-serif-medium"/>
+        <LinearLayout
+            android:id="@+id/ratingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style = "?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:progressTint="@color/gold"
+                android:layout_marginTop="5dp"
+                android:progressBackgroundTint="@color/black"
+                android:numStars="5"
+                android:isIndicator="true"
+                android:clickable="true"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp">
 
-            <TextView
-                android:id="@+id/userN"
+            <ImageView
+                android:id="@+id/playaud"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
-                android:layout_marginStart="10dp"
-                android:gravity="center"
-                android:textColor="@color/gray"
-                android:layout_marginBottom="5dp"
-                android:text="By: name of creator"
+                android:backgroundTint="@android:color/transparent"
+                android:visibility="visible"
+                android:layout_marginEnd="10dp"
+                app:tint="@color/gold2"
+                android:src="@drawable/playaud"/>
+
+            <ImageButton
+                android:id="@+id/stopaud"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:visibility="gone"
+                app:tint="@color/gold2"
+                android:src="@drawable/stopaud"/>
+
+            <TextView
+                android:id="@+id/setName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your Username"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:textColor="@color/gold2"
+                android:layout_gravity="center"
                 android:fontFamily="sans-serif-medium"/>
 
 
 
+
         </LinearLayout>
+
+
 
 
 

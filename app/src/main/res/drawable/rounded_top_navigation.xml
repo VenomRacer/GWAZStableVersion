@@ -1,0 +1,16 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="4dp">
+        <!-- This item creates the shadow effect -->
+        <shape>
+            <solid android:color="#33000000" />
+            <corners android:radius="16dp" android:topLeftRadius="25dp" android:topRightRadius="25dp" android:bottomLeftRadius="0dp" android:bottomRightRadius="0dp" />
+        </shape>
+    </item>
+    <item android:top="0dp">
+        <!-- This item creates the main content -->
+        <shape>
+            <solid android:color="@color/white" />
+            <corners android:radius="16dp" android:topLeftRadius="25dp" android:topRightRadius="25dp" android:bottomLeftRadius="0dp" android:bottomRightRadius="0dp" />
+        </shape>
+    </item>
+</layer-list>

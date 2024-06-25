@@ -10,19 +10,24 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
+import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.av.Gwaz.R;
 import com.av.Gwaz.homepage.AMPLIZ.Add.AddAmp;
@@ -45,7 +50,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-public class setting extends AppCompatActivity {
+public class setting extends Fragment {
     ImageView setprofile, myAmp, mailIC, nameIC,statusIC;
     EditText setname, setstatus;
     TextView displayText, ampCount, Email;
@@ -64,25 +69,36 @@ public class setting extends AppCompatActivity {
 
     @SuppressLint("MissingInflatedId")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_setting, container, false);
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
-        setprofile = findViewById(R.id.settingprofile);
-        setname = findViewById(R.id.settingname);
-        setstatus = findViewById(R.id.settingstatus);
-        donebut = findViewById(R.id.donebutt);
-        logoutBtn = findViewById(R.id.logoutBtn);
-        displayText = findViewById(R.id.displayName);
-        Add = findViewById(R.id.Add);
-        myAmp = findViewById(R.id.myAmp);
-        ampCount = findViewById(R.id.ampCount);
-        Email = findViewById(R.id.Email);
-        mailIC = findViewById(R.id.mailIC);
-        nameIC = findViewById(R.id.nameIC);
-        statusIC = findViewById(R.id.statusIC);
+        setprofile = view.findViewById(R.id.settingprofile);
+        setname = view.findViewById(R.id.settingname);
+        setstatus = view.findViewById(R.id.settingstatus);
+        donebut = view.findViewById(R.id.donebutt);
+        logoutBtn = view.findViewById(R.id.logoutBtn);
+        displayText = view.findViewById(R.id.displayName);
+        Add = view.findViewById(R.id.Add);
+        myAmp = view.findViewById(R.id.myAmp);
+        ampCount = view.findViewById(R.id.ampCount);
+        Email = view.findViewById(R.id.Email);
+        mailIC = view.findViewById(R.id.mailIC);
+        nameIC = view.findViewById(R.id.nameIC);
+        statusIC = view.findViewById(R.id.statusIC);
+
+        ImageButton imageButton = view.findViewById(R.id.menu);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopup(v);
+            }
+        });
+
+
+
+
 
         Glide.with(this).asGif().load(R.drawable.profile_loading).into(setprofile);
         Glide.with(this).asGif().load(R.drawable.loading_yellow).into(mailIC);
@@ -92,7 +108,7 @@ public class setting extends AppCompatActivity {
 
 
         // Initialize the custom loading dialog
-        loadingDialog = new Dialog(this);
+        loadingDialog = new Dialog(getActivity());
         loadingDialog.setContentView(R.layout.dialog_loading);
         loadingDialog.setCancelable(false);
 
@@ -100,7 +116,7 @@ public class setting extends AppCompatActivity {
         Glide.with(this).asGif().load(R.drawable.loading_ic).into(loadingImageView);
 
         // Check for network connectivity
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
 
@@ -160,14 +176,14 @@ public class setting extends AppCompatActivity {
         myAmp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(setting.this, MyAmp.class));
+                startActivity(new Intent(getActivity(), MyAmp.class));
             }
         });
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog dialog = new Dialog(setting.this,R.style.dialoge);
+                Dialog dialog = new Dialog(getActivity(),R.style.dialoge);
                 dialog.setContentView(R.layout.dialog_layout);
                 Button no,yes;
                 yes = dialog.findViewById(R.id.yesbnt);
@@ -176,9 +192,10 @@ public class setting extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(setting.this, login.class);
+                        Intent intent = new Intent(getActivity(), login.class);
                         startActivity(intent);
-                        finish();
+                        // Remove the Fragment from the back stack
+                        getActivity().getSupportFragmentManager().popBackStack();
                     }
                 });
                 no.setOnClickListener(new View.OnClickListener() {
@@ -205,11 +222,15 @@ public class setting extends AppCompatActivity {
 
                     if (networkInfo != null && networkInfo.isConnected()) {
                         // If there is network connectivity, execute the code
-                        startActivity(new Intent(setting.this, AddAmp.class));
-                        finish();
+                        Intent intent = new Intent(getActivity(), AddAmp.class);
+                        // Apply the custom slide-up animation
+                        startActivity(intent);
+                        requireActivity().overridePendingTransition(R.anim.slide_up, 0);
+                        // Remove the Fragment from the back stack
+
                     } else {
                         // If there's no network connectivity, display a toast
-                        Toast.makeText(setting.this, "No network connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "No network connection", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -265,7 +286,7 @@ public class setting extends AppCompatActivity {
 
                             if (nameExists) {
                                 loadingDialog.dismiss();
-                                Toast.makeText(setting.this, "Username already exists", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Username already exists", Toast.LENGTH_SHORT).show();
                             } else {
                                 // If there is network connectivity, execute the code
 
@@ -394,7 +415,7 @@ public class setting extends AppCompatActivity {
                                                             .addOnFailureListener(new OnFailureListener() {
                                                                 @Override
                                                                 public void onFailure(@NonNull Exception e) {
-                                                                    Toast.makeText(setting.this, "Something wrong", Toast.LENGTH_SHORT);
+                                                                    Toast.makeText(getActivity(), "Something wrong", Toast.LENGTH_SHORT);
 
                                                                 }
                                                             });
@@ -408,7 +429,7 @@ public class setting extends AppCompatActivity {
                                                             .addOnFailureListener(new OnFailureListener() {
                                                                 @Override
                                                                 public void onFailure(@NonNull Exception e) {
-                                                                    Toast.makeText(setting.this, "Something wrong", Toast.LENGTH_SHORT);
+                                                                    Toast.makeText(getActivity(), "Something wrong", Toast.LENGTH_SHORT);
 
                                                                 }
                                                             });
@@ -424,7 +445,7 @@ public class setting extends AppCompatActivity {
                                                             .addOnFailureListener(new OnFailureListener() {
                                                                 @Override
                                                                 public void onFailure(@NonNull Exception e) {
-                                                                    Toast.makeText(setting.this, "Something wrong", Toast.LENGTH_SHORT);
+                                                                    Toast.makeText(getActivity(), "Something wrong", Toast.LENGTH_SHORT);
 
                                                                 }
                                                             });
@@ -521,7 +542,7 @@ public class setting extends AppCompatActivity {
                                                     .addOnFailureListener(new OnFailureListener() {
                                                         @Override
                                                         public void onFailure(@NonNull Exception e) {
-                                                            Toast.makeText(setting.this, "Something wrong", Toast.LENGTH_SHORT);
+                                                            Toast.makeText(getActivity(), "Something wrong", Toast.LENGTH_SHORT);
 
                                                         }
                                                     });
@@ -535,7 +556,7 @@ public class setting extends AppCompatActivity {
                                                     .addOnFailureListener(new OnFailureListener() {
                                                         @Override
                                                         public void onFailure(@NonNull Exception e) {
-                                                            Toast.makeText(setting.this, "Something wrong", Toast.LENGTH_SHORT);
+                                                            Toast.makeText(getActivity(), "Something wrong", Toast.LENGTH_SHORT);
 
                                                         }
                                                     });
@@ -549,7 +570,7 @@ public class setting extends AppCompatActivity {
                                                     .addOnFailureListener(new OnFailureListener() {
                                                         @Override
                                                         public void onFailure(@NonNull Exception e) {
-                                                            Toast.makeText(setting.this, "Something wrong", Toast.LENGTH_SHORT);
+                                                            Toast.makeText(getActivity(), "Something wrong", Toast.LENGTH_SHORT);
 
                                                         }
                                                     });
@@ -565,7 +586,7 @@ public class setting extends AppCompatActivity {
                                                             String name = setname.getText().toString();
                                                             // Update the "by" value to the new username
                                                             leadSnap.getRef().child("userName").setValue(name);
-                                                            Toast.makeText(setting.this, byValue,Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(getActivity(), byValue,Toast.LENGTH_SHORT).show();
 
                                                         }
 
@@ -589,7 +610,7 @@ public class setting extends AppCompatActivity {
                                                             String name = setname.getText().toString();
                                                             // Update the "by" value to the new username
                                                             leadSnap.getRef().child("userName").setValue(name);
-                                                            Toast.makeText(setting.this, byValue,Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(getActivity(), byValue,Toast.LENGTH_SHORT).show();
 
                                                         }
 
@@ -635,21 +656,24 @@ public class setting extends AppCompatActivity {
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
                             loadingDialog.dismiss();
-                            Toast.makeText(setting.this, "Error checking username", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Error checking username", Toast.LENGTH_SHORT).show();
                         }
                     });
 
                 } else {
                     // If there's no network connectivity, display a toast
                     loadingDialog.dismiss();
-                    Toast.makeText(setting.this, "No network connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "No network connection", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
+
+        return view;
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 10) {
             if (data != null) {
@@ -661,19 +685,62 @@ public class setting extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        // Call finish() to close the current activity and return to the previous activity
-        super.onBackPressed();
-        finish();
+    public void showPopup(View v) {
+        PopupMenu popup = new PopupMenu(getActivity(), v);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_main, popup.getMenu());
+
+        // Set item click listener for the popup menu
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.Logout:
+
+                        Dialog dialog = new Dialog(getActivity(),R.style.dialoge);
+                        dialog.setContentView(R.layout.dialog_layout);
+                        Button no,yes;
+                        yes = dialog.findViewById(R.id.yesbnt);
+                        no = dialog.findViewById(R.id.nobnt);
+                        yes.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                FirebaseAuth.getInstance().signOut();
+                                Intent intent = new Intent(getActivity(), login.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear the back stack
+                                startActivity(intent);
+                                requireActivity().finish(); // Finish the current activity
+                            }
+                        });
+                        no.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.show();
+                        // Handle Settings menu item click
+                        // Example: startActivity(new Intent(getActivity(), SettingsActivity.class));
+                        return true;
+
+                    default:
+                        return false;
+                }
+            }
+        });
+
+
+        popup.show();
     }
 
+
+
     private boolean checkPermissions() {
-        int permissionNetwork = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-        int permissionReadMediaAudio = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_AUDIO);
-        int permissionReadMediaImages = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES);
+        int permissionNetwork = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionReadMediaAudio = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_MEDIA_AUDIO);
+        int permissionReadMediaImages = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_MEDIA_IMAGES);
         return (permissionNetwork == PackageManager.PERMISSION_GRANTED ||
-                permissionReadMediaAudio == PackageManager.PERMISSION_GRANTED) &&
+                permissionReadMediaAudio == PackageManager.PERMISSION_GRANTED) ||
                 permissionReadMediaImages == PackageManager.PERMISSION_GRANTED;
 
 
@@ -681,26 +748,24 @@ public class setting extends AppCompatActivity {
 
     // Request permissions
     private void requestPermissions() {
-        ActivityCompat.requestPermissions(this, new String[]{
+        ActivityCompat.requestPermissions(getActivity(), new String[]{
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.READ_MEDIA_AUDIO,
                 Manifest.permission.READ_MEDIA_IMAGES
         }, PERMISSION_REQUEST_CODE);
-        Toast.makeText(setting.this, "Please allow permissions \n for media access.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Please allow permissions \n for media access.", Toast.LENGTH_SHORT).show();
 
     }
+
+
+
+
 
 
 
     // Function to redirect to app settings
     // Function to redirect to app permissions settings
-    private void redirectToAppSettings() {
-        Intent intent = new Intent();
-        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        Uri uri = Uri.fromParts("package", getPackageName(), null);
-        intent.setData(uri);
-        startActivity(intent);
-    }
+
 
 
 }

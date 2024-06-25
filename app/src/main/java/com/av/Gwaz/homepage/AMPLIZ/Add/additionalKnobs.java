@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.akaita.android.circularseekbar.CircularSeekBar;
 import com.av.Gwaz.R;
-import com.av.Gwaz.chat.setting;
 
 import java.text.DecimalFormat;
 
@@ -187,8 +186,14 @@ public class additionalKnobs extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        super.finish();
+        overridePendingTransition(0, R.anim.slide_down); // Apply slide-down animation
+    }
+
+    /*@Override
+    public void onBackPressed() {
         startActivity(new Intent(additionalKnobs.this, setting.class));
         super.onBackPressed();
         finish();
-    }
+    }*/
 }

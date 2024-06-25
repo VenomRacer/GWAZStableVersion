@@ -28,19 +28,19 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserAdpter extends RecyclerView.Adapter<UserAdpter.viewholder> {
-    Context mainActivity;
+    Context context;
     ArrayList<Users> usersArrayList;
     FirebaseDatabase seenref;
     FirebaseAuth firebaseAuth;
-    public UserAdpter(MessageWindow messageWindow, ArrayList<Users> usersArrayList) {
-        this.mainActivity= messageWindow;
+    public UserAdpter(Context context, ArrayList<Users> usersArrayList) {
+        this.context = context;
         this.usersArrayList=usersArrayList;
     }
 
     @NonNull
     @Override
     public UserAdpter.viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mainActivity).inflate(R.layout.user_item,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.user_item,parent,false);
         return new viewholder(view);
     }
 
@@ -107,11 +107,11 @@ public class UserAdpter extends RecyclerView.Adapter<UserAdpter.viewholder> {
 
 
 
-                                Intent intent = new Intent(mainActivity, chatwindo.class);
+                                Intent intent = new Intent(context, chatwindo.class);
                                 intent.putExtra("nameeee",users.getUserName());
                                 intent.putExtra("reciverImg",users.getProfilepic());
                                 intent.putExtra("uid",users.getUserId());
-                                mainActivity.startActivity(intent);
+                                context.startActivity(intent);
 
                             }
                         });

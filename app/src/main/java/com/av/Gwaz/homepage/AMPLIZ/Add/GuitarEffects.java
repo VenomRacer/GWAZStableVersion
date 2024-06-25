@@ -10,7 +10,6 @@ import android.widget.CheckBox;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.av.Gwaz.R;
-import com.av.Gwaz.chat.setting;
 
 public class GuitarEffects extends AppCompatActivity {
 
@@ -100,8 +99,13 @@ public class GuitarEffects extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(GuitarEffects.this, setting.class));
+        super.finish();
+        overridePendingTransition(0, R.anim.slide_down); // Apply slide-down animation
+    }
+    /*@Override
+    public void onBackPressed() {
+        startActivity(new Intent(additionalKnobs.this, setting.class));
         super.onBackPressed();
         finish();
-    }
+    }*/
 }
