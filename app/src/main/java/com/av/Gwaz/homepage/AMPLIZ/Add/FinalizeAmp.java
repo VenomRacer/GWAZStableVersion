@@ -29,7 +29,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.av.Gwaz.R;
-import com.av.Gwaz.chat.setting;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -378,7 +377,7 @@ public class FinalizeAmp extends AppCompatActivity {
                                                                     imageStorageRef.getDownloadUrl().addOnSuccessListener(uri -> {
                                                                         finalMainRef.child("imageUrl").setValue(uri.toString());
                                                                         loadingDialog.dismiss();
-                                                                        startActivity(new Intent(FinalizeAmp.this, setting.class));
+                                                                        //startActivity(new Intent(FinalizeAmp.this, setting.class));
                                                                         finish();
 
                                                                     });
@@ -558,11 +557,16 @@ public class FinalizeAmp extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(FinalizeAmp.this, setting.class));
-        vibrate();
+        super.finish();
+        overridePendingTransition(0, R.anim.slide_down); // Apply slide-down animation
+    }
+
+    /*@Override
+    public void onBackPressed() {
+        startActivity(new Intent(additionalKnobs.this, setting.class));
         super.onBackPressed();
         finish();
-    }
+    }*/
 
 
 }

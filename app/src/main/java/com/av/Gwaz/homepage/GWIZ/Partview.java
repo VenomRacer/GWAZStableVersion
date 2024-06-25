@@ -68,7 +68,7 @@ public class Partview extends AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout); // Initialize SwipeRefreshLayout
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         stepList = new ArrayList<>();
-        adapter = new PartAdapter(stepList, databaseReference, storageReference);
+        adapter = new PartAdapter(stepList, databaseReference, storageReference, this);
         recyclerView.setAdapter(adapter);
 
         ttl.setText(TITLE);

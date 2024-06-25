@@ -5,11 +5,15 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Pair;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +31,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class MessageWindow extends AppCompatActivity{
+public class MessageWindow extends Fragment {
 
     FirebaseAuth auth;
     RecyclerView mainUserRecyclerView;
@@ -41,14 +45,13 @@ public class MessageWindow extends AppCompatActivity{
 
     @SuppressLint("MissingInflatedId")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_message_window);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_message_window, container, false);
 
         // Initialize the custom loading dialog
-        loadingDialog = new Dialog(this);
+        loadingDialog = new Dialog(getActivity());
         loadingDialog.setContentView(R.layout.dialog_loading);
-        loadingDialog.setCancelable(false);
+        loadingDialog.setCancelable(true);
 
         ImageView loadingImageView = loadingDialog.findViewById(R.id.loadingImageView);
         Glide.with(this).asGif().load(R.drawable.loading_ic).into(loadingImageView);
@@ -60,7 +63,7 @@ public class MessageWindow extends AppCompatActivity{
             public void run() {
                 if (loadingDialog.isShowing()) {
                     loadingDialog.dismiss();
-                    Toast.makeText(MessageWindow.this, "Something went wrong, please try again later.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Something went wrong, please try again later.", Toast.LENGTH_SHORT).show();
                 }
             }
         }, 10000); // 10 seconds
@@ -69,17 +72,17 @@ public class MessageWindow extends AppCompatActivity{
 
         database=FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
-        cumbut = findViewById(R.id.camBut);
-        setbut = findViewById(R.id.settingBut);
-        imglogout = findViewById(R.id.logoutimg);
+        cumbut = view.findViewById(R.id.camBut);
+        setbut = view.findViewById(R.id.settingBut);
+        imglogout = view.findViewById(R.id.logoutimg);
 
         DatabaseReference reference = database.getReference().child("user");
 
         usersArrayList = new ArrayList<>();
 
-        mainUserRecyclerView = findViewById(R.id.mainUserRecyclerView);
-        mainUserRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new UserAdpter(MessageWindow.this,usersArrayList);
+        mainUserRecyclerView = view.findViewById(R.id.mainUserRecyclerView);
+        mainUserRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new UserAdpter(getActivity(),usersArrayList);
         mainUserRecyclerView.setAdapter(adapter);
 
 
@@ -137,7 +140,7 @@ public class MessageWindow extends AppCompatActivity{
         });
 
 
-
+        return view;
     }
 
 

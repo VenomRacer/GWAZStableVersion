@@ -28,6 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
+            android:visibility="gone"
             android:src="@drawable/person"/>
 
         <ImageView
@@ -35,6 +36,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="centerCrop"
+            android:visibility="gone"
             android:src="@drawable/ylogo"/>
 
         <ImageView
@@ -42,6 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
+            android:visibility="gone"
             android:src="@drawable/chatchat"/>
 
         <ImageView
@@ -75,6 +78,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/down2"
+            android:visibility="gone"
             android:layout_gravity="center|bottom"/>
 
         <androidx.recyclerview.widget.RecyclerView

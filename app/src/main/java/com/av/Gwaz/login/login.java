@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.av.Gwaz.R;
-import com.av.Gwaz.homepage.home;
+import com.av.Gwaz.homepage.Test;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -76,7 +76,7 @@ public class  login extends AppCompatActivity {
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser != null && currentUser.isEmailVerified()) {
             // User is already logged in and email is verified, redirect to home activity
-            startActivity(new Intent(this, home.class));
+            startActivity(new Intent(this, Test.class));
             finish(); // Finish the current activity to prevent user from coming back to login screen using back button
         }
 
@@ -136,7 +136,7 @@ public class  login extends AppCompatActivity {
 
                             if (task.isSuccessful()) {
                                 if (auth.getCurrentUser().isEmailVerified()) {
-                                    Intent intent = new Intent(login.this, home.class);
+                                    Intent intent = new Intent(login.this, Test.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
@@ -157,6 +157,12 @@ public class  login extends AppCompatActivity {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Prevent going back to the previous activity (which should be the fragment's host activity)
+        finishAffinity(); // Finish this activity and all activities immediately below it in the current task
     }
 
 

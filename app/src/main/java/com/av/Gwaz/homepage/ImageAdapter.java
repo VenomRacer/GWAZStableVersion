@@ -1,6 +1,5 @@
 package com.av.Gwaz.homepage;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -13,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.av.Gwaz.R;
-import com.av.Gwaz.homepage.AMPLIZ.AllSettings.AllSettings;
 import com.av.Gwaz.homepage.CHORDM.MainactChordm;
 import com.av.Gwaz.homepage.GWIZ.MainactGwiz;
 import com.av.Gwaz.homepage.TUNER.TunerTrainer;
@@ -53,13 +51,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
                 case 0: // Guitarwiz
                     playSound(R.raw.strum); // Replace 'your_guitar_sound_file' with your actual guitar sound file
                     break;
-                case 1: // Amplizone
-                    playSound(R.raw.plug); // Replace 'your_amplizone_sound_file' with your actual amplizone sound file
-                    break;
-                case 2: // Chordmaster
+                case 1: // Chordmaster
                     playSound(R.raw.chord); // Replace 'your_chordmaster_sound_file' with your actual chordmaster sound file
                     break;
-                case 3: // Tuner
+                case 2: // Tuner
                     playSound(R.raw.dchord); // Replace 'your_tuner_sound_file' with your actual tuner sound file
                     break;
                 default:
@@ -70,16 +65,13 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
             if (position == 0) { // Assuming the first image is the guitarwiz
                 Intent intent = new Intent(context, MainactGwiz.class);
                 context.startActivity(intent);
-            } else if (position == 1) {
-                Intent intent = new Intent(context, AllSettings.class);
-                context.startActivity(intent);
-            } else if (position == 2){
+            } else if (position == 1){
                 Intent intent = new Intent(context, MainactChordm.class);
                 context.startActivity(intent);
-            } else if (position == 3){
+            } else if (position == 2){
                 Intent intent = new Intent(context, TunerTrainer.class);
                 context.startActivity(intent);
-                ((Activity) context).finish();
+                //((Activity) context).finish();
 
 
             }

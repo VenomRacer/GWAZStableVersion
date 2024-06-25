@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.akaita.android.circularseekbar.CircularSeekBar;
 import com.av.Gwaz.R;
-import com.av.Gwaz.chat.setting;
 
 import java.text.DecimalFormat;
 
@@ -280,8 +279,14 @@ public class AddAmp extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(AddAmp.this, setting.class));
+        super.finish();
+        overridePendingTransition(0,R.anim.slide_down);// Apply slide-down animation
+    }
+
+    /*@Override
+    public void onBackPressed() {
+        startActivity(new Intent(additionalKnobs.this, setting.class));
         super.onBackPressed();
         finish();
-    }
+    }*/
 }
