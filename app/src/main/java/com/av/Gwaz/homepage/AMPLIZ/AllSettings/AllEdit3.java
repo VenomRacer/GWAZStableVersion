@@ -49,6 +49,7 @@ public class AllEdit3 extends AppCompatActivity {
         String img = getIntent().getStringExtra("imageUrl");
         String aud = getIntent().getStringExtra("audioUrl");
         String key = getIntent().getStringExtra("key");
+        String uid = getIntent().getStringExtra("uid");
 
         //retrieve knobs 9
         String bass = getIntent().getStringExtra("bass");
@@ -126,6 +127,7 @@ public class AllEdit3 extends AppCompatActivity {
                 intent.putExtra("description", desc);
                 intent.putExtra("genre", genre);
                 intent.putExtra("key", key);
+                intent.putExtra("uid",uid);
 
                 vibrate();
                 startActivity(intent);

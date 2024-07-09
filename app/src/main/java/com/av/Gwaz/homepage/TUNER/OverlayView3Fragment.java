@@ -19,7 +19,7 @@ public class OverlayView3Fragment extends Fragment {
 
     private ImageView imageView;
     private View overlayView3;
-    private MediaPlayer dropD,A,D,G,B,e;
+    private MediaPlayer dropD,A,D,G,B,e,dropdstrum;
 
     public OverlayView3Fragment() {
         // Required empty public constructor
@@ -45,6 +45,7 @@ public class OverlayView3Fragment extends Fragment {
         G = MediaPlayer.create(getContext(), R.raw.g);
         B = MediaPlayer.create(getContext(), R.raw.b);
         e = MediaPlayer.create(getContext(), R.raw.highe);
+        dropdstrum = MediaPlayer.create(getContext(), R.raw.dropdstrum);
 
 
 
@@ -71,6 +72,14 @@ public class OverlayView3Fragment extends Fragment {
             case MotionEvent.ACTION_UP:
                 handleTouchUp(pixelX, pixelY);
                 break;
+            case MotionEvent.ACTION_MOVE:
+                if (dropdstrum != null) {
+                    dropdstrum.release();
+                }
+                // Create a new instance of MediaPlayer and start playing the audio
+                dropdstrum = MediaPlayer.create(getContext(), R.raw.dropdstrum);
+                dropdstrum.start();
+                Toast.makeText(getContext(), "clickable", Toast.LENGTH_SHORT).show();
         }
         return true;
     }
@@ -216,6 +225,10 @@ public class OverlayView3Fragment extends Fragment {
             e.release();
             e = MediaPlayer.create(getContext(),R.raw.highe);
         }
+        if (dropdstrum != null){
+            dropdstrum.release();
+            dropdstrum = MediaPlayer.create(getContext(), R.raw.dropdstrum);
+        }
     }
     @Override
     public void onDestroy() {
@@ -244,6 +257,10 @@ public class OverlayView3Fragment extends Fragment {
         if (e != null) {
             e.release();
             e = null;
+        }
+        if (dropdstrum != null){
+            dropdstrum.release();
+            dropdstrum = null;
         }
     }
 

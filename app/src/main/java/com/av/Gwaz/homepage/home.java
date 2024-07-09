@@ -53,7 +53,7 @@ public class home extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        int[] images = {R.drawable.guitarwiz2, R.drawable.chordm2, R.drawable.tuner2}; //, R.drawable.ampliz2, (backup)
+        int[] images = {R.drawable.guitarwiz3, R.drawable.chordm3, R.drawable.tuner3}; //, R.drawable.ampliz2, (backup)
         ImageAdapter adapter = new ImageAdapter(getContext(), images);
         recyclerView.setAdapter(adapter);
 

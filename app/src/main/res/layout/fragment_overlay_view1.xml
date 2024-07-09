@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/hiveback">
 
+
+
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
@@ -42,6 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
+
             <!-- ImageView to display the image -->
             <ImageView
                 android:id="@+id/imageView"
@@ -57,6 +61,8 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:elevation="1dp" />
+
+
 
         </FrameLayout>
 

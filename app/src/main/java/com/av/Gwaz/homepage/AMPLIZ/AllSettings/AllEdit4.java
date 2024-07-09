@@ -155,6 +155,7 @@ public class AllEdit4 extends AppCompatActivity {
         String img = getIntent().getStringExtra("imageUrl");
         String aud = getIntent().getStringExtra("audioUrl");
         String key = getIntent().getStringExtra("key");
+        String uid = getIntent().getStringExtra("uid");
 
         //retrieve knobs 9
         String bass = getIntent().getStringExtra("bass");
@@ -321,6 +322,7 @@ public class AllEdit4 extends AppCompatActivity {
                             ampData.put("audioUrl", aud);
                             ampData.put("key", key);
                             ampData.put("date", date.getTime());
+                            ampData.put("uid", uid);
 
                             // Create a HashMap to hold the data
                             Map<String, Object> settingsData = new HashMap<>();

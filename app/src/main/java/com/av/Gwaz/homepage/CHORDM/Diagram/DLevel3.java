@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -53,6 +54,12 @@ public class DLevel3 extends AppCompatActivity {
     // Declare a boolean flag
     boolean buttonClicked = false;
 
+    private FirebaseUser currentUser;
+    private DatabaseReference databaseReference;
+    private SharedPreferences sharedPreferences;
+    private static final String PREF_NAME = "LevelPrefs";
+    private static final String KEY_HIGHEST_UNLOCKED_LEVEL_DIAGRAM = "highestUnlockedLevelDiagram";
+
 
 
     @SuppressLint("MissingInflatedId")
@@ -76,6 +83,18 @@ public class DLevel3 extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Saving...");
         progressDialog.setCancelable(false);
+
+        sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            databaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child("user")
+                    .child(currentUser.getUid())
+                    .child("Levels")
+                    .child("Diagram");
+
+
+        }
 
         prevsore = getIntent().getIntExtra("prevscore", 0);
 
@@ -231,6 +250,7 @@ public class DLevel3 extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     // Get the current user's ID
+                    saveProgress(4);
                     progressDialog.show();
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                     if (currentUser != null) {
@@ -254,6 +274,146 @@ public class DLevel3 extends AppCompatActivity {
 
                                     // Add the new score to the current score
                                     long updatedScore = currentScore + score + prevsore;
+
+                                    // Update the score in the database
+                                    dataSnapshot.getRef().child("score").setValue(updatedScore)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        progressDialog.dismiss();
+                                                        Toast.makeText(DLevel3.this, "Score uploaded successfully", Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        Toast.makeText(DLevel3.this, "Failed to upload score", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                    upload.setClickable(false);
+                                } else {
+                                    userRef2.child("score").setValue(score);
+                                    userRef2.child("userId").setValue(userId);
+                                    userRef2.child("userName").setValue(userName);
+                                    userRef2.child("profilepic").setValue(profilepic);
+                                    Toast.makeText(DLevel3.this, "Score uploaded successfully", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+                                    upload.setClickable(false);
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                // Handle errors
+                                progressDialog.dismiss();
+                                Toast.makeText(DLevel3.this, "Failed to retrieve score: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else {
+                        // User is not signed in
+                        progressDialog.dismiss();
+                        Toast.makeText(DLevel3.this, "User is not signed in", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } else {
+            // If there's no network connectivity, display a toast
+            Toast.makeText(DLevel3.this, "No network connection", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void fivemistakepostgame(final int score) {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.postgamedialog_fivemistakes);
+        dialog.setCancelable(false);
+
+        // Check for network connectivity
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        // Get the current user's ID
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            final String userId = currentUser.getUid();
+
+            // Reference to the user's node in the database
+            DatabaseReference userRef1 = FirebaseDatabase.getInstance().getReference()
+                    .child("user")
+                    .child(userId);
+
+            // Add a ValueEventListener to retrieve the userName
+            userRef1.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    // Check if the dataSnapshot exists and contains the userName
+                    if (dataSnapshot.exists() && dataSnapshot.hasChild("userName")||
+                            dataSnapshot.exists() && dataSnapshot.hasChild("profilepic")) {
+                        userName = dataSnapshot.child("userName").getValue(String.class);
+                        profilepic = dataSnapshot.child("profilepic").getValue(String.class);
+
+                    } else {
+                        // The userName is not available in the database
+                        Log.d("UserName", "User name not found");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle errors
+                    Log.e("Firebase", "Error fetching userName: " + databaseError.getMessage());
+                }
+            });
+        } else {
+            // User is not signed in
+            Log.d("CurrentUser", "User is not signed in");
+        }
+
+        TextView scoredisplay = dialog.findViewById(R.id.scoreDisplay);
+        Button exit = dialog.findViewById(R.id.exit);
+        Button upload = dialog.findViewById(R.id.uploadScore);
+
+        scoredisplay.setText(String.valueOf(score));
+
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+            upload.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Get the current user's ID
+                    progressDialog.show();
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if (currentUser != null) {
+                        final String userId = currentUser.getUid();
+
+                        // Reference to the user's node in the database
+                        DatabaseReference userRef2 = FirebaseDatabase.getInstance().getReference()
+                                .child("Service")
+                                .child("CHORDM")
+                                .child("Leaderboard")
+                                .child("Classic")
+                                .child(userId);
+
+                        // Retrieve the current score from the database
+                        userRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists() && dataSnapshot.hasChild("score")) {
+                                    // Get the current score
+                                    long currentScore = dataSnapshot.child("score").getValue(Long.class);
+
+                                    // Add the new score to the current score
+                                    long updatedScore = currentScore + score;
 
                                     // Update the score in the database
                                     dataSnapshot.getRef().child("score").setValue(updatedScore)
@@ -344,6 +504,7 @@ public class DLevel3 extends AppCompatActivity {
                 score += 10;
                 setChordGuessed(currentChordIndex, true);
                 if (allChordsGuessed()) {
+                    unlockNextLevel(4);
                     playAllGuess();
                     postgame(score);
                 } else {
@@ -358,7 +519,7 @@ public class DLevel3 extends AppCompatActivity {
             if (wrongGuessCount >= MAX_WRONG_GUESSES) {
                 // User reached maximum wrong guesses, calculate score
                 score -= (wrongGuessCount - MAX_WRONG_GUESSES); // Deduct extra wrong guesses from the score
-                postgame(score);
+                fivemistakepostgame(score);
             } else {
 
             }
@@ -459,6 +620,47 @@ public class DLevel3 extends AppCompatActivity {
         // Vibrate for 500 milliseconds
         if (vibrator != null) {
             vibrator.vibrate(500);
+        }
+    }
+
+    //shared preference
+
+    private void saveProgress(int nextLevel) {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("LevelPrefs", Context.MODE_PRIVATE);
+        int highestUnlockedLevelDiagram = sharedPreferences.getInt("highestUnlockedLevelDiagram", 1);
+
+        if (nextLevel >= highestUnlockedLevelDiagram) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt(KEY_HIGHEST_UNLOCKED_LEVEL_DIAGRAM, nextLevel);
+            editor.apply();
+
+            if (currentUser != null && databaseReference != null) {
+                databaseReference.child(KEY_HIGHEST_UNLOCKED_LEVEL_DIAGRAM).setValue(highestUnlockedLevelDiagram)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("Firebase", "Progress saved to Firebase");
+                                } else {
+                                    Log.e("Firebase", "Failed to save progress: " + task.getException().getMessage());
+                                }
+                            }
+                        });
+            }
+
+        }
+
+    }
+
+    private void unlockNextLevel(int nextLevel) {
+        SharedPreferences sharedPreferences = getSharedPreferences("LevelPrefs", Context.MODE_PRIVATE);
+        int highestUnlockedLevelDiagram = sharedPreferences.getInt("highestUnlockedLevelDiagram", 1);
+
+        if (nextLevel > highestUnlockedLevelDiagram) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("highestUnlockedLevelDiagram", nextLevel);
+            editor.apply();
         }
     }
 

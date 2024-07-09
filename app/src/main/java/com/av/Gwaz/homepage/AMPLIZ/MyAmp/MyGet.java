@@ -2,9 +2,13 @@ package com.av.Gwaz.homepage.AMPLIZ.MyAmp;
 
 public class MyGet {
 
-    private String setName,by,imageUrl,audioUrl, ampUsed,description,genre,guitar,pickups,key;
+    private String setName,by,imageUrl,audioUrl, ampUsed,description,genre,guitar,pickups,key,uid;
     private Float rating;
     private Long date;
+
+    public String getUid() {
+        return uid;
+    }
 
     public String getSetName() {
         return setName;

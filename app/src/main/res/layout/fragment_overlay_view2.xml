@@ -36,6 +36,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
+
+
         <!-- First FrameLayout -->
         <FrameLayout
             android:id="@+id/frame1"
@@ -43,6 +45,7 @@
             android:layout_height="match_parent">
 
             <!-- ImageView to display the image -->
+
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"

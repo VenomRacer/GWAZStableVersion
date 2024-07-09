@@ -192,6 +192,7 @@ public class MyAmpAdapter extends RecyclerView.Adapter<MyAmpAdapter.AllViewHolde
                                 intent.putExtra("guitar", clickedItem.getGuitar());
                                 intent.putExtra("pickups",clickedItem.getPickups());
                                 intent.putExtra("key",clickedItem.getKey());
+                                intent.putExtra("uid",clickedItem.getUid());
 
                                 // Pass the retrieved settings and effects data to the intent
                                 intent.putExtra("bass", bass);

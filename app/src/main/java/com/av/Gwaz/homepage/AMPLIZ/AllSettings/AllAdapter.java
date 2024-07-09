@@ -414,7 +414,6 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.AllViewHolder> {
         private void stopAudio() {
             if (mediaPlayer != null && mediaPlayer.isPlaying()) {
                 mediaPlayer.stop();
-                mediaPlayer.release();
                 mediaPlayer = null;
                 isPlaying = false;
                 playaud.setImageResource(R.drawable.playaud); // Set image to play icon when stopped

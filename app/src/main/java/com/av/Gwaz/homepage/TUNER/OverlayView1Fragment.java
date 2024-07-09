@@ -17,9 +17,9 @@ import com.av.Gwaz.R;
 
 public class OverlayView1Fragment extends Fragment {
 
-    private ImageView imageView;
+    private ImageView imageView,check;
     private View overlayView1;
-    private MediaPlayer E,A,D,G,B,e;
+    private MediaPlayer E,A,D,G,B,e,standardstrum;
 
     public OverlayView1Fragment() {
         // Required empty public constructor
@@ -38,6 +38,7 @@ public class OverlayView1Fragment extends Fragment {
         imageView = view.findViewById(R.id.imageView);
         overlayView1 = view.findViewById(R.id.overlayView1);
 
+
         // Initialize MediaPlayer with the audio file
         E = MediaPlayer.create(getContext(), R.raw.lowe);
         A = MediaPlayer.create(getContext(),R.raw.a);
@@ -45,14 +46,19 @@ public class OverlayView1Fragment extends Fragment {
         G = MediaPlayer.create(getContext(), R.raw.g);
         B = MediaPlayer.create(getContext(), R.raw.b);
         e = MediaPlayer.create(getContext(), R.raw.highe);
+        standardstrum = MediaPlayer.create(getContext(), R.raw.standardtuningstrum);
+
+
 
 
 
         overlayView1.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                return handleTouch(event);
+                handleTouch(event);
+                return true;
             }
+
         });
     }
 
@@ -71,6 +77,16 @@ public class OverlayView1Fragment extends Fragment {
             case MotionEvent.ACTION_UP:
                 handleTouchUp(pixelX, pixelY);
                 break;
+            case MotionEvent.ACTION_MOVE:
+                if (standardstrum != null) {
+                    standardstrum.release();
+                }
+                // Create a new instance of MediaPlayer and start playing the audio
+                standardstrum = MediaPlayer.create(getContext(), R.raw.standardtuningstrum);
+                standardstrum.start();
+
+
+
         }
         return true;
     }
@@ -81,8 +97,8 @@ public class OverlayView1Fragment extends Fragment {
         float clickedYPercent = y / imageView.getHeight() * 100;
 
         // Show a toast message with the percentages
-        String message1 = String.format("Clicked at: X=%.2f%% of imageView width, Y=%.2f%% of imageView height", clickedXPercent, clickedYPercent);
-        Toast.makeText(getContext(), message1, Toast.LENGTH_SHORT).show();
+        //String message1 = String.format("Clicked at: X=%.2f%% of imageView width, Y=%.2f%% of imageView height", clickedXPercent, clickedYPercent);
+        //Toast.makeText(getContext(), message1, Toast.LENGTH_SHORT).show();
 
 
 
@@ -217,6 +233,10 @@ public class OverlayView1Fragment extends Fragment {
             e.release();
             e = MediaPlayer.create(getContext(),R.raw.highe);
         }
+        if(standardstrum != null){
+            standardstrum.release();
+            standardstrum = MediaPlayer.create(getContext(),R.raw.standardtuningstrum);
+        }
     }
     @Override
     public void onDestroy() {
@@ -245,6 +265,11 @@ public class OverlayView1Fragment extends Fragment {
         if (e != null) {
             e.release();
             e = null;
+        }
+
+        if (standardstrum != null) {
+            standardstrum.release();
+            standardstrum = null;
         }
     }
 

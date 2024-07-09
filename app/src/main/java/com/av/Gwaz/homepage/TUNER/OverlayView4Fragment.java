@@ -19,7 +19,7 @@ public class OverlayView4Fragment extends Fragment {
 
     private ImageView imageView;
     private View overlayView4;
-    private MediaPlayer d1,a1,d2,g1,a2,d3;
+    private MediaPlayer d1,a1,d2,g1,a2,d3,dadgadstrum;
 
     public OverlayView4Fragment() {
         // Required empty public constructor
@@ -45,6 +45,7 @@ public class OverlayView4Fragment extends Fragment {
         g1 = MediaPlayer.create(getContext(), R.raw.g1);
         a2 = MediaPlayer.create(getContext(), R.raw.a2);
         d3 = MediaPlayer.create(getContext(), R.raw.d3);
+        dadgadstrum = MediaPlayer.create(getContext(), R.raw.dadgadstrum);
 
 
 
@@ -71,6 +72,14 @@ public class OverlayView4Fragment extends Fragment {
             case MotionEvent.ACTION_UP:
                 handleTouchUp(pixelX, pixelY);
                 break;
+            case MotionEvent.ACTION_MOVE:
+                if (dadgadstrum != null) {
+                    dadgadstrum.release();
+                }
+                // Create a new instance of MediaPlayer and start playing the audio
+                dadgadstrum = MediaPlayer.create(getContext(), R.raw.dadgadstrum);
+                dadgadstrum.start();
+                Toast.makeText(getContext(), "clickable", Toast.LENGTH_SHORT).show();
         }
         return true;
     }
@@ -217,6 +226,10 @@ public class OverlayView4Fragment extends Fragment {
             d3.release();
             d3 = MediaPlayer.create(getContext(),R.raw.d3);
         }
+        if (dadgadstrum != null){
+            dadgadstrum.release();
+            dadgadstrum = MediaPlayer.create(getContext(), R.raw.dadgadstrum);
+        }
     }
     @Override
     public void onDestroy() {
@@ -245,6 +258,10 @@ public class OverlayView4Fragment extends Fragment {
         if (d3 != null) {
             d3.release();
             d3 = null;
+        }
+        if (dadgadstrum != null){
+            dadgadstrum.release();
+            dadgadstrum = null;
         }
     }
 

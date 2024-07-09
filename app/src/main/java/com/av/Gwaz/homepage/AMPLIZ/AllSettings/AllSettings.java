@@ -22,6 +22,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -71,6 +72,7 @@ public class AllSettings extends Fragment implements AllAdapter.OnItemClickListe
     private ScrollView scroll1;
     String bass, drive, gain, gainstage, mid, presence, reverb, tone, treble,
             chorus, compressor, delay, distortion, flanger, fuzz, overdrive, phaser, reverb1, tremolo, wah;
+    private TextView nothingTxt;
 
     @SuppressLint("MissingInflatedId")
     @Nullable
@@ -103,6 +105,7 @@ public class AllSettings extends Fragment implements AllAdapter.OnItemClickListe
         openGenre = view.findViewById(R.id.openGenre);
         scroll1 = view.findViewById(R.id.scroll1);
         profile = view.findViewById(R.id.profile);
+        nothingTxt = view.findViewById(R.id.nothingTxt);
 
         EditText searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
         searchEditText.setTextColor(getResources().getColor(R.color.black));
@@ -379,6 +382,13 @@ public class AllSettings extends Fragment implements AllAdapter.OnItemClickListe
             }
         }
         adapter.filterList(filteredList);
+
+        // Set visibility of nothingTxt based on whether there are results
+        if (filteredList.isEmpty()) {
+            nothingTxt.setVisibility(View.VISIBLE);
+        } else {
+            nothingTxt.setVisibility(View.GONE);
+        }
     }
 
 

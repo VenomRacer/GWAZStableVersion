@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -27,6 +28,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class  login extends AppCompatActivity {
     TextView logsignup;
@@ -37,6 +43,18 @@ public class  login extends AppCompatActivity {
     Dialog loadingDialog;
     //private static final int PERMISSION_REQUEST_CODE = 123;
 
+    private String NOTIF_KEY = "JULY9";
+    private String LINK = "https://novalichessti-my.sharepoint.com/:f:/g/personal/calongcagong_241612_novaliches_sti_edu_ph/ErJtL1qthPFOsD1w0b58EhwB8BQ-Md2i98tsIDrVEBOESA?e=gBNT78";
+
+    private FirebaseUser currentUser;
+    private DatabaseReference databaseReference;
+    private SharedPreferences sharedPreferences;
+    private static final String PREF_NAME = "LevelPrefs";
+    private static final String KEY_HIGHEST_UNLOCKED_LEVEL = "highestUnlockedLevel";
+    private static final String KEY_HIGHEST_UNLOCKED_LEVEL_DIAGRAM = "highestUnlockedLevelDiagram";
+
+
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -44,15 +62,61 @@ public class  login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Check if activity was launched from a notification click
-        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("link")) {
-            String url = getIntent().getStringExtra("link");
-            if (url != null && !url.isEmpty()) {
-                // Open the URL if available
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("updateKey");
+
+        Dialog ndialog = new Dialog(login.this,R.style.dialoge);
+        ndialog.setContentView(R.layout.notif_dialog);
+        ndialog.setCancelable(false);
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get the value of updateKey
+                String updateKeyValue = dataSnapshot.getValue(String.class);
+                if (!updateKeyValue.equals(NOTIF_KEY)){
+                    ndialog.show();
+                    Button update,exit;
+                    update = ndialog.findViewById(R.id.updateBtn);
+                    exit = ndialog.findViewById(R.id.exitBtn);
+
+                    update.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(LINK)));
+                                finish();
+                                return;
+
+                        }
+                    });
+
+                    exit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            finish();
+                            ndialog.dismiss();
+                        }
+                    });
+
+                }else{
+                    ndialog.dismiss();
+                }
 
             }
-        }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Handle possible errors
+            }
+        });
+
+
+        //classic
+        sharedPreferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+
+
 
         // Initialize the custom loading dialog
         loadingDialog = new Dialog(this);
@@ -110,8 +174,6 @@ public class  login extends AppCompatActivity {
                     return;
                 }
 
-
-
                 String Email = email.getText().toString();
                 String pass = password.getText().toString();
 
@@ -129,28 +191,123 @@ public class  login extends AppCompatActivity {
                     password.setError("More Than Six Characters");
                     Toast.makeText(login.this, "Password Needs To Be Longer Than Six Characters", Toast.LENGTH_SHORT).show();
                 } else {
-                    auth.signInWithEmailAndPassword(Email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    // Check if the email exists in the database
+                    FirebaseDatabase.getInstance().getReference().child("user").orderByChild("mail").equalTo(Email).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            loadingDialog.dismiss();
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                // Email exists, proceed with login
+                                auth.signInWithEmailAndPassword(Email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        loadingDialog.dismiss();
 
-                            if (task.isSuccessful()) {
-                                if (auth.getCurrentUser().isEmailVerified()) {
-                                    Intent intent = new Intent(login.this, Test.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    Toast.makeText(login.this, "Failed to Login. Verify Your Account First.", Toast.LENGTH_SHORT).show();
-                                }
+                                        if (task.isSuccessful()) {
+                                            if (auth.getCurrentUser().isEmailVerified()) {
+                                                syncProgressFromFirebaseClassic();
+                                                syncProgressFromFirebaseDiagram();
+                                                Intent intent = new Intent(login.this, Test.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                Toast.makeText(login.this, "Failed to Login. Verify Your Account First.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        } else {
+                                            Toast.makeText(login.this, "Invalid Email or Password.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
                             } else {
-                                Toast.makeText(login.this, "Invalid Email or Password.", Toast.LENGTH_SHORT).show();
+                                // Email does not exist, show toast
+                                loadingDialog.dismiss();
+                                Toast.makeText(login.this, "This email is not registered.", Toast.LENGTH_SHORT).show();
                             }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            loadingDialog.dismiss();
+                            Toast.makeText(login.this, "Database error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
             }
         });
 
+    }
+
+    private void syncProgressFromFirebaseClassic() {
+
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("user")
+                .child(auth.getCurrentUser().getUid())
+                .child("Levels")
+                .child("Classic");
+
+        if (auth.getCurrentUser() != null && databaseReference != null) {
+            databaseReference.child(KEY_HIGHEST_UNLOCKED_LEVEL).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    if (dataSnapshot.exists()) {
+                        int classiclevel = dataSnapshot.getValue(Integer.class);
+                        SharedPreferences sharedPreferences = getSharedPreferences("LevelPrefs", Context.MODE_PRIVATE);
+                        int highestUnlockedLevel = sharedPreferences.getInt("highestUnlockedLevel", 1);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt(KEY_HIGHEST_UNLOCKED_LEVEL, classiclevel);
+                        editor.apply();
+
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(login.this, "Failed to sync game progress", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void syncProgressFromFirebaseDiagram() {
+
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("user")
+                .child(auth.getCurrentUser().getUid())
+                .child("Levels")
+                .child("Diagram");
+
+        if (auth.getCurrentUser() != null && databaseReference != null) {
+            databaseReference.child(KEY_HIGHEST_UNLOCKED_LEVEL_DIAGRAM).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    if (dataSnapshot.exists()) {
+                        int diagramlevel = dataSnapshot.getValue(Integer.class);
+                        SharedPreferences sharedPreferences = getSharedPreferences("LevelPrefs", Context.MODE_PRIVATE);
+                        int highestUnlockedLevel = sharedPreferences.getInt("highestUnlockedLevelDiagram", 1);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt(KEY_HIGHEST_UNLOCKED_LEVEL_DIAGRAM, diagramlevel);
+                        editor.apply();
+
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(login.this, "Failed to sync game progress", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private boolean isNetworkConnected() {

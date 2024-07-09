@@ -2,6 +2,7 @@ package com.av.Gwaz.homepage;
 
 import android.Manifest;
 import android.animation.Animator;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,9 +13,11 @@ import android.graphics.Paint;
 import android.graphics.Shader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,7 +36,11 @@ import com.av.Gwaz.homepage.AMPLIZ.AllSettings.AllSettings;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Target;
 
@@ -47,6 +54,8 @@ public class Test extends AppCompatActivity {
     FloatingActionButton fab;
     private Target profileTarget;
     private static final int PERMISSION_REQUEST_CODE = 123;
+    private String NOTIF_KEY = "JULY9";
+    private String LINK = "https://novalichessti-my.sharepoint.com/:f:/g/personal/calongcagong_241612_novaliches_sti_edu_ph/ErJtL1qthPFOsD1w0b58EhwB8BQ-Md2i98tsIDrVEBOESA?e=gBNT78";
 
 
     @Override
@@ -57,6 +66,54 @@ public class Test extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         storage = FirebaseStorage.getInstance();
+
+        Dialog ndialog = new Dialog(Test.this,R.style.dialoge);
+        ndialog.setContentView(R.layout.notif_dialog);
+        ndialog.setCancelable(false);
+
+        FirebaseDatabase ndatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = ndatabase.getReference("updateKey");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get the value of updateKey
+                String updateKeyValue = dataSnapshot.getValue(String.class);
+                if (!updateKeyValue.equals(NOTIF_KEY)){
+                    Toast.makeText(Test.this, " "+updateKeyValue, (Toast.LENGTH_SHORT)).show();
+                    ndialog.show();
+                    Button update,exit;
+                    update = ndialog.findViewById(R.id.updateBtn);
+                    exit = ndialog.findViewById(R.id.exitBtn);
+
+                    update.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(LINK)));
+                            finish();
+                            return;
+
+                        }
+                    });
+
+                    exit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            finish();
+
+                        }
+                    });
+
+                } else {
+                    ndialog.dismiss();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Handle possible errors
+            }
+        });
 
         replaceFragment(new AllSettings());
 

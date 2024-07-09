@@ -19,7 +19,7 @@ public class OverlayView2Fragment extends Fragment {
 
     private ImageView imageView;
     private View overlayView2;
-    private MediaPlayer Eb,Ab,Db,Gb,Bb,eb;
+    private MediaPlayer Eb,Ab,Db,Gb,Bb,eb,halfstepstrum;
 
     public OverlayView2Fragment() {
         // Required empty public constructor
@@ -45,6 +45,7 @@ public class OverlayView2Fragment extends Fragment {
         Gb = MediaPlayer.create(getContext(), R.raw.gb);
         Bb = MediaPlayer.create(getContext(), R.raw.bb);
         eb = MediaPlayer.create(getContext(), R.raw.higheb);
+        halfstepstrum = MediaPlayer.create(getContext(), R.raw.halfstepstrum);
 
 
 
@@ -75,6 +76,16 @@ public class OverlayView2Fragment extends Fragment {
             case MotionEvent.ACTION_UP:
                 handleTouchUp(pixelX, pixelY);
                 break;
+            case MotionEvent.ACTION_MOVE:
+                if (halfstepstrum != null) {
+                    halfstepstrum.release();
+                }
+                // Create a new instance of MediaPlayer and start playing the audio
+                halfstepstrum = MediaPlayer.create(getContext(), R.raw.halfstepstrum);
+                halfstepstrum.start();
+
+
+
         }
         return true;
     }
@@ -221,6 +232,10 @@ public class OverlayView2Fragment extends Fragment {
             eb.release();
             eb = MediaPlayer.create(getContext(),R.raw.higheb);
         }
+        if (halfstepstrum != null){
+            halfstepstrum.release();
+            halfstepstrum = MediaPlayer.create(getContext(), R.raw.halfstepstrum);
+        }
     }
     @Override
     public void onDestroy() {
@@ -249,6 +264,10 @@ public class OverlayView2Fragment extends Fragment {
         if (eb != null) {
             eb.release();
             eb = null;
+        }
+        if (halfstepstrum != null){
+            halfstepstrum.release();
+            halfstepstrum = null;
         }
     }
 
