@@ -75,7 +75,8 @@
                             android:orientation="vertical"
                             android:layout_width="0dp"
                             android:layout_weight="1"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:visibility="gone">
 
                             <TextView
                                 android:id="@+id/ampCount"
@@ -95,10 +96,11 @@
                             android:layout_width="0dp"
                             android:layout_weight="1">
                             <ImageView
-                                android:id="@+id/myAmp"
+                                android:id="@+id/faveAmp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/amplifier" />
+                                android:src="@drawable/amplifier"
+                                app:tint="@color/gold2"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -133,6 +135,21 @@
 
 
                         </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:layout_height="match_parent"
+                            android:layout_width="0dp"
+                            android:layout_weight="1">
+                            <ImageView
+                                android:id="@+id/myAmp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/amplifier" />
+                        </LinearLayout>
+
+
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>

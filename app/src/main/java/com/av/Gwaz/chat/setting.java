@@ -31,6 +31,7 @@ import androidx.fragment.app.Fragment;
 
 import com.av.Gwaz.R;
 import com.av.Gwaz.homepage.AMPLIZ.Add.AddAmp;
+import com.av.Gwaz.homepage.AMPLIZ.MyAmp.FaveAmp;
 import com.av.Gwaz.homepage.AMPLIZ.MyAmp.MyAmp;
 import com.av.Gwaz.login.login;
 import com.bumptech.glide.Glide;
@@ -51,7 +52,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 public class setting extends Fragment {
-    ImageView setprofile, myAmp, mailIC, nameIC,statusIC;
+    ImageView setprofile, myAmp,faveAmp, mailIC, nameIC,statusIC;
     EditText setname, setstatus;
     TextView displayText, ampCount, Email;
     Button donebut, logoutBtn;
@@ -82,6 +83,7 @@ public class setting extends Fragment {
         displayText = view.findViewById(R.id.displayName);
         Add = view.findViewById(R.id.Add);
         myAmp = view.findViewById(R.id.myAmp);
+        faveAmp = view.findViewById(R.id.faveAmp);
         ampCount = view.findViewById(R.id.ampCount);
         Email = view.findViewById(R.id.Email);
         mailIC = view.findViewById(R.id.mailIC);
@@ -177,6 +179,13 @@ public class setting extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), MyAmp.class));
+            }
+        });
+
+        faveAmp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), FaveAmp.class));
             }
         });
 

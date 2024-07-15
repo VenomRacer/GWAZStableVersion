@@ -4,6 +4,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,9 +31,11 @@ import com.av.Gwaz.R;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
@@ -38,7 +43,9 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AllAdapter extends RecyclerView.Adapter<AllAdapter.AllViewHolder> {
 
@@ -161,6 +168,38 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.AllViewHolder> {
                 PopupMenu popup = new PopupMenu(holder.itemView.getContext(), v);
                 MenuInflater inflater = popup.getMenuInflater();
                 inflater.inflate(R.menu.all_menu, popup.getMenu());
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.favorite:
+                                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                                // Get a reference to the user's favorites in the database
+                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("user").child(userId).child("Favorites")
+                                        .child(allGet.getKey());
+
+                                Map<String, Object> favorite = new HashMap<>();
+                                favorite.put("key", allGet.getKey());
+
+
+                                // Store the key value in the database
+                                // Store the key value in the database and set listeners for success and failure
+                                databaseReference.updateChildren(favorite).addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(holder.itemView.getContext(), "Added to Favorites", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(holder.itemView.getContext(), "Failed to add to Favorites", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
 
                 popup.show();
             }
@@ -454,5 +493,11 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.AllViewHolder> {
                 Log.e(TAG, "Error deleting folder contents", e);
             }
         });
+    }
+
+    // Define the method that handles the favorite click
+    private void handleFavoriteClick(Context context) {
+        // Your logic for when the favorite item is clicked
+
     }
 }
