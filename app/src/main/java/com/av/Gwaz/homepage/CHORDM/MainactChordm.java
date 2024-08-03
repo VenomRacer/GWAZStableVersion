@@ -17,6 +17,7 @@ import com.av.Gwaz.homepage.CHORDM.Timed.TimeSelect;
 public class MainactChordm extends AppCompatActivity {
 
     private ImageView classicmode,timedmode,diagrammode;
+    private ImageView back;
     private ImageView classicpic,timedpic,diagrampic;
     private TextView classicuser,timeduser,diagramuser;
     private ImageView leaderClassic,leaderTimed,leaderDiagram;
@@ -36,6 +37,8 @@ public class MainactChordm extends AppCompatActivity {
 
         diagrammode = findViewById(R.id.diagrammode);
         leaderDiagram = findViewById(R.id.leaderDiag);
+
+        back = findViewById(R.id.back);
 
 
 
@@ -93,7 +96,12 @@ public class MainactChordm extends AppCompatActivity {
             }
         });
 
-
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
 

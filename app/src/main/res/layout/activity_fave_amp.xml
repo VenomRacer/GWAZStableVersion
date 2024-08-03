@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_black"
-            android:text="My Amps"
+            android:text="Favorites"
             android:textColor="@color/white"
             android:textSize="35dp" />
 

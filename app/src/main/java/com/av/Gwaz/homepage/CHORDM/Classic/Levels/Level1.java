@@ -11,6 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
@@ -37,7 +38,7 @@ import java.util.Random;
 
 public class Level1 extends AppCompatActivity {
 
-    private ImageView speaker, g_press, em_press;
+    private ImageView speaker, g_press, em_press,rightchoice,wrongchoice;
     private MediaPlayer mediaPlayer,missnote,rightnote,allright;
     private String[] chords = {"gchord", "emchord"};
     private TextView errors;
@@ -70,6 +71,9 @@ public class Level1 extends AppCompatActivity {
         speaker = findViewById(R.id.speaker);
         g_press = findViewById(R.id.g_press);
         em_press = findViewById(R.id.em_press);
+
+        rightchoice = findViewById(R.id.rightchoice);
+        wrongchoice = findViewById(R.id.wrongchoice);
 
         errors = findViewById(R.id.errors);
 
@@ -505,6 +509,15 @@ public class Level1 extends AppCompatActivity {
 
         if (guessedChord.equals(chords[currentChordIndex])) {
             // Correct guess
+            rightchoice.setVisibility(View.VISIBLE);
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    rightchoice.setVisibility(View.GONE);
+
+                }
+            }, 1000);
+
             if (!isChordGuessed(currentChordIndex)) {
                 score += 10;
                 setChordGuessed(currentChordIndex, true);
@@ -518,6 +531,14 @@ public class Level1 extends AppCompatActivity {
             }
         } else {
             // Incorrect guess
+            wrongchoice.setVisibility(View.VISIBLE);
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    wrongchoice.setVisibility(View.GONE);
+
+                }
+            }, 1000);
             vibrate();
             playIncorrectGuessSound();
             wrongGuessCount++;

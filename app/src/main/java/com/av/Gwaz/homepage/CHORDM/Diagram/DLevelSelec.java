@@ -36,9 +36,10 @@ import com.google.firebase.database.ValueEventListener;
 
 public class DLevelSelec extends AppCompatActivity {
     private FrameLayout level1,level2,level3,level4,level5;
-    private ImageView lock2, lock3, lock4, lock5;
-    private TextView reset;
+    private ImageView lock2, lock3, lock4, lock5,back;
+    private TextView reset,modename;
     private ImageButton sync;
+
     SharedPreferences sharedPreferences;
 
     Dialog loadingDialog;
@@ -66,6 +67,16 @@ public class DLevelSelec extends AppCompatActivity {
         lock3 = findViewById(R.id.lock3);
         lock4 = findViewById(R.id.lock4);
         lock5 = findViewById(R.id.lock5);
+
+        back = findViewById(R.id.back);
+        modename = findViewById(R.id.modename);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         // Initialize the custom loading dialog
         loadingDialog = new Dialog(this);
@@ -127,6 +138,8 @@ public class DLevelSelec extends AppCompatActivity {
                 return true;
             }
         });
+
+
     }
 
     private void setLevelAccess(int highestUnlockedLevelDiagram) {

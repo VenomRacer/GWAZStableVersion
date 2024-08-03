@@ -10,6 +10,8 @@ import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
@@ -36,7 +38,7 @@ import java.util.Random;
 
 public class Level4 extends AppCompatActivity {
 
-    private ImageView speaker, g_press, em_press,c_press,dm_press, am_press, b_press;
+    private ImageView speaker, g_press, em_press,c_press,dm_press, am_press, b_press,rightchoice,wrongchoice;
     private MediaPlayer mediaPlayer,missnote,rightnote,allright;
     private String[] chords = {"gchord", "emchord", "cchord","dmchord", "amchord", "bchord"};
     private boolean[] chordGuessed = {false, false, false, false, false, false};
@@ -74,6 +76,8 @@ public class Level4 extends AppCompatActivity {
         b_press = findViewById(R.id.b_press);
 
         errors = findViewById(R.id.errors);
+        rightchoice = findViewById(R.id.rightchoice);
+        wrongchoice = findViewById(R.id.wrongchoice);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Saving...");
@@ -549,6 +553,14 @@ public class Level4 extends AppCompatActivity {
     private void checkGuess(String guessedChord) {
         if (guessedChord.equals(chords[currentChordIndex])) {
             // Correct guess
+            rightchoice.setVisibility(View.VISIBLE);
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    rightchoice.setVisibility(View.GONE);
+
+                }
+            }, 1000);
             if (!isChordGuessed(currentChordIndex)) {
                 score += 10;
                 setChordGuessed(currentChordIndex, true);
@@ -563,6 +575,14 @@ public class Level4 extends AppCompatActivity {
                 }
             }
         } else {
+            wrongchoice.setVisibility(View.VISIBLE);
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    wrongchoice.setVisibility(View.GONE);
+
+                }
+            }, 1000);
             vibrate();
             playIncorrectGuessSound();
             wrongGuessCount++;

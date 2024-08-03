@@ -23,7 +23,7 @@ import com.google.firebase.storage.StorageReference;
 
 
 public class MainactGwiz extends AppCompatActivity {
-    ImageView imageView;
+    ImageView imageView,back;
     View overlayView1, overlayView2;
 
     DatabaseReference nutstring,rodstring,bodystring,pickupsstring;
@@ -34,6 +34,8 @@ public class MainactGwiz extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainact_gwiz);
+
+        back = findViewById(R.id.back);
 
         // Initialize imageView and overlayView after setContentView
         imageView = findViewById(R.id.imageView);
@@ -77,6 +79,13 @@ public class MainactGwiz extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return handleTouch(2, event);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }

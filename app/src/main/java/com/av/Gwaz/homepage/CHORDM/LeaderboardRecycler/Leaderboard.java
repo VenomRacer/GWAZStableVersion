@@ -2,6 +2,7 @@ package com.av.Gwaz.homepage.CHORDM.LeaderboardRecycler;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +32,7 @@ public class Leaderboard extends AppCompatActivity {
     private LeadAdapter adapter;
     private List<LeadGet> leadList;
     private TextView modename, rankeonename, ranktwoname, rankthreename;
-    private ImageView firstRank, secondRank, thirdRank;
+    private ImageView firstRank, secondRank, thirdRank, back;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -48,6 +49,7 @@ public class Leaderboard extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         modename = findViewById(R.id.mode);
+        back = findViewById(R.id.back);
 
         String mode = getIntent().getStringExtra("mode");
         modename.setText(mode);
@@ -64,6 +66,13 @@ public class Leaderboard extends AppCompatActivity {
                 .child("CHORDM")
                 .child("Leaderboard")
                 .child(mode);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         // Retrieve reviews from Firebase database
         leadRef.addListenerForSingleValueEvent(new ValueEventListener() {

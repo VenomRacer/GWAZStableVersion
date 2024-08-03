@@ -7,6 +7,16 @@
     android:background="@drawable/home_background"
     tools:context=".homepage.CHORDM.Timed.TimeSelect">
 
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/back"
+        app:tint="@color/gold2"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="10dp"
+        tools:ignore="MissingConstraints" />
+
 
 <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/con1"

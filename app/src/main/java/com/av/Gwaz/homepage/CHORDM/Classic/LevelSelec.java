@@ -41,7 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LevelSelec extends AppCompatActivity {
     private FrameLayout level1,level2,level3,level4,level5;
-    private ImageView lock2, lock3, lock4, lock5;
+    private ImageView lock2, lock3, lock4, lock5,back;
     private ImageButton sync;
     private TextView reset;
     SharedPreferences sharedPreferences;
@@ -72,6 +72,8 @@ public class LevelSelec extends AppCompatActivity {
         lock3 = findViewById(R.id.lock3);
         lock4 = findViewById(R.id.lock4);
         lock5 = findViewById(R.id.lock5);
+
+        back = findViewById(R.id.back);
 
         // Initialize the custom loading dialog
         loadingDialog = new Dialog(this);
@@ -130,6 +132,13 @@ public class LevelSelec extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 hadnleTouch(event);
                 return true;
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
 

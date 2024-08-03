@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
@@ -38,7 +39,7 @@ import java.util.Random;
 
 public class sixtyb extends AppCompatActivity {
 
-    private ImageView speaker;
+    private ImageView speaker,rightchoice,wrongchoice;
     private MediaPlayer mediaPlayer,missnote,rightnote,allright;
     private ImageView chordImage1;
     private ImageView chordImage2;
@@ -67,6 +68,8 @@ public class sixtyb extends AppCompatActivity {
         chordImage2 = findViewById(R.id.second);
         timerText = findViewById(R.id.timerText);
         targetCount = findViewById(R.id.targetCount);
+        rightchoice = findViewById(R.id.rightchoice);
+        wrongchoice = findViewById(R.id.wrongchoice);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Saving...");
@@ -163,6 +166,14 @@ public class sixtyb extends AppCompatActivity {
             // Check if the guessed chord matches the currently playing chord
             if (currentlyPlayingChordIndex != -1 && guessedChord.equals(chords[currentlyPlayingChordIndex])) {
                 // Correct guess
+                rightchoice.setVisibility(View.VISIBLE);
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        rightchoice.setVisibility(View.GONE);
+
+                    }
+                }, 1000);
                 score += 10;
                 target -= 1;
                 targetCount.setText(String.valueOf(target));
@@ -177,6 +188,15 @@ public class sixtyb extends AppCompatActivity {
                 }
             } else {
                 // Incorrect guess
+
+                wrongchoice.setVisibility(View.VISIBLE);
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        wrongchoice.setVisibility(View.GONE);
+
+                    }
+                }, 1000);
                 chordGuessed = false;
                 playRandomChord();
                 missNote ();

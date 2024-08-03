@@ -16,7 +16,6 @@
         android:layout_marginStart="23dp"
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginEnd="25dp"
-        android:background="@color/white"
         android:gravity="right"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
@@ -28,10 +27,10 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="center|left"
             android:fontFamily="@font/poppins_bold"
             android:text="Messages"
-            android:textColor="#02050C"
+            android:textColor="@color/gold2"
             android:textSize="@dimen/_20sdp" />
 
 
@@ -59,7 +58,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="19dp"
         android:layout_marginRight="19dp"
         android:layout_marginBottom="30dp" />

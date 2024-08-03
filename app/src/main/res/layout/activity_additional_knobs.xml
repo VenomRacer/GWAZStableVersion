@@ -52,12 +52,27 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_black"
-                    android:text="Reverb"
-                    android:textColor="@color/white" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_black"
+                        android:text="Reverb"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/reverbfact"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="10dp"
+                        app:tint="@color/gold2"
+                        android:src="@drawable/boxedquestion"/>
+
+                </LinearLayout>
 
                 <com.akaita.android.circularseekbar.CircularSeekBar
                     android:id="@+id/reverb"
@@ -95,12 +110,27 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_black"
-                    android:text="Tone"
-                    android:textColor="@color/white" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_black"
+                        android:text="Tone"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/tonefact"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="10dp"
+                        app:tint="@color/gold2"
+                        android:src="@drawable/boxedquestion"/>
+
+                </LinearLayout>
 
                 <com.akaita.android.circularseekbar.CircularSeekBar
                     android:id="@+id/tone"
@@ -137,12 +167,27 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_black"
-                    android:text="Gain Staging"
-                    android:textColor="@color/white" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_black"
+                        android:text="G. Staging"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/stagingfact"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="10dp"
+                        app:tint="@color/gold2"
+                        android:src="@drawable/boxedquestion"/>
+
+                </LinearLayout>
 
                 <com.akaita.android.circularseekbar.CircularSeekBar
                     android:id="@+id/gainstage"

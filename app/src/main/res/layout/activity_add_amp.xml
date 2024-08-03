@@ -53,12 +53,27 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_black"
-                    android:text="Treble"
-                    android:textColor="@color/white" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_black"
+                        android:text="Treble"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/treblefact"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="10dp"
+                        app:tint="@color/gold2"
+                        android:src="@drawable/boxedquestion"/>
+
+                </LinearLayout>
 
                 <com.akaita.android.circularseekbar.CircularSeekBar
                     android:id="@+id/treble"
@@ -85,12 +100,27 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_black"
-                    android:text="Gain"
-                    android:textColor="@color/white" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_black"
+                        android:text="Gain"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/gainfact"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="10dp"
+                        app:tint="@color/gold2"
+                        android:src="@drawable/boxedquestion"/>
+
+                </LinearLayout>
 
                 <com.akaita.android.circularseekbar.CircularSeekBar
                     android:id="@+id/gain"
@@ -128,12 +158,27 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_black"
-                    android:text="Bass"
-                    android:textColor="@color/white" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_black"
+                        android:text="Bass"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/bassfact"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="10dp"
+                        app:tint="@color/gold2"
+                        android:src="@drawable/boxedquestion"/>
+
+                </LinearLayout>
 
                 <com.akaita.android.circularseekbar.CircularSeekBar
                     android:id="@+id/bass"
@@ -159,12 +204,27 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_black"
-                    android:text="Drive"
-                    android:textColor="@color/white" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_black"
+                        android:text="Drive"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/drivefact"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="10dp"
+                        app:tint="@color/gold2"
+                        android:src="@drawable/boxedquestion"/>
+
+                </LinearLayout>
 
                 <com.akaita.android.circularseekbar.CircularSeekBar
                     android:id="@+id/drive"
@@ -200,12 +260,27 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_black"
-                    android:text="Mid"
-                    android:textColor="@color/white" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_black"
+                        android:text="Mid"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/midfact"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="10dp"
+                        app:tint="@color/gold2"
+                        android:src="@drawable/boxedquestion"/>
+
+                </LinearLayout>
 
                 <com.akaita.android.circularseekbar.CircularSeekBar
                     android:id="@+id/mid"
@@ -231,12 +306,27 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_black"
-                    android:text="Presence"
-                    android:textColor="@color/white" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_black"
+                        android:text="Presence"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:id="@+id/presencefact"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginStart="10dp"
+                        app:tint="@color/gold2"
+                        android:src="@drawable/boxedquestion"/>
+
+                </LinearLayout>
 
                 <com.akaita.android.circularseekbar.CircularSeekBar
                     android:id="@+id/presence"
