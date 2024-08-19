@@ -182,6 +182,15 @@ public class AllSettings extends Fragment implements AllAdapter.OnItemClickListe
             }
         });
 
+        // Set up the OnCloseListener
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                nothingTxt.setVisibility(View.GONE); // Hide the text when search is closed
+                return false; // Return false to allow default behavior (clear the query and collapse the view)
+            }
+        });
+
         // Set up refresh listener
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

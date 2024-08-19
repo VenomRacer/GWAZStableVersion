@@ -43,7 +43,7 @@ public class  login extends AppCompatActivity {
     Dialog loadingDialog;
     //private static final int PERMISSION_REQUEST_CODE = 123;
 
-    private String NOTIF_KEY = "JULY9";
+    private String NOTIF_KEY = "AUG27";
     private String LINK = "https://novalichessti-my.sharepoint.com/:f:/g/personal/calongcagong_241612_novaliches_sti_edu_ph/ErJtL1qthPFOsD1w0b58EhwB8BQ-Md2i98tsIDrVEBOESA?e=gBNT78";
 
     private FirebaseUser currentUser;
@@ -76,19 +76,22 @@ public class  login extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get the value of updateKey
                 String updateKeyValue = dataSnapshot.getValue(String.class);
-                if (!updateKeyValue.equals(NOTIF_KEY)){
-                    ndialog.show();
-                    Button update,exit;
+
+                if (!updateKeyValue.equals(NOTIF_KEY)) {
+                    if (!login.this.isFinishing() && !login.this.isDestroyed()) {
+                        ndialog.show();
+                    }
+
+                    Button update, exit;
                     update = ndialog.findViewById(R.id.updateBtn);
                     exit = ndialog.findViewById(R.id.exitBtn);
 
                     update.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(LINK)));
-                                finish();
-                                return;
-
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(LINK)));
+                            finish();
+                            return;
                         }
                     });
 
@@ -100,10 +103,11 @@ public class  login extends AppCompatActivity {
                         }
                     });
 
-                }else{
-                    ndialog.dismiss();
+                } else {
+                    if (ndialog.isShowing()) {
+                        ndialog.dismiss();
+                    }
                 }
-
             }
 
             @Override

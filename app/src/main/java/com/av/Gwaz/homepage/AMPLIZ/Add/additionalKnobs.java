@@ -1,6 +1,8 @@
 package com.av.Gwaz.homepage.AMPLIZ.Add;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +24,7 @@ public class additionalKnobs extends AppCompatActivity {
     private CircularSeekBar reverb,tone,gainstage;
     private Vibrator vibrator;
     private Button nextBtn;
+    private ImageView reverbfact, tonefact,stagingfact;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -40,6 +44,10 @@ public class additionalKnobs extends AppCompatActivity {
         gainstage = (CircularSeekBar) findViewById(R.id.gainstage);
         gainstage.setProgressTextFormat(new DecimalFormat("#"));
 
+        reverbfact = findViewById(R.id.reverbfact);
+        tonefact = findViewById(R.id.tonefact);
+        stagingfact = findViewById(R.id.stagingfact);
+
 
 
         Intent intent = getIntent();
@@ -50,6 +58,33 @@ public class additionalKnobs extends AppCompatActivity {
         String midValue = intent.getStringExtra("mid");
         String presenceValue = intent.getStringExtra("presence");
 
+
+        reverbfact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = "Adding reverb can make the guitar sound more spacious and smooth, blending notes together more fluidly. It’s commonly used to enhance clean tones and add a sense of \"air\" to the sound.";
+                String title1 = "Reverb";
+                showFactDialog(text,title1);
+            }
+        });
+
+        tonefact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = "Tone controls typically adjust the balance between treble (high frequencies) and bass (low frequencies). Tone controls allow you to shape the guitar's voice, making it darker or brighter, depending on your preference or the style of music you're playing. ";
+                String title1 = "Tone";
+                showFactDialog(text,title1);
+            }
+        });
+
+        stagingfact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = "Gain staging is the process of managing the levels of a guitar signal at different points in the signal chain to achieve a clear and balanced sound without unwanted distortion or noise.";
+                String title1 = "Gain Staging";
+                showFactDialog(text,title1);
+            }
+        });
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +223,29 @@ public class additionalKnobs extends AppCompatActivity {
     public void onBackPressed() {
         super.finish();
         overridePendingTransition(0, R.anim.slide_down); // Apply slide-down animation
+    }
+
+    private void showFactDialog(String fact, String title) {
+        // Create an AlertDialog Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // Set the title of the dialog (optional)
+        builder.setTitle(title);
+
+        // Set the message of the dialog (the fact)
+        builder.setMessage(fact);
+
+        // Add an "OK" button to dismiss the dialog
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        // Create and show the dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     /*@Override

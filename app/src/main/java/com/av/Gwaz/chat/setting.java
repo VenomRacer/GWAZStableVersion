@@ -585,6 +585,27 @@ public class setting extends Fragment {
                                                     });
                                             loadingDialog.dismiss();
 
+                                            DatabaseReference amplifierRef = FirebaseDatabase.getInstance().getReference().child("Service").child("AMPLIZONE").child("Amplifier");
+                                            amplifierRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    for (DataSnapshot ampSnapshot : dataSnapshot.getChildren()) {
+                                                        String byValue = ampSnapshot.child("by").getValue(String.class);
+                                                        if (byValue.equals(oldname)) {
+                                                            // Update the "by" value to the new username
+                                                            ampSnapshot.getRef().child("by").setValue(name);
+                                                        }
+
+
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                    // Handle error
+                                                }
+                                            });
+
                                             DatabaseReference leaderboard = FirebaseDatabase.getInstance().getReference().child("Service").child("CHORDM").child("Leaderboard").child("Classic");
                                             leaderboard.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override

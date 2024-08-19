@@ -99,7 +99,7 @@
                                 android:id="@+id/faveAmp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/amplifier"
+                                android:src="@drawable/faveamp"
                                 app:tint="@color/gold2"/>
                         </LinearLayout>
 
@@ -146,7 +146,7 @@
                                 android:id="@+id/myAmp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:src="@drawable/amplifier" />
+                                android:src="@drawable/personalamp" />
                         </LinearLayout>
 
 

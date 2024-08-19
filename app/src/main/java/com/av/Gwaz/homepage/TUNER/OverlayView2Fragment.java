@@ -7,7 +7,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +19,9 @@ public class OverlayView2Fragment extends Fragment {
     private ImageView imageView;
     private View overlayView2;
     private MediaPlayer Eb,Ab,Db,Gb,Bb,eb,halfstepstrum;
+    private static final int MOVE_THRESHOLD = 10; // Adjust this value as needed
+    private float startX;
+    private float startY;
 
     public OverlayView2Fragment() {
         // Required empty public constructor
@@ -68,24 +70,26 @@ public class OverlayView2Fragment extends Fragment {
         float pixelX = calculatePixelX(percentageX, imageView);
         float pixelY = calculatePixelY(percentageY, imageView);
 
-
-
-
-
         switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                startX = x;
+                startY = y;
+                break;
             case MotionEvent.ACTION_UP:
                 handleTouchUp(pixelX, pixelY);
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (halfstepstrum != null) {
-                    halfstepstrum.release();
+                float deltaX = Math.abs(x - startX);
+                float deltaY = Math.abs(y - startY);
+                if (deltaX > MOVE_THRESHOLD || deltaY > MOVE_THRESHOLD) {
+                    if (halfstepstrum != null) {
+                        halfstepstrum.release();
+                    }
+                    // Create a new instance of MediaPlayer and start playing the audio
+                    halfstepstrum = MediaPlayer.create(getContext(), R.raw.halfstepstrum);
+                    halfstepstrum.start();
                 }
-                // Create a new instance of MediaPlayer and start playing the audio
-                halfstepstrum = MediaPlayer.create(getContext(), R.raw.halfstepstrum);
-                halfstepstrum.start();
-
-
-
+                break;
         }
         return true;
     }
@@ -97,7 +101,7 @@ public class OverlayView2Fragment extends Fragment {
 
         // Show a toast message with the percentages
         String message1 = String.format("Clicked at: X=%.2f%% of imageView width, Y=%.2f%% of imageView height", clickedXPercent, clickedYPercent);
-        Toast.makeText(getContext(), message1, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), message1, Toast.LENGTH_SHORT).show();
 
 
 
@@ -137,7 +141,7 @@ public class OverlayView2Fragment extends Fragment {
             // Release the previous instance of MediaPlayer if it exists
             // Show a toast message with the percentages
             String message = String.format("Eb");
-            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
             if (Eb != null) {
                 Eb.release();
             }
@@ -149,7 +153,7 @@ public class OverlayView2Fragment extends Fragment {
         if (isWithinTarget(x, y, target2XPercent, target2YPercent, tolerance2)) {
             // Release the previous instance of MediaPlayer if it exists
             String message = String.format("Ab");
-            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
             if (Ab != null) {
                 Ab.release();
             }
@@ -160,7 +164,7 @@ public class OverlayView2Fragment extends Fragment {
         if (isWithinTarget(x, y, target3XPercent, target3YPercent, tolerance3)) {
             // Release the previous instance of MediaPlayer if it exists
             String message = String.format("Db");
-            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
             if (Db != null) {
                 Db.release();
             }
@@ -171,7 +175,7 @@ public class OverlayView2Fragment extends Fragment {
         if (isWithinTarget(x, y, target4XPercent, target4YPercent, tolerance4)) {
             // Release the previous instance of MediaPlayer if it exists
             String message = String.format("Gb");
-            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
             if (Gb != null) {
                 Gb.release();
             }
@@ -182,7 +186,7 @@ public class OverlayView2Fragment extends Fragment {
         if (isWithinTarget(x, y, target5XPercent, target5YPercent, tolerance5)) {
             // Release the previous instance of MediaPlayer if it exists
             String message = String.format("Bb");
-            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
             if (Bb != null) {
                 Bb.release();
             }
@@ -193,7 +197,7 @@ public class OverlayView2Fragment extends Fragment {
         if (isWithinTarget(x, y, target6XPercent, target6YPercent, tolerance6)) {
             // Release the previous instance of MediaPlayer if it exists
             String message = String.format("eb");
-            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
             if (eb != null) {
                 eb.release();
             }

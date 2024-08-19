@@ -210,8 +210,7 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.AllViewHolder> {
                 @Override
                 public boolean onDoubleTap(MotionEvent e) {
                     // Handle the double-tap event
-                    holder.stopCurrentAudio(); // Stop the currently playing audio
-                    listener.onItemClick(allGet);
+
                     Log.d("Double tap engaged" ,"Double Tap Activated");
                     return true;
                 }
@@ -219,6 +218,8 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.AllViewHolder> {
                 @Override
                 public boolean onSingleTapConfirmed(MotionEvent e) {
                     // Handle the single tap event if needed
+                    holder.stopCurrentAudio(); // Stop the currently playing audio
+                    listener.onItemClick(allGet);
                     return true;
                 }
 

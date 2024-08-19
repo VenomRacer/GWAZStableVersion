@@ -1,6 +1,8 @@
 package com.av.Gwaz.homepage.AMPLIZ.Add;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +26,7 @@ public class AddAmp extends AppCompatActivity {
     private TextView sampleTxt;
     private Vibrator vibrator;
     private Button nextBtn;
+    private ImageView treblefact,gainfact,bassfact,drivefact,midfact,presencefact;
 
 
 
@@ -53,6 +57,66 @@ public class AddAmp extends AppCompatActivity {
         presence = (CircularSeekBar) findViewById(R.id.presence);
         presence.setProgressTextFormat(new DecimalFormat("#"));
 
+        treblefact = findViewById(R.id.treblefact);
+        gainfact = findViewById(R.id.gainfact);
+        bassfact = findViewById(R.id.bassfact);
+        drivefact = findViewById(R.id.drivefact);
+        midfact = findViewById(R.id.midfact);
+        presencefact = findViewById(R.id.presencefact);
+
+        treblefact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = "Treble refers to the higher frequencies in sound, often associated with brightness and clarity. Increasing treble makes the sound sharper, brighter, and more cutting, helping the guitar stand out in a mix.";
+                String title1 = "Treble";
+                showFactDialog(text,title1);
+            }
+        });
+
+        bassfact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = "Boosting the bass makes the guitar sound fuller and deeper, emphasizing the low end and giving the tone more body.";
+                String title1 = "Bass";
+                showFactDialog(text,title1);
+            }
+        });
+
+        midfact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = "Adjusting the mids affects the clarity and presence of the guitar, making it more or less prominent in a band setting. More mids make the guitar sound fuller and more defined, while cutting mids can give a scooped or hollow sound.";
+                String title1 = "Mid";
+                showFactDialog(text,title1);
+            }
+        });
+
+        gainfact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = "This is what creates the crunchy, powerful tones used in rock, metal, and other genres. Essentially, gain determines how \"hot\" or strong the signal is, influencing the overall aggressiveness and sustain of the sound.";
+                String title1 = "Gain";
+                showFactDialog(text,title1);
+            }
+        });
+
+        drivefact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = "When you increase the drive, you push the amplifier's tubes or circuitry harder, causing the sound to break up and create a distorted tone. This adds warmth, sustain, and a gritty edge to the guitar sound. ";
+                String title1 = "Drive";
+                showFactDialog(text,title1);
+            }
+        });
+
+        presencefact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = "Adjusting presence makes the sound more or less sharp and defined, influencing how the guitar sits in a mix. Increasing presence gives the sound more bite and clarity, helping it cut through other instruments.  ";
+                String title1 = "Presence";
+                showFactDialog(text,title1);
+            }
+        });
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -266,6 +330,29 @@ public class AddAmp extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void showFactDialog(String fact, String title) {
+        // Create an AlertDialog Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // Set the title of the dialog (optional)
+        builder.setTitle(title);
+
+        // Set the message of the dialog (the fact)
+        builder.setMessage(fact);
+
+        // Add an "OK" button to dismiss the dialog
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        // Create and show the dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void vibrate() {

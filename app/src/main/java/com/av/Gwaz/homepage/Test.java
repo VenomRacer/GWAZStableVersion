@@ -54,7 +54,7 @@ public class Test extends AppCompatActivity {
     FloatingActionButton fab;
     private Target profileTarget;
     private static final int PERMISSION_REQUEST_CODE = 123;
-    private String NOTIF_KEY = "JULY10";
+    private String NOTIF_KEY = "AUG27";
     private String LINK = "https://novalichessti-my.sharepoint.com/:f:/g/personal/calongcagong_241612_novaliches_sti_edu_ph/ErJtL1qthPFOsD1w0b58EhwB8BQ-Md2i98tsIDrVEBOESA?e=gBNT78";
 
 

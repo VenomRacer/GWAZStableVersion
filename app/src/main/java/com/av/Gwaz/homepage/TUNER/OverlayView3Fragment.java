@@ -20,6 +20,9 @@ public class OverlayView3Fragment extends Fragment {
     private ImageView imageView;
     private View overlayView3;
     private MediaPlayer dropD,A,D,G,B,e,dropdstrum;
+    private static final int MOVE_THRESHOLD = 10; // Adjust this value as needed
+    private float startX;
+    private float startY;
 
     public OverlayView3Fragment() {
         // Required empty public constructor
@@ -69,17 +72,25 @@ public class OverlayView3Fragment extends Fragment {
         float pixelY = calculatePixelY(percentageY, imageView);
 
         switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                startX = x;
+                startY = y;
+                break;
             case MotionEvent.ACTION_UP:
                 handleTouchUp(pixelX, pixelY);
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (dropdstrum != null) {
-                    dropdstrum.release();
+                float deltaX = Math.abs(x - startX);
+                float deltaY = Math.abs(y - startY);
+                if (deltaX > MOVE_THRESHOLD || deltaY > MOVE_THRESHOLD) {
+                    if (dropdstrum != null) {
+                        dropdstrum.release();
+                    }
+                    // Create a new instance of MediaPlayer and start playing the audio
+                    dropdstrum = MediaPlayer.create(getContext(), R.raw.dropdstrum);
+                    dropdstrum.start();
                 }
-                // Create a new instance of MediaPlayer and start playing the audio
-                dropdstrum = MediaPlayer.create(getContext(), R.raw.dropdstrum);
-                dropdstrum.start();
-                Toast.makeText(getContext(), "clickable", Toast.LENGTH_SHORT).show();
+                break;
         }
         return true;
     }

@@ -125,15 +125,14 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginStart="15dp"
                             android:layout_marginEnd="5dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:textSize="15dp"
-                            android:text="Creator: |"
+                            android:src="@drawable/chaticon"
                             android:textColor="@color/gray"
+                            app:tint="@color/black"
                             android:gravity="left|center" />
 
                         <TextView
