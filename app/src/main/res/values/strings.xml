@@ -37,4 +37,173 @@
     </string-array>
     <string name="channel_name">Default Channel</string>
     <string name="channel_description">This is the default notification channel</string>
+
+    <string name="terms_and_conditions"><![CDATA[
+    Terms and Conditions\n
+    \n
+
+    Effective Date: October 9, 2024\n
+    \n
+    1. Acceptance of Terms\n
+    \n
+
+    By signing up for and using [App Name], you agree to these Terms and Conditions. If you do not agree, you may not use the app.\n
+    \n
+
+    2. Use of the App\n
+    \n
+
+    - Age Requirement:\n You must be 13 years or older to use.\n
+
+    - Prohibited Activities:\n You agree not to use the app for any unlawful or prohibited activities.\n
+    \n
+    - Account Security:\n You are responsible for maintaining the confidentiality of your login credentials.\n
+    \n
+
+    3. User Content\n
+    \n
+
+    - Ownership:\n You retain all ownership rights to the content you submit through the app. However, by submitting content, you grant us a non-exclusive license to use, modify, and display your content in connection with the app’s functionality.\n
+    \n
+    - Content Standards:\n You agree not to submit any content that is unlawful, offensive, or infringes on the rights of others.\n
+    \n
+
+    4. App Updates\n
+    \n
+
+    We may update the app from time to time to improve performance, add new features, or for security reasons. You agree to install updates when they are available.\n
+    \n
+
+    5. Termination\n
+    \n
+
+    We reserve the right to terminate or suspend your account at our discretion, without notice, for conduct that violates these Terms or is harmful to other users of the app.\n
+    \n
+
+    6. Limitation of Liability\n
+    \n
+
+    To the fullest extent permitted by law, we will not be liable for any indirect, incidental, or consequential damages arising from your use of the app.\n
+    \n
+
+    7. Governing Law\n
+    \n
+
+    These Terms are governed by and construed in accordance with the laws of Republic of the Philippines, without regard to its conflict of law principles.\n
+    \n
+
+    8. Changes to Terms\n
+    \n
+
+    We may update these Terms from time to time. Any changes will be communicated to you via email or app notifications.\n
+    \n
+
+    9. Contact Information\n
+    \n
+
+    For questions or concerns regarding these Terms, please contact us at:\n
+    \n
+
+    Email: gwazofficial@gmail.com
+    
+    ]]></string>
+
+
+    <string name="data_privacy_policy"><![CDATA[
+        Data Privacy Policy\n
+        \n
+
+        Effective Date: October 9 2024 \n
+        \n
+
+        1. Introduction\n
+        \n
+
+        We value your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and share your personal information when you use our mobile app, GWAZ.\n
+        \n
+
+        2. Information We Collect\n
+        \n
+
+        - Personal Information:\n When you sign up, we may collect your name, email address, phone number, and other information necessary for providing the service.\n
+        \n
+
+        - Usage Data:\n We may collect data about how you interact with the app, such as app usage frequency, features accessed, and performance metrics.\n
+        \n
+
+        - Location Data:\n If enabled, we may collect location information to provide certain location-based services.\n
+        \n
+
+        - Device Information:\n We may collect device-specific information such as hardware model, operating system version, unique device identifiers, and network information.\n
+        \n
+
+        3. How We Use Your Information\n
+        \n
+
+        We use your personal data for the following purposes:\n
+        \n
+
+        - To create and manage your account.\n
+        \n
+
+        - To provide and improve our services.\n
+        \n
+
+        - To communicate with you about app updates, promotional offers, or other information.\n
+        \n
+
+        - To ensure the security of our services and detect fraud or security issues.\n
+        \n
+
+        - For analytical purposes to improve app functionality.\n
+        \n
+
+        4. Sharing Your Information\n
+        \n
+
+        We do not sell, trade, or otherwise transfer your personal information to outside parties except for:\n
+        \n
+
+        - Trusted Third Parties:\n Who assist us in operating our app and conducting business, as long as they agree to keep this information confidential.\n
+        \n
+
+        - Legal Requirements:\n Law enforcement or other governmental entities if required by law.\n
+        \n
+
+        5. Data Security\n
+        \n
+
+        We implement appropriate security measures to protect your personal data from unauthorized access, disclosure, or loss. However, no method of transmission over the internet or electronic storage is 100% secure.\n
+        \n
+
+        6. Retention of Data\n
+        \n
+
+        We will retain your personal data only as long as it is necessary for the purposes set out in this policy or as required by law.\n
+        \n
+
+        7. Your Rights\n
+        \n
+
+        You have the right to access, modify, or delete your personal information stored with us. To exercise these rights, please contact us at gwazofficial@gmail.com.\n
+        \n
+
+        8. Changes to This Privacy Policy\n
+        \n
+
+        We may update this Privacy Policy from time to time. Any changes will be notified to you via email or through a notice in the app.\n
+        \n
+
+        9. Contact Information\n
+        \n
+
+        For questions about this Privacy Policy, contact us at:\n
+        \n
+
+        Email: gwazofficial@gmail.com
+
+
+    ]]></string>
+
+
 </resources>

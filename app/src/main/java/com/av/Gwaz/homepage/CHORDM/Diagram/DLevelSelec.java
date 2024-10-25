@@ -215,6 +215,11 @@ public class DLevelSelec extends AppCompatActivity {
 
 
                                 }
+                                else {
+                                Toast.makeText(DLevelSelec.this, "Play the game first.", Toast.LENGTH_SHORT).show();
+                                loadingDialog.dismiss();
+                            }
+
                             }
 
                             @Override

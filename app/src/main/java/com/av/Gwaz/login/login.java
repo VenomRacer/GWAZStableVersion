@@ -267,6 +267,10 @@ public class  login extends AppCompatActivity {
 
 
                     }
+
+                    else {
+                        resetPreferences();
+                    }
                 }
 
                 @Override
@@ -301,8 +305,10 @@ public class  login extends AppCompatActivity {
                         editor.putInt(KEY_HIGHEST_UNLOCKED_LEVEL_DIAGRAM, diagramlevel);
                         editor.apply();
 
+                    }
 
-
+                    else {
+                        resetPreferences();
                     }
                 }
 
@@ -324,6 +330,12 @@ public class  login extends AppCompatActivity {
     public void onBackPressed() {
         // Prevent going back to the previous activity (which should be the fragment's host activity)
         finishAffinity(); // Finish this activity and all activities immediately below it in the current task
+    }
+
+    private void resetPreferences() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
     }
 
 
