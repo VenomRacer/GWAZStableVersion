@@ -217,9 +217,6 @@ public class LevelSelec extends AppCompatActivity {
                                     }
 
 
-                                } else {
-                                    Toast.makeText(LevelSelec.this, "Play the game first.", Toast.LENGTH_SHORT).show();
-                                    loadingDialog.dismiss();
                                 }
                             }
 

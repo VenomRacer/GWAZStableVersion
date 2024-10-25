@@ -194,38 +194,6 @@
 
         </LinearLayout>
 
-        <!-- Terms and Conditions Checkbox -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:id="@+id/terms"
-                android:layout_width="@dimen/_250sdp"
-                android:layout_height="wrap_content"
-                android:text="I have read and agree to terms."
-                android:textColor="@color/gray2"
-                android:textSize="@dimen/_13sdp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="5dp" />
-
-            <TextView
-                android:id="@+id/read"
-                android:layout_width="@dimen/_250sdp"
-                android:layout_height="wrap_content"
-                android:text="Click here to read"
-                android:textColor="@color/darkr"
-                android:textSize="@dimen/_13sdp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center" />
-
-
-        </LinearLayout>
-
         <LinearLayout
             android:layout_width="@dimen/_250sdp"
             android:layout_height="@dimen/_45sdp"

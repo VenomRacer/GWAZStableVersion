@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,9 +41,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class registration extends AppCompatActivity {
-    TextView loginbut,read;
+    TextView loginbut;
     EditText rg_username, rg_email, rg_password, rg_repassword;
-    CheckBox terms;
     Button rg_signup;
     CircleImageView rg_profileImg;
     FirebaseAuth auth;
@@ -63,7 +61,7 @@ public class registration extends AppCompatActivity {
         // Initialize the custom loading dialog
         loadingDialog = new Dialog(this);
         loadingDialog.setContentView(R.layout.dialog_loading);
-        loadingDialog.setCancelable(true);
+        loadingDialog.setCancelable(false);
         ImageView loadingImageView = loadingDialog.findViewById(R.id.loadingImageView);
         Glide.with(this).asGif().load(R.drawable.loading_ic).into(loadingImageView);
 
@@ -76,16 +74,6 @@ public class registration extends AppCompatActivity {
         rg_password = findViewById(R.id.rgpassword);
         rg_profileImg = findViewById(R.id.profilerg0);
         rg_signup = findViewById(R.id.signupbutton);
-        terms = findViewById(R.id.terms);
-        read = findViewById(R.id.read);
-
-        read.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(registration.this, TermsAndCondition.class);
-                startActivityForResult(intent, 1);  // Request code is 1
-            }
-        });
 
         loginbut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,31 +100,17 @@ public class registration extends AppCompatActivity {
                 String Password = rg_password.getText().toString();
                 String status = "Hey I'm Using This Application";
 
-
-
                 if (TextUtils.isEmpty(namee) || TextUtils.isEmpty(emaill) ||
                         TextUtils.isEmpty(Password)) {
                     loadingDialog.dismiss();
                     Toast.makeText(registration.this, "Please Enter Valid Information", Toast.LENGTH_SHORT).show();
-
-                }
-
-                else if(imageURI == null) {
-                    loadingDialog.dismiss();
-                    Toast.makeText(registration.this,"Put a profile picture.", Toast.LENGTH_SHORT).show();
-                    return;
-                }else if (!emaill.matches(emailPattern)) {
+                } else if (!emaill.matches(emailPattern)) {
                     loadingDialog.dismiss();
                     rg_email.setError("Type A Valid Email Here");
                 } else if (Password.length() < 6) {
                     loadingDialog.dismiss();
                     rg_password.setError("Password Must Be 6 Characters Or More");
-                }
-                else if (!terms.isChecked()) {
-                    loadingDialog.dismiss();
-                    Toast.makeText(registration.this, "Please read and accept our Terms and Conditions", Toast.LENGTH_SHORT).show();
-                    return; // Exit if the terms are not accepted
-                }else {
+                } else {
                     // Check if username exists
                     DatabaseReference userRef = database.getReference().child("user");
                     userRef.orderByChild("userName").equalTo(namee).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -145,7 +119,6 @@ public class registration extends AppCompatActivity {
                             if (dataSnapshot.exists()) {
                                 loadingDialog.dismiss();
                                 rg_username.setError("Username already exists. Please choose another one.");
-                                loadingDialog.dismiss();
                             } else {
                                 // Username does not exist, proceed with registration
                                 registerUser(namee, emaill, Password, status);
@@ -271,15 +244,6 @@ public class registration extends AppCompatActivity {
             if (data != null) {
                 imageURI = data.getData();
                 rg_profileImg.setImageURI(imageURI);
-            }
-        }
-
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            boolean isChecked = data.getBooleanExtra("checkboxChecked", false);
-
-            if (isChecked) {
-                CheckBox myCheckbox = findViewById(R.id.terms);  // Replace with your checkbox ID
-                myCheckbox.setChecked(true);  // Automatically check the checkbox
             }
         }
     }
